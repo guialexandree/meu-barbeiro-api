@@ -1,0 +1,8 @@
+### Criar usuário
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "gui2",
+    "password": "123"
+}

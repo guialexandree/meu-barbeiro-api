@@ -1,0 +1,7 @@
+### Criar usuário
+POST http://localhost:3000/attendances
+Content-Type: application/json
+
+{
+    "services": [1, 2]
+}
