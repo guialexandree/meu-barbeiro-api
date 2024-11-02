@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
 import crypto from 'node:crypto';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 export enum ServiceStatus {
@@ -9,20 +9,20 @@ export enum ServiceStatus {
 
 @Entity()
 export class Service {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true})
+  description?: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column('decimal', { precision: 10, scale: 2, default: 0.0 })
   price: number;
 
   @Column({ default: 0 })
-  time_execution: number;
+  timeExecution: number;
 
   @Exclude()
   @Column({ type: 'simple-enum' })
@@ -30,25 +30,25 @@ export class Service {
 
   @Exclude()
   @Column({ type: 'datetime' })
-  created_at: Date;
+  createdAt: Date;
 
   @Exclude()
   @Column({ nullable: true, type: 'datetime' })
-  updated_at: Date | null;
+  updatedAt: Date | null;
 
   constructor(
     props: {
       name: string;
       description: string;
-      amount: number;
-      time_execution: number;
-      created_at: Date;
+      price: number;
+      timeExecution: number;
       status: ServiceStatus;
-      updated_at?: Date | null;
+      createdAt: Date;
+      updatedAt?: Date | null;
     },
     id?: string,
   ) {
     Object.assign(this, props);
-    this.id = id ?? crypto.randomUUID();
+    this.id = id || crypto.randomUUID();
   }
 }

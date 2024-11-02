@@ -7,6 +7,7 @@ export interface IServicesRepository {
   findOne(id: string): Promise<Service>;
   remove(id: string): Promise<Service>;
   findAll(): Promise<Service[]>;
+  count(): Promise<number>;
   save(service: Service): Promise<Service>;
 }
 
@@ -23,6 +24,10 @@ export class ServicesRepository implements IServicesRepository {
 
   findAll(): Promise<Service[]> {
     return this.repository.find();
+  }
+
+  count(): Promise<number> {
+    return this.repository.count();
   }
 
   async save(service: Service): Promise<Service> {

@@ -3,35 +3,12 @@ POST http://localhost:3000/services
 Content-Type: application/json
 
 {
-    "name": "Alisamento",
-    "description": "Alisamento + Hidratação",
-    "amount": 35.0,
-    "time_execution": 40
+    "name": "Corte",
+    "description": "",
+    "price": 30.0,
+    "time_execution": 30
 }
-# {
-#     "name": "Hidratação",
-#     "description": "",
-#     "amount": 20.0,
-#     "time_execution": 15
-# }
-# {
-#     "name": "Barba",
-#     "description": "",
-#     "amount": 20.0,
-#     "time_execution": 15
-# }
-# {
-#     "name": "Progressiva",
-#     "description": "Progessiva + Hidratação",
-#     "amount": 80.0,
-#     "time_execution": 70
-# }
-# {
-#     "name": "Corte",
-#     "description": "",
-#     "amount": 30.0,
-#     "time_execution": 30
-# }
+
 
 ### Buscar serviços
 GET http://localhost:3000/services

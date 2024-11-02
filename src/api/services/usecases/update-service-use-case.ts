@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { UpdateServiceDto } from '../dto/update-service.dto';
+import { IDateAdapter } from 'src/infra/adapters/protocols';
 
 @Injectable()
 export class UpdateServiceUseCase {
   constructor(
     @Inject('IServicesRepository')
     private readonly servicesRepository: IServicesRepository,
+    @Inject('IDateAdapter')
+    private readonly dateAdapter: IDateAdapter
   ) {}
 
   async execute (id: string, input: UpdateServiceDto){
@@ -16,8 +19,8 @@ export class UpdateServiceUseCase {
     input.name && (project.name = input.name);
     input.description && (project.description = input.description);
     input.amount > 0 && (project.price = input.amount);
-    input.time_execution > 0 && (project.time_execution = input.time_execution);
-    input.updated_at = new Date();
+    input.timeExecution > 0 && (project.timeExecution = input.timeExecution);
+    input.updatedAt = this.dateAdapter.now();
 
     return this.servicesRepository.save(project)
   }

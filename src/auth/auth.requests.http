@@ -6,3 +6,11 @@ Content-Type: application/json
     "username": "gui",
     "password": "123"
 }
+
+### Login Mobile
+POST http://localhost:3000/auth/login/client
+Content-Type: application/json
+
+{
+    "deviceId": "12321"
+}

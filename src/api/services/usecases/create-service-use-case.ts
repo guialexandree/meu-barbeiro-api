@@ -2,19 +2,22 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { CreateServiceDto } from '../dto/create-service.dto';
 import { Service, ServiceStatus } from '../entities/service.entity';
+import { IDateAdapter } from 'src/infra/adapters/protocols';
 
 @Injectable()
 export class CreateServiceUseCase {
   constructor(
     @Inject('IServicesRepository')
     private readonly servicesRepository: IServicesRepository,
+    @Inject('IDateAdapter')
+    private readonly dateAdapter: IDateAdapter
   ) {}
 
   async execute (input: CreateServiceDto){
     const serviceParams = {
       ...input,
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: this.dateAdapter.now(),
+      updatedAt: this.dateAdapter.now(),
       status: ServiceStatus.Ativo,
     };
 

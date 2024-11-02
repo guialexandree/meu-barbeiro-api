@@ -14,7 +14,7 @@ export class Attendance {
   id: string;
 
   @Column({ type: 'datetime' })
-  created_at: Date;
+  createdAt: Date;
 
   @OneToMany(
     () => AttendanceService,
@@ -26,13 +26,13 @@ export class Attendance {
   services: AttendanceService[];
 
   @Column({ type: 'datetime', nullable: true })
-  start_date: Date | null;
+  startDate: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
-  cancellation_date: Date | null;
+  cancellationDate: Date | null;
 
   @Column({ nullable: true })
-  cancellation_reason: string;
+  cancellationReason: string;
 
   @Column({ type: 'simple-enum' })
   status: AttendanceStatus;
@@ -40,6 +40,7 @@ export class Attendance {
   constructor(
     props: {
       services: Service[];
+      createdAt: Date
     },
     id?: string,
   ) {

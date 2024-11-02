@@ -7,9 +7,11 @@ import { AttendanceServiceRepository } from './attendance-service.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AttendanceService } from './entities/attendance.service.entity';
 import { Attendance } from './entities/attendance.entity';
+import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
 
 @Module({
   imports: [
+    DateAdapterModule,
     TypeOrmModule.forFeature([
       Attendance,
       AttendanceService,

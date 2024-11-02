@@ -10,4 +10,10 @@ export class AuthController {
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login/client')
+  signInClient(@Body() signInDto: Record<string, string>) {
+    return this.authService.signInClient(signInDto.device_id);
+  }
 }

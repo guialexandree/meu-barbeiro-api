@@ -1,0 +1,33 @@
+import { Module } from '@nestjs/common';
+import { CompaniesService } from './companies.service';
+import { CompaniesController } from './companies.controller';
+import { CompaniesRepository } from './companies.repository';
+import { GetCompanyUseCase } from './usecases/get-company-use-case';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Company } from './entities/company.entity';
+import { SeedCompanyUseCase } from './usecases/seed-company-use-case';
+import { CreateCompanyUseCase } from './usecases/create-company-use-case';
+import { CompaniesOfficeHoursModule } from '../companies-office-hours/companies-office-hours.module';
+import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+
+@Module({
+  imports: [
+    CompaniesOfficeHoursModule,
+    DateAdapterModule,
+    TypeOrmModule.forFeature([Company]),
+  ],
+  controllers: [CompaniesController],
+  providers: [
+    CompaniesService,
+    GetCompanyUseCase,
+    SeedCompanyUseCase,
+    CreateCompanyUseCase,
+    CompaniesRepository,
+    {
+      provide: 'ICompaniesRepository',
+      useExisting: CompaniesRepository,
+    },
+  ],
+  exports: [CompaniesService],
+})
+export class CompaniesModule {}

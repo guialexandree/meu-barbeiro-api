@@ -1,0 +1,19 @@
+### Register
+POST http://localhost:3000/registration
+Content-Type: application/json
+
+{
+    "contact_number": "5545999872483",
+    "id_device": "123ABC"
+}
+
+### Ativação
+POST http://localhost:3000/registration/activation
+Content-Type: application/json
+
+{
+    "contact_number": "5545999872483",
+    "code_activation": "161",
+    "device_id": "1621",
+    "origin": "sms"
+}

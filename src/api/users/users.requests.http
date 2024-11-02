@@ -4,5 +4,8 @@ Content-Type: application/json
 
 {
     "username": "gui2",
-    "password": "123"
+    "password": "123",
+    "contact_number": "5512",
+    "creationType": "barber",
+    "device_id": 12321
 }

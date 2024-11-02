@@ -2,17 +2,17 @@ import { PartialType } from '@nestjs/mapped-types';
 import { ServiceStatus } from '../entities/service.entity';
 
 class _UpdateServiceDto {
-    name: string;
+  name: string;
 
-    description: string;
+  description: string;
 
-    amount: number;
+  amount: number;
 
-    time_execution: number;
+  timeExecution: number;
 
-    status: ServiceStatus;
+  status: ServiceStatus;
 
-    updated_at?: Date | null;
+  updatedAt?: Date | null;
 }
 
 export class UpdateServiceDto extends PartialType(_UpdateServiceDto) {}

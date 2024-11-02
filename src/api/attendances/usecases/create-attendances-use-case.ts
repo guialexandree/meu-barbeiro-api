@@ -4,6 +4,7 @@ import { CreateAttendanceDto } from '../dto/create-attendance.dto';
 import { Attendance, AttendanceStatus } from '../entities/attendance.entity';
 import { IAttendanceServiceRepository } from '../attendance-service.repository';
 import { AttendanceService } from '../entities/attendance.service.entity';
+import { IDateAdapter } from 'src/infra/adapters/protocols';
 
 @Injectable()
 export class CreateAttendanceUseCase {
@@ -12,12 +13,14 @@ export class CreateAttendanceUseCase {
     private readonly attendancesRepository: IAttendancesRepository,
     @Inject('IAttendanceServiceRepository')
     private readonly attendanceServiceRepository: IAttendanceServiceRepository,
+    @Inject('IDateAdapter')
+    private readonly dateAdapter: IDateAdapter
   ) {}
 
   async execute (input: CreateAttendanceDto){
     const attendanceParams = {
       ...input,
-      created_at: new Date(),
+      createdAt: this.dateAdapter.now(),
       status: AttendanceStatus.NaFila,
     };
     const newAttendance = new Attendance(attendanceParams)

@@ -13,7 +13,3 @@ export class GetUserUseCase {
     return user
   }
 }
-
-// buscar usuario por whatsapp
-// buscar por token instagram
-// criar modulo sms

@@ -10,9 +10,12 @@ import { CreateServiceUseCase } from './usecases/create-service-use-case';
 import { RemoveServiceUseCase } from './usecases/remove-service-use-case';
 import { GetAllServicesUseCase } from './usecases/get-all-services-use-case';
 import { GetServicesUseCase } from './usecases/get-services-use-case';
+import { SeedServicesUseCase } from './usecases/seed-services-use-case';
+import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
 
 @Module({
   imports: [
+    DateAdapterModule,
     TypeOrmModule.forFeature([Service])
   ],
   controllers: [ServicesController],
@@ -24,6 +27,7 @@ import { GetServicesUseCase } from './usecases/get-services-use-case';
     UpdateServiceUseCase,
     CreateServiceUseCase,
     RemoveServiceUseCase,
+    SeedServicesUseCase,
     ServicesRepository,
     {
       provide: 'IServicesRepository',

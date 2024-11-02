@@ -3,7 +3,7 @@ export class CreateServiceDto {
 
   description: string;
 
-  amount: number;
+  price: number;
 
-  time_execution: number;
+  timeExecution: number;
 }

@@ -1,26 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { CreateRegistrationDto } from './dto/create-registration.dto';
-import { UpdateRegistrationDto } from './dto/update-registration.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { RegisterUseCase } from './usecases/register-use-case';
+import { RegisterDto } from './dto/register.dto';
+import { RegisterActivationUseCase } from './usecases/register-activation-use-case';
+import { RegisterActivationDto } from './dto/register-activation.dto';
 
 @Injectable()
 export class RegistrationService {
-  create(createRegistrationDto: CreateRegistrationDto) {
-    return 'This action adds a new registration';
+  constructor(
+    @Inject()
+    private readonly registerUseCase: RegisterUseCase,
+    private readonly registerActivationUseCase: RegisterActivationUseCase
+  ) {}
+
+  register(registerDto: RegisterDto) {
+    return this.registerUseCase.execute(registerDto);
   }
 
-  findAll() {
-    return `This action returns all registration`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} registration`;
-  }
-
-  update(id: number, updateRegistrationDto: UpdateRegistrationDto) {
-    return `This action updates a #${id} registration`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} registration`;
+  activation(registerDto: RegisterActivationDto) {
+    return this.registerActivationUseCase.execute(registerDto);
   }
 }
