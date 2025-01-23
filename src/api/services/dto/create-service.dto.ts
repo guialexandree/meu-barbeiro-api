@@ -1,9 +1,24 @@
+import { ApiProperty } from '@nestjs/swagger'
+import { ServiceStatus } from '../entities/service.entity'
+import { IsNotEmpty } from 'class-validator'
+
 export class CreateServiceDto {
-  name: string;
+  @ApiProperty({ required: false })
+  name: string
 
-  description: string;
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  description: string
 
-  price: number;
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  price: number
 
-  timeExecution: number;
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  timeExecution: number
+
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  status: ServiceStatus
 }

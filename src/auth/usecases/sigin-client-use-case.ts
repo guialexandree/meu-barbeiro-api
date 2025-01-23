@@ -11,7 +11,7 @@ export class SignInClientUseCase {
   ) {}
 
   async execute (deviceId: string){
-    const user = await this.usersService.findByDeviceId(deviceId);
+    const user = null;
     if (user?.status !== UserStatus.Ativo) {
       throw new UnauthorizedException();
     }

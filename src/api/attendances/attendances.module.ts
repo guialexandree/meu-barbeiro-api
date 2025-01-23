@@ -8,9 +8,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AttendanceService } from './entities/attendance.service.entity';
 import { Attendance } from './entities/attendance.entity';
 import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+import { GetActivedAttendanceUseCase } from './usecases/get-actived-attendance-use-case';
+import { UsersModule } from '../users/users.module';
+import { ServicesModule } from '../services/services.module';
+import { GetAttendanceInfoUseCase } from './usecases/get-attendance-info-use-case';
 
 @Module({
   imports: [
+    UsersModule,
+    ServicesModule,
     DateAdapterModule,
     TypeOrmModule.forFeature([
       Attendance,
@@ -21,6 +27,8 @@ import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
   providers: [
     AttendancesService,
     CreateAttendanceUseCase,
+    GetActivedAttendanceUseCase,
+    GetAttendanceInfoUseCase,
     AttendancesRepository,
     AttendanceServiceRepository,
     {
@@ -32,5 +40,6 @@ import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
       useExisting: AttendanceServiceRepository
     }
   ],
+  exports: [AttendancesService]
 })
 export class AttendancesModule {}

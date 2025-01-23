@@ -1,18 +1,24 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { ServiceStatus } from '../entities/service.entity';
+import { PartialType } from '@nestjs/mapped-types'
+import { ServiceStatus } from '../entities/service.entity'
+import { ApiProperty } from '@nestjs/swagger'
+import { IsNotEmpty } from 'class-validator'
 
 class _UpdateServiceDto {
-  name: string;
+  @ApiProperty({ required: false })
+  @IsNotEmpty()
+  name: string
 
-  description: string;
+  @ApiProperty({ required: false })
+  description: string
 
-  amount: number;
+  @ApiProperty({ required: false })
+  price: number
 
-  timeExecution: number;
+  @ApiProperty({ required: false })
+  timeExecution: number
 
-  status: ServiceStatus;
-
-  updatedAt?: Date | null;
+  @ApiProperty({ required: false })
+  status: ServiceStatus
 }
 
 export class UpdateServiceDto extends PartialType(_UpdateServiceDto) {}

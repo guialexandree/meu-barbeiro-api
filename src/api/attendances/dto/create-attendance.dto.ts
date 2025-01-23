@@ -1,5 +1,8 @@
-import { Service } from 'src/api/services/entities/service.entity';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsArray } from "class-validator";
 
 export class CreateAttendanceDto {
-  services: Service[];
+  @ApiProperty()
+  @IsArray()
+  services: string[];
 }

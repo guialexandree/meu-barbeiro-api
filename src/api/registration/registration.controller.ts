@@ -7,6 +7,7 @@ import { RegisterActivationDto } from './dto/register-activation.dto';
 export class RegistrationController {
   constructor(private readonly registrationService: RegistrationService) {}
 
+  @HttpCode(HttpStatus.OK)
   @Post()
   register(@Body() registerDto: RegisterDto) {
     return this.registrationService.register(registerDto);

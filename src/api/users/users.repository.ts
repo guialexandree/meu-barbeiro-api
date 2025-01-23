@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 export interface IUsersRepository {
   findUser(username: string): Promise<User>;
   findById(id: string): Promise<User>;
-  findByDeviceId(device_id: string): Promise<User>;
   save(service: User): Promise<User>;
   count(): Promise<number>;
 }
@@ -24,10 +23,6 @@ export class UsersRepository implements IUsersRepository {
 
   findById(id: string): Promise<User> {
     return this.repository.findOneBy({ id });
-  }
-
-  findByDeviceId(device_id: string): Promise<User> {
-    return this.repository.findOneBy({ deviceId: device_id });
   }
 
   save(user: User): Promise<User> {

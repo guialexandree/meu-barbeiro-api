@@ -19,7 +19,7 @@ export class ServicesRepository implements IServicesRepository {
   ) {}
 
   findOne(id: string): Promise<Service> {
-    return this.repository.findOneByOrFail({ id });
+    return this.repository.findOneBy({ id });
   }
 
   findAll(): Promise<Service[]> {

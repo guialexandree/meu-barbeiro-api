@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Registration } from 'src/api/registration/entities/registration.entity';
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
 
@@ -26,9 +27,6 @@ export class User {
   id: string;
 
   @Column({ nullable: true })
-  deviceId: string;
-
-  @Column({ nullable: true })
   name: string;
 
   @Column({ type: 'simple-enum' })
@@ -43,12 +41,14 @@ export class User {
   @Column({ nullable: true })
   email: string;
 
+  @Exclude()
   @Column()
   password: string;
 
   @Column({ type: 'simple-enum' })
   role: UserRole;
 
+  @Exclude()
   @OneToMany(() => Registration, (registration) => registration)
   @JoinColumn({ name: 'registration_id' })
   registration: Registration

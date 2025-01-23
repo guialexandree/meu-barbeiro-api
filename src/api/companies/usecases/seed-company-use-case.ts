@@ -38,6 +38,12 @@ export class SeedCompanyUseCase {
 
       const hoursWeekDays = [
         {
+          weekDay: 0,
+          start: startTime,
+          end: endTime,
+          company,
+        },
+        {
           weekDay: 1,
           start: startTime,
           end: endTime,

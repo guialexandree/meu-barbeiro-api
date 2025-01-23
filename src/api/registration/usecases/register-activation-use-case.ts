@@ -9,6 +9,8 @@ import { RegistrationStatus } from '../entities/registration.entity';
 import { RegisterActivationDto } from '../dto/register-activation.dto';
 import { UsersService } from 'src/api/users/users.service';
 import { UserRole } from 'src/api/users/entities/user.entity';
+import { InvalidRuleException } from 'src/domain/errors/invalid-rule-exception';
+import { ValidationError } from 'class-validator';
 
 @Injectable()
 export class RegisterActivationUseCase {
@@ -25,21 +27,19 @@ export class RegisterActivationUseCase {
     );
 
     if (!registration) {
-      throw new NotFoundException(
-        'Nenhum registro encontrado para o número informado',
-      );
+      throw new InvalidRuleException(['Nenhum registro encontrado para o número informado']);
     }
 
-    if (registerDto.codeActivation !== registration.code) {
-      throw new ForbiddenException('Código inválido!');
+    if (registerDto.activationCode !== registration.code) {
+      throw new InvalidRuleException(['Código inválido!']);
     }
 
     if (registration.status === RegistrationStatus.Activated) {
-      throw new ForbiddenException('O código de ativação já foi validado');
+      return { id: registration.id };
     }
 
     registration.status = RegistrationStatus.Activated;
-    registration = await this.registrationRepository.save(registration);
+    const registrationId = await this.registrationRepository.save(registration);
 
     const { contactNumber: contact_number, ...userParams } = registerDto;
     const contact = contact_number.replace(/\D/g, '');
@@ -51,6 +51,6 @@ export class RegisterActivationUseCase {
       role: UserRole.Client,
     });
 
-    return await this.registrationRepository.save(registration);
+    return { id: registrationId };
   }
 }

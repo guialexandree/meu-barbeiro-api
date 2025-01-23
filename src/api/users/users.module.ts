@@ -7,9 +7,9 @@ import { GetUserUseCase } from './usecases/get-user-user-case';
 import { CreateUserUseCase } from './usecases/create-user-use-case';
 import { UsersController } from './users.controller';
 import { GetUserByIdUseCase } from './usecases/get-user-by-id-use-case';
-import { GetUserByDeviceIdUseCase } from './usecases/get-user-by-device-id-use-case';
 import { SeedUsersUseCase } from './usecases/seed-users-use-case';
 import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+import { ChangeNameUseCase } from './usecases/change-name-use-case';
 
 @Module({
   imports: [
@@ -21,8 +21,8 @@ import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
     UsersService,
     GetUserUseCase,
     GetUserByIdUseCase,
-    GetUserByDeviceIdUseCase,
     CreateUserUseCase,
+    ChangeNameUseCase,
     SeedUsersUseCase,
     UsersRepository,
     {

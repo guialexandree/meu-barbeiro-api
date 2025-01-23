@@ -6,12 +6,25 @@ Content-Type: application/json
     "name": "Corte",
     "description": "",
     "price": 30.0,
-    "time_execution": 30
+    "timeExecution": 30
 }
 
 
 ### Buscar serviços
 GET http://localhost:3000/services
+Content-Type: application/json
+
+### Buscar atualiza descrição
+PATCH  http://localhost:3000/services/19b35e29-c060-4798-bf14-c3d110770287
+Content-Type: application/json
+
+{
+    "name": "Hidratação",
+    "description": "Hidratação"
+}
+
+### Buscar serviços client
+GET http://localhost:3000/services/prices
 Content-Type: application/json
 
 ### Buscar serviços por id

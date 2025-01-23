@@ -24,7 +24,6 @@ export class Service {
   @Column({ default: 0 })
   timeExecution: number;
 
-  @Exclude()
   @Column({ type: 'simple-enum' })
   status: ServiceStatus;
 

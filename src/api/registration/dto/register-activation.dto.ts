@@ -4,21 +4,17 @@ import { UserOrigin } from 'src/api/users/entities/user.entity';
 
 export class RegisterActivationDto {
   @ApiProperty()
-  @IsNotEmpty()
-  deviceId: string;
-
-  @ApiProperty()
-  @Length(14, 14)
-  @IsNotEmpty()
+  @Length(11, 11, { message: 'O número de contato deve conter 11 digitos.' })
+  @IsNotEmpty({ message: 'O número de contato é obrigatório.' })
   contactNumber: string;
 
   @ApiProperty()
-  @Length(4, 4)
-  @IsNotEmpty()
-  codeActivation: string;
+  @Length(6, 6, { message: 'O código de ativação deve conter 6 digitos.' })
+  @IsNotEmpty({ message: 'O código de ativação é obrigatório.' })
+  activationCode: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O campo origin é obrigatório.' })
   origin: UserOrigin;
 
   @ApiProperty({ required: false })

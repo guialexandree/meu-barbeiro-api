@@ -1,36 +1,88 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
+import { Between, In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Attendance } from './entities/attendance.entity';
+import { Attendance, AttendanceStatus } from './entities/attendance.entity';
+import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { AttendanceService } from './entities/attendance.service.entity';
 
 export interface IAttendancesRepository {
   findOne(id: string): Promise<Attendance>;
+  findActivedByUser(userId: string): Promise<Attendance>;
   remove(id: string): Promise<Attendance>;
   findAll(): Promise<Attendance[]>;
   save(attendance: Attendance): Promise<Attendance>;
+  count(): Promise<number>;
+  totalServiceTime(): Promise<number>;
 }
 
 @Injectable()
 export class AttendancesRepository implements IAttendancesRepository {
   constructor(
     @InjectRepository(Attendance)
-    private repository: Repository<Attendance>,
+    private repositoryAttendance: Repository<Attendance>,
+    @InjectRepository(AttendanceService)
+    private repositoryAttendanceService: Repository<AttendanceService>,
+    @Inject('IDateAdapter')
+    private readonly dateAdapter: IDateAdapter
   ) {}
 
+  async totalServiceTime(): Promise<number> {
+    const start = this.dateAdapter.startOf();
+    const end = this.dateAdapter.endOf();
+
+    const result = await this.repositoryAttendanceService
+      .createQueryBuilder('attendance_service')
+      .leftJoinAndSelect('attendance_service.attendance', 'attendance')
+      .leftJoinAndSelect('attendance_service.service', 'service')
+      .where('attendance.status = :status', { status: AttendanceStatus.NaFila })
+      .andWhere('attendance.createdAt BETWEEN :startDate AND :endDate', { start, end })
+      .select('SUM(service.timeExecution)', 'totalTimeExecution')
+      .getRawOne();
+
+    return result.totalTimeExecution || 0
+  }
+
+  count(): Promise<number> {
+    const start = this.dateAdapter.startOf();
+    const end = this.dateAdapter.endOf();
+
+    return this.repositoryAttendance.count({
+      where: {
+        createdAt: Between(start, end),
+        status: AttendanceStatus.NaFila
+      }
+    })
+  }
+
+  async findActivedByUser(userId: string): Promise<Attendance> {
+    const todayStart = this.dateAdapter.startOf();
+    const todayEnd = this.dateAdapter.endOf();
+
+    const attendances = await this.repositoryAttendance.find({
+      where: {
+        createdAt: Between(todayStart, todayEnd),
+        status: In([AttendanceStatus.NaFila, AttendanceStatus.EmAtendimento]),
+        user: { id: userId },
+      }
+    });
+
+    return attendances.at(0)
+  }
+
   findOne(id: string): Promise<Attendance> {
-    return this.repository.findOneByOrFail({ id });
+    return this.repositoryAttendance.findOneBy({ id });
   }
 
   findAll(): Promise<Attendance[]> {
-    return this.repository.find();
+    return this.repositoryAttendance.find();
   }
 
   async save(attendance: Attendance): Promise<Attendance> {
-    return this.repository.save(attendance);
+    return this.repositoryAttendance.save(attendance);
   }
 
   async remove(id: string): Promise<Attendance> {
     const attendance = await this.findOne(id)
-    return this.repository.remove(attendance)
+    return this.repositoryAttendance.remove(attendance)
   }
 }

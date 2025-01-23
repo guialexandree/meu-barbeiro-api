@@ -1,6 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { AttendanceService } from './attendance.service.entity';
 import { Service } from 'src/api/services/entities/service.entity';
+import { User } from 'src/api/users/entities/user.entity';
 
 export enum AttendanceStatus {
   NaFila = 'nafila',
@@ -19,11 +27,13 @@ export class Attendance {
   @OneToMany(
     () => AttendanceService,
     (attendanceService) => attendanceService.attendance,
-    {
-      cascade: true,
-    },
+    { eager: true }
   )
   services: AttendanceService[];
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ type: 'datetime', nullable: true })
   startDate: Date | null;
@@ -40,7 +50,9 @@ export class Attendance {
   constructor(
     props: {
       services: Service[];
-      createdAt: Date
+      createdAt: Date;
+      status: AttendanceStatus;
+      user: User;
     },
     id?: string,
   ) {

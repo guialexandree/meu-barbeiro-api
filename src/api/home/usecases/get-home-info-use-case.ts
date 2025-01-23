@@ -1,18 +1,45 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { AlertsService } from 'src/api/alerts/alerts.service';
+import { AlertType } from 'src/api/alerts/entities/alert.entity';
+import { AttendancesService } from 'src/api/attendances/attendances.service';
 import { CompaniesService } from 'src/api/companies/companies.service';
+import { IDateAdapter } from 'src/infra/adapters/protocols';
 
 @Injectable()
 export class GetHomeInfoUseCase {
-  private readonly logger = new Logger(GetHomeInfoUseCase.name)
-
   constructor(
     @Inject()
     private readonly companiesService: CompaniesService,
+    @Inject()
+    private readonly attendancesService: AttendancesService,
+    @Inject()
+    private readonly alertsService: AlertsService,
+    @Inject('IDateAdapter')
+    private readonly dateAdapter: IDateAdapter,
   ) {}
 
-  async execute() {
+  async execute(userId: string) {
     const company = await this.companiesService.find();
-    this.logger.verbose(JSON.stringify(company))
 
+    const weekDay = this.dateAdapter.weekDay();
+    const currentOfficeHours = company.officeHours.find(officeHours => officeHours.weekDay === weekDay);
+    const isWithinTimeRange = this.dateAdapter.isAfter(currentOfficeHours.start) && this.dateAdapter.isBefore(currentOfficeHours.end);
+    const statusAttendanceCompany = isWithinTimeRange ? 'aberto' : 'fechado'
+
+    const attendance = await this.attendancesService.findActivedByUser(userId);
+    const userAttendance = attendance ? 'nafila' : 'online';
+
+    const alerts = (await this.alertsService.findAll())
+      .filter(alert => alert.type === AlertType.Home)
+      .map(alert => alert.message)
+
+    return {
+      pix: company.pix,
+      name: company.name,
+      statusAttendanceCompany,
+      userAttendance,
+      attendanceId: attendance?.id ?? null,
+      alerts
+    }
   }
 }

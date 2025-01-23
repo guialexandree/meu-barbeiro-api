@@ -5,10 +5,6 @@ import { IsNotEmpty, IsString, Length } from "class-validator";
 export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
-  deviceId: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   username: string;
 
   @ApiProperty()

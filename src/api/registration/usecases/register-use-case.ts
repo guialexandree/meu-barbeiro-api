@@ -37,16 +37,21 @@ export class RegisterUseCase {
     if (!registration) {
       registration = new Registration({
         ...registerDto,
-        createdAt: this.dateAdapter.now()
+        createdAt: this.dateAdapter.now(),
       });
+    } else {
+      registration.createdAt = this.dateAdapter.now();
     }
 
     const message = registration.getMessageCode();
     sms = await this.smsService.send(registerDto.contactNumber, message);
     if (sms) {
+      registration.sms = sms;
       registration.smsStatus = SMSStatus.Sending;
     }
 
-    return await this.registrationRepository.save(registration);
+    const id = await this.registrationRepository.save(registration);
+
+    return { id }
   }
 }

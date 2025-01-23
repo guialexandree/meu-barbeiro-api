@@ -7,7 +7,8 @@ export class HomeService {
     @Inject()
     private readonly getHomeInfoUseCase: GetHomeInfoUseCase
   ) {}
-  findHomeInfo() {
-    return this.getHomeInfoUseCase.execute();
+
+  findHomeInfo(userId: string) {
+    return this.getHomeInfoUseCase.execute(userId);
   }
 }

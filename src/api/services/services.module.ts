@@ -12,9 +12,11 @@ import { GetAllServicesUseCase } from './usecases/get-all-services-use-case';
 import { GetServicesUseCase } from './usecases/get-services-use-case';
 import { SeedServicesUseCase } from './usecases/seed-services-use-case';
 import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+import { AlertsModule } from '../alerts/alerts.module';
 
 @Module({
   imports: [
+    AlertsModule,
     DateAdapterModule,
     TypeOrmModule.forFeature([Service])
   ],
@@ -34,5 +36,6 @@ import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
       useExisting: ServicesRepository
     }
   ],
+  exports: [ServicesService]
 })
 export class ServicesModule {}

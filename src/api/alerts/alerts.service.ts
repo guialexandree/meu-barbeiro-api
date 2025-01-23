@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateAlertDto } from './dto/create-alert.dto';
+import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case';
+import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case';
 import { UpdateAlertDto } from './dto/update-alert.dto';
+import { CreateAlertUseCase } from './usecases/create-alert-use-case';
+import { UpdateAlertUseCase } from './usecases/update-alert-use-case';
+import { RemoveAlertUseCase } from './usecases/remove-alert-use-case';
+import { RemoveAlertDto } from './dto/remove-alert.dto';
 
 @Injectable()
-export class AlertsService {
+export class AlertsService implements OnModuleInit {
+  constructor (
+    @Inject()
+    private readonly createAlertUseCase: CreateAlertUseCase,
+    private readonly updateAlertUseCase: UpdateAlertUseCase,
+    private readonly removeAlertUseCase: RemoveAlertUseCase,
+    private readonly seedAlertsUseCase: SeedAlertsUseCase,
+    private readonly getAllAlertsUseCase: GetAllAlertsUseCase,
+  ) {}
+
+  onModuleInit() {
+    return this.seedAlertsUseCase.execute();
+  }
+
+  remove(removeAlertDto: RemoveAlertDto) {
+    return this.removeAlertUseCase.execute(removeAlertDto);
+  }
+
   create(createAlertDto: CreateAlertDto) {
-    return 'This action adds a new alert';
+    return this.createAlertUseCase.execute(createAlertDto);
+  }
+
+  update(id: string, updateAlertDto: UpdateAlertDto) {
+    return this.updateAlertUseCase.execute(id, updateAlertDto);
   }
 
   findAll() {
-    return `This action returns all alerts`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} alert`;
-  }
-
-  update(id: number, updateAlertDto: UpdateAlertDto) {
-    return `This action updates a #${id} alert`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} alert`;
+    return this.getAllAlertsUseCase.execute();
   }
 }

@@ -1,0 +1,27 @@
+### Login
+POST http://localhost:3000/alerts
+Content-Type: application/json
+
+{
+    "message": "Corte",
+    "type": "home",
+    "status": "ativo"
+}
+
+
+### Buscar serviços
+GET http://localhost:3000/alerts
+Content-Type: application/json
+
+### Buscar atualiza descrição
+PATCH  http://localhost:3000/alerts/19b35e29-c060-4798-bf14-c3d110770287
+Content-Type: application/json
+
+{
+    "name": "Hidratação",
+    "description": "Hidratação"
+}
+
+### Buscar serviços client
+GET http://localhost:3000/alerts/prices
+Content-Type: application/json

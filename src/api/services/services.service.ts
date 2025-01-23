@@ -7,6 +7,7 @@ import { UpdateServiceUseCase } from './usecases/update-service-use-case';
 import { GetAllServicesUseCase } from './usecases/get-all-services-use-case';
 import { GetServicesUseCase } from './usecases/get-services-use-case';
 import { SeedServicesUseCase } from './usecases/seed-services-use-case';
+import { RemoveServiceUseCase } from './usecases/remove-service-use-case';
 
 @Injectable()
 export class ServicesService implements OnModuleInit {
@@ -17,6 +18,7 @@ export class ServicesService implements OnModuleInit {
     private getServiceUseCase: GetServiceUseCase,
     private createServiceUseCase: CreateServiceUseCase,
     private updateServiceUseCase: UpdateServiceUseCase,
+    private removeServiceUseCase: RemoveServiceUseCase,
     private seedServicesUseCase: SeedServicesUseCase,
   ) {}
 
@@ -45,6 +47,6 @@ export class ServicesService implements OnModuleInit {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} servico`;
+    return this.removeServiceUseCase.execute(id);
   }
 }

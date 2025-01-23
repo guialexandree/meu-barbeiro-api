@@ -9,6 +9,7 @@ import { SeedCompanyUseCase } from './usecases/seed-company-use-case';
 import { CreateCompanyUseCase } from './usecases/create-company-use-case';
 import { CompaniesOfficeHoursModule } from '../companies-office-hours/companies-office-hours.module';
 import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+import { GetCompanyIdUseCase } from './usecases/get-company-id-use-case';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
   providers: [
     CompaniesService,
     GetCompanyUseCase,
+    GetCompanyIdUseCase,
     SeedCompanyUseCase,
     CreateCompanyUseCase,
     CompaniesRepository,

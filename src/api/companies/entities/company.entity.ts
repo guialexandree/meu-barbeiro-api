@@ -13,7 +13,6 @@ export class Company {
   pix: string;
 
   @OneToMany(() => CompaniesOfficeHour, (officeHour) => officeHour.company, {
-    cascade: true,
     eager: true
   })
   @JoinColumn()
@@ -21,8 +20,8 @@ export class Company {
 
   constructor(
     props: {
-      name: string;
-      pix: string;
+      name?: string;
+      pix?: string;
     },
     id?: string,
   ) {

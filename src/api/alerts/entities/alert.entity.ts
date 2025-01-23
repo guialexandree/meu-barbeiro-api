@@ -9,8 +9,8 @@ export enum AlertType {
 }
 
 export enum AlertStatus {
-  Ativo = 'activated',
-  Pausado = 'paused',
+  Ativo = 'ativo',
+  Pausado = 'inativo',
 }
 
 @Entity()
@@ -36,13 +36,12 @@ export class Alert {
   })
   company: Company;
 
-  constructor(
-    props: {
+  constructor(props: {
     message: string;
     type: AlertType;
     company: Company;
     createdAt: Date;
- }) {
+  }) {
     Object.assign(this, props);
     this.status ||= AlertStatus.Ativo;
     this.id ||= randomUUID();

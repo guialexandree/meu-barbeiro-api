@@ -1,7 +1,14 @@
+### Buscar Informações da fila
+GET http://localhost:3000/attendances
+Content-Type: application/json
+
+
 ### Criar usuário
 POST http://localhost:3000/attendances
 Content-Type: application/json
 
 {
-    "services": [1, 2]
+    "services": [
+        "105f9b9a-60b8-4717-ab5a-623cee406897"
+    ]
 }

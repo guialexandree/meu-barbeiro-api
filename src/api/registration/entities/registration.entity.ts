@@ -30,9 +30,7 @@ export class Registration {
   @Column({ type: 'simple-enum' })
   smsStatus: SMSStatus;
 
-  @OneToMany(() => Sms, (sms) => sms, {
-    cascade: true,
-  })
+  @OneToMany(() => Sms, (sms) => sms)
   @JoinColumn()
   sms: Sms;
 
@@ -42,7 +40,7 @@ export class Registration {
   generateCode() {
     const randomBytes = crypto.randomBytes(2);
     const code = randomBytes.readUInt16BE(0) % 10000;
-    return code.toString().padStart(4, '0');
+    return code.toString().padStart(6, '0');
   }
 
   getMessageCode() {
