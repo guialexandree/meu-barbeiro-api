@@ -4,9 +4,9 @@ import { CreateAttendanceDto } from '../dto/create-attendance.dto';
 import { Attendance, AttendanceStatus } from '../entities/attendance.entity';
 import { IAttendanceServiceRepository } from '../attendance-service.repository';
 import { AttendanceService } from '../entities/attendance.service.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
-import { UsersService } from 'src/api/users/users.service';
-import { ServicesService } from 'src/api/services/services.service';
+import { IDateAdapter } from '@/infra/adapters/protocols';
+import { UsersService } from '@/api/users/users.service';
+import { ServicesService } from '@/api/services/services.service';
 
 @Injectable()
 export class CreateAttendanceUseCase {

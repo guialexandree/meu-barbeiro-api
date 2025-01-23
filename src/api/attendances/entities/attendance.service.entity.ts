@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Attendance } from './attendance.entity';
-import { Service } from 'src/api/services/entities/service.entity';
+import { Service } from '@/api/services/entities/service.entity';
 
 @Entity()
 export class AttendanceService {

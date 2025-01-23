@@ -1,9 +1,9 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ICompaniesRepository } from '../companies.repository';
 import { Company } from '../entities/company.entity';
-import { CompaniesOfficeHour } from 'src/api/companies-office-hours/entities/companies-office-hour.entity';
-import { CompaniesOfficeHoursService } from 'src/api/companies-office-hours/companies-office-hours.service';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { CompaniesOfficeHoursService } from '@/api/companies-office-hours/companies-office-hours.service';
+import { IDateAdapter } from '@/infra/adapters/protocols';
+import { CompaniesOfficeHour } from '@/api/companies-office-hours/entities/companies-office-hour.entity';
 
 @Injectable()
 export class SeedCompanyUseCase {

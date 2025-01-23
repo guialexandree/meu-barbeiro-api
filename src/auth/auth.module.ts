@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UsersModule } from 'src/api/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants.';
 import { SignInUseCase } from './usecases/sigin-use-case';
 import { SignInClientUseCase } from './usecases/sigin-client-use-case';
+import { UsersModule } from '@/api/users/users.module';
 
 @Module({
   imports: [

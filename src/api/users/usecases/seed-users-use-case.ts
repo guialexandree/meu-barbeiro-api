@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IUsersRepository } from '../users.repository';
 import { User, UserRole } from '../entities/user.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class SeedUsersUseCase {

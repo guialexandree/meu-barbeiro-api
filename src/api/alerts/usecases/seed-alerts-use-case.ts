@@ -1,9 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
 import { IAlertsRepository } from '../alerts.repository';
 import { Alert, AlertType } from '../entities/alert.entity';
-import { CompaniesService } from 'src/api/companies/companies.service';
-import { Company } from 'src/api/companies/entities/company.entity';
+import { IDateAdapter } from '@/infra/adapters/protocols';
+import { CompaniesService } from '@/api/companies/companies.service';
 
 @Injectable()
 export class SeedAlertsUseCase {

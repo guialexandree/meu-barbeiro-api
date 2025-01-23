@@ -1,6 +1,6 @@
+import { Sms } from '@/api/sms/entities';
 import crypto from 'node:crypto';
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
-import { Sms } from 'src/api/sms/entities/sms.entity';
 
 export enum RegistrationStatus {
   Pending = 'pending',

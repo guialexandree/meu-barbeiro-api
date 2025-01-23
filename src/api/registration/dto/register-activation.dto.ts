@@ -1,6 +1,6 @@
+import { UserOrigin } from '@/api/users/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, Length } from 'class-validator';
-import { UserOrigin } from 'src/api/users/entities/user.entity';
 
 export class RegisterActivationDto {
   @ApiProperty()

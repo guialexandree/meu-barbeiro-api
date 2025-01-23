@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ISmsRepository } from '../sms.repository';
 import { Sms } from '../entities/sms.entity';
 import { Logger } from '@nestjs/common';
-import { IDateAdapter, ISmsAdapter } from 'src/infra/adapters/protocols';
-import { SMSResult, SMSStatus } from 'src/infra/adapters/sms-adapter/vonage-sms-adapter/sms-provider-adapter';
+import { IDateAdapter, ISmsAdapter } from '@/infra/adapters/protocols';
+import { SMSResult, SMSStatus } from '@/infra/adapters/sms-adapter/vonage-sms-adapter/sms-provider-adapter';
 
 @Injectable()
 export class SendSmsUseCase {

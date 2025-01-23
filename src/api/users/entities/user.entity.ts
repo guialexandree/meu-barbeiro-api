@@ -1,5 +1,5 @@
+import { Registration } from '@/api/registration/entities/registration.entity';
 import { Exclude } from 'class-transformer';
-import { Registration } from 'src/api/registration/entities/registration.entity';
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
 
 export enum UserRole {

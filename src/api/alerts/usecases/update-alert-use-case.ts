@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IAlertsRepository } from '../alerts.repository';
 import { UpdateAlertDto } from '../dto/update-alert.dto';
-import { Alert } from '../entities/alert.entity';
-import { Company } from 'src/api/companies/entities/company.entity';
-import { CompaniesService } from 'src/api/companies/companies.service';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class UpdateAlertUseCase {

@@ -2,11 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IAlertsRepository } from '../alerts.repository';
 import { CreateAlertDto } from '../dto/create-alert.dto';
 import { Alert } from '../entities/alert.entity';
-import { Company } from 'src/api/companies/entities/company.entity';
-import { CompaniesService } from 'src/api/companies/companies.service';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
-import { AlertsService } from '../alerts.service';
 import { UpdateAlertUseCase } from './update-alert-use-case';
+import { CompaniesService } from '@/api/companies/companies.service';
+import { IDateAdapter } from '@/infra/adapters/protocols';
+import { Company } from '@/api/companies/entities/company.entity';
 
 @Injectable()
 export class CreateAlertUseCase {

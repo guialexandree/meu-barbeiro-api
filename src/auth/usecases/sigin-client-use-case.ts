@@ -1,7 +1,7 @@
+import { UserStatus } from '@/api/users/entities/user.entity';
+import { UsersService } from '@/api/users/users.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserStatus } from 'src/api/users/entities/user.entity';
-import { UsersService } from 'src/api/users/users.service';
 
 @Injectable()
 export class SignInClientUseCase {

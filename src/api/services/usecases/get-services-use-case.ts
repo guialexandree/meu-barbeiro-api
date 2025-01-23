@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { ServiceStatus } from '../entities/service.entity';
-import { AlertsService } from 'src/api/alerts/alerts.service';
-import { AlertType } from 'src/api/alerts/entities/alert.entity';
+import { AlertsService } from '@/api/alerts/alerts.service';
+import { AlertType } from '@/api/alerts/entities/alert.entity';
 
 @Injectable()
 export class GetServicesUseCase {

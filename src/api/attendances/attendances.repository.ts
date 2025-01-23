@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Between, In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attendance, AttendanceStatus } from './entities/attendance.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
 import { AttendanceService } from './entities/attendance.service.entity';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 export interface IAttendancesRepository {
   findOne(id: string): Promise<Attendance>;

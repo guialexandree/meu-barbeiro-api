@@ -6,10 +6,9 @@ import {
   RegistrationStatus,
   SMSStatus,
 } from '../entities/registration.entity';
-import { SmsService } from 'src/api/sms/sms.service';
-import { Sms } from 'src/api/sms/entities/sms.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
-
+import { SmsService } from '@/api/sms/sms.service';
+import { IDateAdapter } from '@/infra/adapters/protocols';
+import { Sms } from '@/api/sms/entities';
 @Injectable()
 export class RegisterUseCase {
   constructor(

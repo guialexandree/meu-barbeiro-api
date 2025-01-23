@@ -1,5 +1,5 @@
+import { Company } from '@/api/companies/entities/company.entity';
 import { randomUUID } from 'node:crypto';
-import { Company } from 'src/api/companies/entities/company.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 export enum AlertType {

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { UpdateServiceDto } from '../dto/update-service.dto';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class UpdateServiceUseCase {

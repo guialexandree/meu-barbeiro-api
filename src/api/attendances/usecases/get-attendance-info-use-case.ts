@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IAttendancesRepository } from '../attendances.repository';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class GetAttendanceInfoUseCase {

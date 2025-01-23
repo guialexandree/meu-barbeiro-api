@@ -1,16 +1,17 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { CreateAlertDto } from './dto/create-alert.dto';
-import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case';
-import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case';
-import { UpdateAlertDto } from './dto/update-alert.dto';
-import { CreateAlertUseCase } from './usecases/create-alert-use-case';
-import { UpdateAlertUseCase } from './usecases/update-alert-use-case';
-import { RemoveAlertUseCase } from './usecases/remove-alert-use-case';
-import { RemoveAlertDto } from './dto/remove-alert.dto';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common'
+import { UpdateAlertDto } from './dto/update-alert.dto'
+import {
+  CreateAlertUseCase,
+  GetAllAlertsUseCase,
+  RemoveAlertUseCase,
+  SeedAlertsUseCase,
+  UpdateAlertUseCase,
+} from '@/api/alerts/usecases'
+import { CreateAlertDto, RemoveAlertDto } from '@/api/alerts/dto'
 
 @Injectable()
 export class AlertsService implements OnModuleInit {
-  constructor (
+  constructor(
     @Inject()
     private readonly createAlertUseCase: CreateAlertUseCase,
     private readonly updateAlertUseCase: UpdateAlertUseCase,
@@ -20,22 +21,22 @@ export class AlertsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    return this.seedAlertsUseCase.execute();
+    return this.seedAlertsUseCase.execute()
   }
 
   remove(removeAlertDto: RemoveAlertDto) {
-    return this.removeAlertUseCase.execute(removeAlertDto);
+    return this.removeAlertUseCase.execute(removeAlertDto)
   }
 
   create(createAlertDto: CreateAlertDto) {
-    return this.createAlertUseCase.execute(createAlertDto);
+    return this.createAlertUseCase.execute(createAlertDto)
   }
 
   update(id: string, updateAlertDto: UpdateAlertDto) {
-    return this.updateAlertUseCase.execute(id, updateAlertDto);
+    return this.updateAlertUseCase.execute(id, updateAlertDto)
   }
 
   findAll() {
-    return this.getAllAlertsUseCase.execute();
+    return this.getAllAlertsUseCase.execute()
   }
 }

@@ -7,11 +7,9 @@ import {
 import { IRegistrationRepository } from '../registration.repository';
 import { RegistrationStatus } from '../entities/registration.entity';
 import { RegisterActivationDto } from '../dto/register-activation.dto';
-import { UsersService } from 'src/api/users/users.service';
-import { UserRole } from 'src/api/users/entities/user.entity';
-import { InvalidRuleException } from 'src/domain/errors/invalid-rule-exception';
-import { ValidationError } from 'class-validator';
-
+import { UsersService } from '@/api/users/users.service';
+import { InvalidRuleException } from '@/domain/errors/invalid-rule-exception';
+import { UserRole } from '@/api/users/entities/user.entity';
 @Injectable()
 export class RegisterActivationUseCase {
   constructor(

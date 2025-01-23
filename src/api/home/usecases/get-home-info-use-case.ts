@@ -1,9 +1,9 @@
+import { AlertsService } from '@/api/alerts/alerts.service';
+import { AlertType } from '@/api/alerts/entities/alert.entity';
+import { AttendancesService } from '@/api/attendances/attendances.service';
+import { CompaniesService } from '@/api/companies/companies.service';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 import { Inject, Injectable } from '@nestjs/common';
-import { AlertsService } from 'src/api/alerts/alerts.service';
-import { AlertType } from 'src/api/alerts/entities/alert.entity';
-import { AttendancesService } from 'src/api/attendances/attendances.service';
-import { CompaniesService } from 'src/api/companies/companies.service';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
 
 @Injectable()
 export class GetHomeInfoUseCase {

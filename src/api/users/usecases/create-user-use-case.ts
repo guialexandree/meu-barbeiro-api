@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IUsersRepository } from '../users.repository';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { User, UserRole } from '../entities/user.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols/date-adapter';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class CreateUserUseCase {

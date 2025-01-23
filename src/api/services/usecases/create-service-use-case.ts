@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { CreateServiceDto } from '../dto/create-service.dto';
 import { Service, ServiceStatus } from '../entities/service.entity';
-import { IDateAdapter } from 'src/infra/adapters/protocols';
+import { IDateAdapter } from '@/infra/adapters/protocols';
 
 @Injectable()
 export class CreateServiceUseCase {

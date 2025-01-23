@@ -7,8 +7,8 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { AttendanceService } from './attendance.service.entity';
-import { Service } from 'src/api/services/entities/service.entity';
-import { User } from 'src/api/users/entities/user.entity';
+import { User } from '@/api/users/entities/user.entity';
+import { Service } from '@/api/services/entities/service.entity';
 
 export enum AttendanceStatus {
   NaFila = 'nafila',

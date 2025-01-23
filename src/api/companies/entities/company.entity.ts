@@ -1,4 +1,4 @@
-import { CompaniesOfficeHour } from 'src/api/companies-office-hours/entities/companies-office-hour.entity';
+import { CompaniesOfficeHour } from '@/api/companies-office-hours/entities/companies-office-hour.entity';
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
