@@ -6,7 +6,7 @@ import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Alert } from './entities/alert.entity';
 import { CompaniesModule } from '../companies/companies.module';
-import { DateAdapterModule } from 'src/infra/adapters/date-adapter';
+import { DateAdapterModule } from '../../infra/adapters/date-adapter';
 import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case';
 import { CreateAlertUseCase } from './usecases/create-alert-use-case';
 import { UpdateAlertUseCase } from './usecases/update-alert-use-case';
