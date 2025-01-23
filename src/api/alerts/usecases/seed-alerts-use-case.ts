@@ -3,6 +3,7 @@ import { IAlertsRepository } from '../alerts.repository';
 import { Alert, AlertType } from '../entities/alert.entity';
 import { IDateAdapter } from '@/infra/adapters/protocols';
 import { CompaniesService } from '@/api/companies/companies.service';
+import { Company } from '@/api/companies/entities/company.entity';
 
 @Injectable()
 export class SeedAlertsUseCase {
