@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Service } from './entities/service.entity'
 import { ServicesRepository } from './services.repository'
 import { AlertsModule } from '../alerts/alerts.module'
-import { DateAdapterModule } from '@/infra/adapters/date-adapter'
+import { DateAdapterModule } from '../../infra/adapters/date-adapter'
 import {
   CreateServiceUseCase,
   GetAllServicesUseCase,
@@ -14,7 +14,7 @@ import {
   RemoveServiceUseCase,
   SeedServicesUseCase,
   UpdateServiceUseCase,
-} from '@/api/services/usecases'
+} from './usecases'
 
 @Module({
   imports: [

@@ -1,25 +1,26 @@
-import { Module } from '@nestjs/common';
-import { AttendancesService } from './attendances.service';
-import { AttendancesController } from './attendances.controller';
-import { AttendancesRepository } from './attendances.repository';
-import { AttendanceServiceRepository } from './attendance-service.repository';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AttendanceService } from './entities/attendance.service.entity';
-import { Attendance } from './entities/attendance.entity';
-import { UsersModule } from '../users/users.module';
-import { ServicesModule } from '../services/services.module';
-import { DateAdapterModule } from '@/infra/adapters/date-adapter';
-import { CreateAttendanceUseCase, GetActivedAttendanceUseCase, GetAttendanceInfoUseCase } from '@/api/attendances/usecases';
+import { Module } from '@nestjs/common'
+import { AttendancesService } from './attendances.service'
+import { AttendancesController } from './attendances.controller'
+import { AttendancesRepository } from './attendances.repository'
+import { AttendanceServiceRepository } from './attendance-service.repository'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { AttendanceService } from './entities/attendance.service.entity'
+import { Attendance } from './entities/attendance.entity'
+import { UsersModule } from '../users/users.module'
+import { ServicesModule } from '../services/services.module'
+import { DateAdapterModule } from '../../infra/adapters/date-adapter'
+import {
+  CreateAttendanceUseCase,
+  GetActivedAttendanceUseCase,
+  GetAttendanceInfoUseCase,
+} from './usecases'
 
 @Module({
   imports: [
     UsersModule,
     ServicesModule,
     DateAdapterModule,
-    TypeOrmModule.forFeature([
-      Attendance,
-      AttendanceService,
-    ])
+    TypeOrmModule.forFeature([Attendance, AttendanceService]),
   ],
   controllers: [AttendancesController],
   providers: [
@@ -31,13 +32,13 @@ import { CreateAttendanceUseCase, GetActivedAttendanceUseCase, GetAttendanceInfo
     AttendanceServiceRepository,
     {
       provide: 'IAttendancesRepository',
-      useExisting: AttendancesRepository
+      useExisting: AttendancesRepository,
     },
     {
       provide: 'IAttendanceServiceRepository',
-      useExisting: AttendanceServiceRepository
-    }
+      useExisting: AttendanceServiceRepository,
+    },
   ],
-  exports: [AttendancesService]
+  exports: [AttendancesService],
 })
 export class AttendancesModule {}

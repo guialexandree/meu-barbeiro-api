@@ -1,17 +1,17 @@
-import { Module } from '@nestjs/common';
-import { SmsService } from './sms.service';
-import { SmsRepository } from './sms.repository';
-import { SendSmsUseCase } from './usecases/send-sms-use-case';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Sms } from './entities/sms.entity';
-import { DateAdapterModule } from '@/infra/adapters/date-adapter';
-import { SmsProviderModule } from '@/infra/adapters/sms-adapter';
+import { Module } from '@nestjs/common'
+import { SmsService } from './sms.service'
+import { SmsRepository } from './sms.repository'
+import { SendSmsUseCase } from './usecases/send-sms-use-case'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Sms } from './entities/sms.entity'
+import { DateAdapterModule } from '../../infra/adapters/date-adapter'
+import { SmsProviderModule } from '../../infra/adapters/sms-adapter'
 
 @Module({
   imports: [
     DateAdapterModule,
     SmsProviderModule,
-    TypeOrmModule.forFeature([Sms])
+    TypeOrmModule.forFeature([Sms]),
   ],
   providers: [
     SmsService,
@@ -19,9 +19,9 @@ import { SmsProviderModule } from '@/infra/adapters/sms-adapter';
     SmsRepository,
     {
       provide: 'ISmsRepository',
-      useExisting: SmsRepository
-    }
+      useExisting: SmsRepository,
+    },
   ],
-  exports: [SmsService]
+  exports: [SmsService],
 })
 export class SmsModule {}

@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IServicesRepository } from '../services.repository';
-import { CreateServiceDto } from '../dto/create-service.dto';
-import { Service, ServiceStatus } from '../entities/service.entity';
-import { IDateAdapter } from '@/infra/adapters/protocols';
+import { Inject, Injectable } from '@nestjs/common'
+import { IServicesRepository } from '../services.repository'
+import { CreateServiceDto } from '../dto/create-service.dto'
+import { Service, ServiceStatus } from '../entities/service.entity'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class CreateServiceUseCase {
@@ -10,16 +10,16 @@ export class CreateServiceUseCase {
     @Inject('IServicesRepository')
     private readonly servicesRepository: IServicesRepository,
     @Inject('IDateAdapter')
-    private readonly dateAdapter: IDateAdapter
+    private readonly dateAdapter: IDateAdapter,
   ) {}
 
-  async execute (input: CreateServiceDto){
+  async execute(input: CreateServiceDto) {
     const serviceParams = {
       ...input,
       createdAt: this.dateAdapter.now(),
       updatedAt: this.dateAdapter.now(),
       status: ServiceStatus.Ativo,
-    };
+    }
 
     const service = new Service(serviceParams)
     return this.servicesRepository.save(service)

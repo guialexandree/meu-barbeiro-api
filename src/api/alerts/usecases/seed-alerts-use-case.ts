@@ -1,13 +1,13 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { IAlertsRepository } from '../alerts.repository';
-import { Alert, AlertType } from '../entities/alert.entity';
-import { IDateAdapter } from '@/infra/adapters/protocols';
-import { CompaniesService } from '@/api/companies/companies.service';
-import { Company } from '@/api/companies/entities/company.entity';
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { IAlertsRepository } from '../alerts.repository'
+import { Alert, AlertType } from '../entities/alert.entity'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
+import { CompaniesService } from '../../companies/companies.service'
+import { Company } from '../../companies/entities/company.entity'
 
 @Injectable()
 export class SeedAlertsUseCase {
-  private readonly logger = new Logger(SeedAlertsUseCase.name);
+  private readonly logger = new Logger(SeedAlertsUseCase.name)
 
   constructor(
     @Inject('IAlertsRepository')
@@ -18,22 +18,23 @@ export class SeedAlertsUseCase {
     private readonly companiesService: CompaniesService,
   ) {}
 
-  async execute (){
+  async execute() {
     const alertsCount = await this.alertsRepository.count()
 
     if (alertsCount === 0) {
       this.logger.verbose('Seeding Alerts ###')
 
-      const companyId = await this.companiesService.findId();
+      const companyId = await this.companiesService.findId()
       const newAlerts = [
         {
-          message: "No mês de dezembro o corte terá acréscimo, novo valor será R$ 35",
+          message:
+            'No mês de dezembro o corte terá acréscimo, novo valor será R$ 35',
           type: AlertType.Home,
           company: new Company({}, companyId),
           createdAt: this.dateAdapter.now(),
         },
         {
-          message: "A partir de janeiro o preço do corte será R$ 35",
+          message: 'A partir de janeiro o preço do corte será R$ 35',
           type: AlertType.Servicos,
           company: new Company({}, companyId),
           createdAt: this.dateAdapter.now(),

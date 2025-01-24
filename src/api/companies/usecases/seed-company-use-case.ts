@@ -1,13 +1,13 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ICompaniesRepository } from '../companies.repository';
-import { Company } from '../entities/company.entity';
-import { CompaniesOfficeHoursService } from '@/api/companies-office-hours/companies-office-hours.service';
-import { IDateAdapter } from '@/infra/adapters/protocols';
-import { CompaniesOfficeHour } from '@/api/companies-office-hours/entities/companies-office-hour.entity';
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { ICompaniesRepository } from '../companies.repository'
+import { Company } from '../entities/company.entity'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
+import { CompaniesOfficeHoursService } from '../../companies-office-hours/companies-office-hours.service'
+import { CompaniesOfficeHour } from '../../companies-office-hours/entities/companies-office-hour.entity'
 
 @Injectable()
 export class SeedCompanyUseCase {
-  private readonly logger = new Logger(SeedCompanyUseCase.name);
+  private readonly logger = new Logger(SeedCompanyUseCase.name)
 
   constructor(
     @Inject('ICompaniesRepository')
@@ -15,26 +15,26 @@ export class SeedCompanyUseCase {
     @Inject()
     private readonly companiesOfficeHoursService: CompaniesOfficeHoursService,
     @Inject('IDateAdapter')
-    private readonly dateAdapter: IDateAdapter
+    private readonly dateAdapter: IDateAdapter,
   ) {}
 
   async execute() {
-    const companiesCount = await this.companiesRepository.count();
+    const companiesCount = await this.companiesRepository.count()
 
     if (companiesCount === 0) {
-      this.logger.verbose('Seeding Companies ###');
+      this.logger.verbose('Seeding Companies ###')
       const newCompany = new Company({
         name: 'Barbearia',
         pix: 'afg389f298fbujh9uh32901hbf6acb0',
-      });
+      })
 
-      const company = await this.companiesRepository.save(newCompany);
-      this.logger.verbose(JSON.stringify(company));
+      const company = await this.companiesRepository.save(newCompany)
+      this.logger.verbose(JSON.stringify(company))
 
-      const startTime = this.dateAdapter.now();
-      const endTime = this.dateAdapter.now();
-      startTime.setHours(8, 30);
-      endTime.setHours(22);
+      const startTime = this.dateAdapter.now()
+      const endTime = this.dateAdapter.now()
+      startTime.setHours(8, 30)
+      endTime.setHours(22)
 
       const hoursWeekDays = [
         {
@@ -85,14 +85,14 @@ export class SeedCompanyUseCase {
           end: endTime,
           company,
         },
-      ];
+      ]
 
-      const jobs: Promise<CompaniesOfficeHour>[] = [];
+      const jobs: Promise<CompaniesOfficeHour>[] = []
       for (const hoursWeekDay of hoursWeekDays) {
-        jobs.push(this.companiesOfficeHoursService.create(hoursWeekDay));
+        jobs.push(this.companiesOfficeHoursService.create(hoursWeekDay))
       }
 
-      return await Promise.all(jobs);
+      return await Promise.all(jobs)
     }
   }
 }

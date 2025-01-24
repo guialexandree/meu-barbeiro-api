@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants.';
-import { SignInUseCase } from './usecases/sigin-use-case';
-import { SignInClientUseCase } from './usecases/sigin-client-use-case';
-import { UsersModule } from '@/api/users/users.module';
+import { Module } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { AuthController } from './auth.controller'
+import { JwtModule } from '@nestjs/jwt'
+import { jwtConstants } from './constants.'
+import { SignInUseCase } from './usecases/sigin-use-case'
+import { SignInClientUseCase } from './usecases/sigin-client-use-case'
+import { UsersModule } from '../api/users/users.module'
 
 @Module({
   imports: [
@@ -14,14 +14,10 @@ import { UsersModule } from '@/api/users/users.module';
       global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '60s' },
-    })
+    }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    SignInUseCase,
-    SignInClientUseCase
-  ],
-  exports: [AuthService]
+  providers: [AuthService, SignInUseCase, SignInClientUseCase],
+  exports: [AuthService],
 })
 export class AuthModule {}

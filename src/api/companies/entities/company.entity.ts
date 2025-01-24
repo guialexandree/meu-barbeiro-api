@@ -1,31 +1,31 @@
-import { CompaniesOfficeHour } from '@/api/companies-office-hours/entities/companies-office-hour.entity';
-import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
+import { CompaniesOfficeHour } from '../../companies-office-hours/entities/companies-office-hour.entity'
 
 @Entity()
 export class Company {
   @PrimaryColumn()
-  id: string;
+  id: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  pix: string;
+  pix: string
 
   @OneToMany(() => CompaniesOfficeHour, (officeHour) => officeHour.company, {
-    eager: true
+    eager: true,
   })
   @JoinColumn()
-  officeHours: CompaniesOfficeHour[];
+  officeHours: CompaniesOfficeHour[]
 
   constructor(
     props: {
-      name?: string;
-      pix?: string;
+      name?: string
+      pix?: string
     },
     id?: string,
   ) {
-    Object.assign(this, props);
-    this.id = id || crypto.randomUUID();
+    Object.assign(this, props)
+    this.id = id || crypto.randomUUID()
   }
 }

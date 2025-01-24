@@ -1,13 +1,16 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ISmsRepository } from '../sms.repository';
-import { Sms } from '../entities/sms.entity';
-import { Logger } from '@nestjs/common';
-import { IDateAdapter, ISmsAdapter } from '@/infra/adapters/protocols';
-import { SMSResult, SMSStatus } from '@/infra/adapters/sms-adapter/vonage-sms-adapter/sms-provider-adapter';
+import { Inject, Injectable } from '@nestjs/common'
+import { ISmsRepository } from '../sms.repository'
+import { Sms } from '../entities/sms.entity'
+import { Logger } from '@nestjs/common'
+import {
+  SMSResult,
+  SMSStatus,
+} from '../../../infra/adapters/sms-adapter/vonage-sms-adapter/sms-provider-adapter'
+import { IDateAdapter, ISmsAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class SendSmsUseCase {
-  private readonly logger = new Logger(SendSmsUseCase.name);
+  private readonly logger = new Logger(SendSmsUseCase.name)
 
   constructor(
     @Inject('ISmsRepository')
@@ -20,9 +23,9 @@ export class SendSmsUseCase {
 
   async execute(to: string, text: string) {
     try {
-      const messageResult = await this.smsAdapter.send(to, text);
+      const messageResult = await this.smsAdapter.send(to, text)
       if (messageResult.status !== SMSStatus.Enviado) {
-        return null;
+        return null
       }
 
       const sms = new Sms(
@@ -33,12 +36,12 @@ export class SendSmsUseCase {
           response: JSON.stringify(messageResult),
         },
         messageResult?.messageId,
-      );
+      )
 
-      return this.smsRepository.save(sms);
+      return this.smsRepository.save(sms)
     } catch (error) {
-      this.logger.error(error);
-      return null;
+      this.logger.error(error)
+      return null
     }
   }
 }

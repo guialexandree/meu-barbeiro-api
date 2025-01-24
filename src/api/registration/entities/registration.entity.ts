@@ -1,10 +1,10 @@
-import { Sms } from '@/api/sms/entities';
-import crypto from 'node:crypto';
-import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import crypto from 'node:crypto'
+import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
+import { Sms } from '../../sms/entities'
 
 export enum RegistrationStatus {
   Pending = 'pending',
-  Activated = 'ativated'
+  Activated = 'ativated',
 }
 
 export enum SMSStatus {
@@ -16,31 +16,31 @@ export enum SMSStatus {
 @Entity()
 export class Registration {
   @PrimaryColumn()
-  id: string;
+  id: string
 
   @Column({ type: 'datetime' })
-  createdAt: Date;
+  createdAt: Date
 
   @Column()
-  contactNumber: string;
+  contactNumber: string
 
   @Column()
-  code: string;
+  code: string
 
   @Column({ type: 'simple-enum' })
-  smsStatus: SMSStatus;
+  smsStatus: SMSStatus
 
   @OneToMany(() => Sms, (sms) => sms)
   @JoinColumn()
-  sms: Sms;
+  sms: Sms
 
   @Column({ type: 'simple-enum' })
-  status: RegistrationStatus;
+  status: RegistrationStatus
 
   generateCode() {
-    const randomBytes = crypto.randomBytes(2);
-    const code = randomBytes.readUInt16BE(0) % 10000;
-    return code.toString().padStart(6, '0');
+    const randomBytes = crypto.randomBytes(2)
+    const code = randomBytes.readUInt16BE(0) % 10000
+    return code.toString().padStart(6, '0')
   }
 
   getMessageCode() {
@@ -49,15 +49,15 @@ export class Registration {
 
   constructor(
     props: {
-      contactNumber: string;
-      createdAt: Date;
+      contactNumber: string
+      createdAt: Date
     },
     id?: string,
   ) {
-    this.code = this.generateCode();
-    this.status = RegistrationStatus.Pending;
-    this.smsStatus = SMSStatus.Pending;
-    Object.assign(this, props);
-    this.id = id || crypto.randomUUID();
+    this.code = this.generateCode()
+    this.status = RegistrationStatus.Pending
+    this.smsStatus = SMSStatus.Pending
+    Object.assign(this, props)
+    this.id = id || crypto.randomUUID()
   }
 }

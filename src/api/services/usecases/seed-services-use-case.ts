@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IServicesRepository } from '../services.repository';
 import { Service, ServiceStatus } from '../entities/service.entity';
-import { IDateAdapter } from '@/infra/adapters/protocols';
+import { IDateAdapter } from '../../../infra/adapters/protocols';
 
 @Injectable()
 export class SeedServicesUseCase {

@@ -1,18 +1,18 @@
-import { Registration } from '@/api/registration/entities/registration.entity';
-import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Exclude } from 'class-transformer'
+import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
+import { Registration } from '../../registration/entities/registration.entity'
 
 export enum UserRole {
   Admin = 'admin',
   Barber = 'barber',
-  Client = 'client'
+  Client = 'client',
 }
 
 export enum UserOrigin {
   SMS = 'sms',
   Facebook = 'facebook',
   Instagram = 'instagram',
-  Barber = 'barber'
+  Barber = 'barber',
 }
 
 export enum UserStatus {
@@ -24,29 +24,29 @@ export enum UserStatus {
 @Entity()
 export class User {
   @PrimaryColumn()
-  id: string;
+  id: string
 
   @Column({ nullable: true })
-  name: string;
+  name: string
 
   @Column({ type: 'simple-enum' })
   status: UserStatus
 
   @Column()
-  username: string;
+  username: string
 
   @Column()
-  contactNumber: string;
+  contactNumber: string
 
   @Column({ nullable: true })
-  email: string;
+  email: string
 
   @Exclude()
   @Column()
-  password: string;
+  password: string
 
   @Column({ type: 'simple-enum' })
-  role: UserRole;
+  role: UserRole
 
   @Exclude()
   @OneToMany(() => Registration, (registration) => registration)
@@ -54,22 +54,22 @@ export class User {
   registration: Registration
 
   @Column({ type: 'datetime' })
-  createdAt: Date;
+  createdAt: Date
 
   constructor(
     props: {
-      name?: string;
-      username: string;
-      password: string;
-      contactNumber?: string;
-      email?: string;
-      role: UserRole;
+      name?: string
+      username: string
+      password: string
+      contactNumber?: string
+      email?: string
+      role: UserRole
       createdAt: Date
     },
     id?: string,
   ) {
     this.status = UserStatus.Ativo
-    Object.assign(this, props);
-    this.id = id ?? crypto.randomUUID();
+    Object.assign(this, props)
+    this.id = id ?? crypto.randomUUID()
   }
 }

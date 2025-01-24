@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IAlertsRepository } from '../alerts.repository';
-import { CreateAlertDto } from '../dto/create-alert.dto';
-import { Alert } from '../entities/alert.entity';
-import { UpdateAlertUseCase } from './update-alert-use-case';
-import { CompaniesService } from '@/api/companies/companies.service';
-import { IDateAdapter } from '@/infra/adapters/protocols';
-import { Company } from '@/api/companies/entities/company.entity';
+import { Inject, Injectable } from '@nestjs/common'
+import { IAlertsRepository } from '../alerts.repository'
+import { CreateAlertDto } from '../dto/create-alert.dto'
+import { Alert } from '../entities/alert.entity'
+import { UpdateAlertUseCase } from './update-alert-use-case'
+import { CompaniesService } from '../../companies/companies.service'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
+import { Company } from '../../companies/entities/company.entity'
 
 @Injectable()
 export class CreateAlertUseCase {
@@ -21,18 +21,18 @@ export class CreateAlertUseCase {
   ) {}
 
   async execute(input: CreateAlertDto) {
-    const alertExists = await this.alertsRepository.findByType(input.type);
+    const alertExists = await this.alertsRepository.findByType(input.type)
     if (alertExists) {
-      return this.updateAlertUseCase.execute(alertExists.id, input);
+      return this.updateAlertUseCase.execute(alertExists.id, input)
     }
 
-    const companyId = await this.companiesService.findId();
+    const companyId = await this.companiesService.findId()
     const newAlert = new Alert({
       ...input,
       company: new Company({}, companyId),
       createdAt: this.dateAdapter.now(),
-    });
-    const alert = await this.alertsRepository.save(newAlert);
-    return alert;
+    })
+    const alert = await this.alertsRepository.save(newAlert)
+    return alert
   }
 }

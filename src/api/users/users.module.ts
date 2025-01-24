@@ -1,17 +1,20 @@
-import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersRepository } from './users.repository';
-import { UsersController } from './users.controller';
-import { DateAdapterModule } from '@/infra/adapters/date-adapter';
-import { ChangeNameUseCase, CreateUserUseCase, GetUserByIdUseCase, GetUserUseCase, SeedUsersUseCase } from '@/api/users/usecases';
+import { Module } from '@nestjs/common'
+import { UsersService } from './users.service'
+import { User } from './entities/user.entity'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { UsersRepository } from './users.repository'
+import { UsersController } from './users.controller'
+import { DateAdapterModule } from '../../infra/adapters/date-adapter'
+import {
+  GetUserUseCase,
+  GetUserByIdUseCase,
+  CreateUserUseCase,
+  ChangeNameUseCase,
+  SeedUsersUseCase,
+} from './usecases'
 
 @Module({
-  imports: [
-    DateAdapterModule,
-    TypeOrmModule.forFeature([User])
-  ],
+  imports: [DateAdapterModule, TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [
     UsersService,
@@ -23,16 +26,16 @@ import { ChangeNameUseCase, CreateUserUseCase, GetUserByIdUseCase, GetUserUseCas
     UsersRepository,
     {
       provide: 'IUsersRepository',
-      useExisting: UsersRepository
-    }
+      useExisting: UsersRepository,
+    },
   ],
   exports: [
     UsersService,
     UsersRepository,
     {
       provide: 'IUsersRepository',
-      useExisting: UsersRepository
-    }
-  ]
+      useExisting: UsersRepository,
+    },
+  ],
 })
 export class UsersModule {}

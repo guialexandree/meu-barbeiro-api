@@ -5,7 +5,7 @@ import { CreateAlertUseCase } from './usecases/create-alert-use-case'
 import { UpdateAlertUseCase } from './usecases/update-alert-use-case'
 import { RemoveAlertUseCase } from './usecases/remove-alert-use-case'
 import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case'
-import { CreateAlertDto, RemoveAlertDto } from '@/api/alerts/dto'
+import { CreateAlertDto, RemoveAlertDto } from './dto'
 
 @Injectable()
 export class AlertsService implements OnModuleInit {

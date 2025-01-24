@@ -1,16 +1,16 @@
-import { Company } from '@/api/companies/entities/company.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger'
+import { Company } from '../../companies/entities/company.entity'
 
 export class CreateCompaniesOfficeHoursDto {
   @ApiProperty()
-  weekDay: number;
+  weekDay: number
 
   @ApiProperty()
-  start: Date;
+  start: Date
 
   @ApiProperty()
-  end: Date;
+  end: Date
 
   @ApiProperty()
-  company: Company;
+  company: Company
 }

@@ -1,9 +1,9 @@
-import { AlertsService } from '@/api/alerts/alerts.service';
-import { AlertType } from '@/api/alerts/entities/alert.entity';
-import { AttendancesService } from '@/api/attendances/attendances.service';
-import { CompaniesService } from '@/api/companies/companies.service';
-import { IDateAdapter } from '@/infra/adapters/protocols';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common'
+import { CompaniesService } from '../../companies/companies.service'
+import { AttendancesService } from '../../attendances/attendances.service'
+import { AlertsService } from '../../alerts/alerts.service'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
+import { AlertType } from '../../alerts/entities/alert.entity'
 
 @Injectable()
 export class GetHomeInfoUseCase {
@@ -19,19 +19,23 @@ export class GetHomeInfoUseCase {
   ) {}
 
   async execute(userId: string) {
-    const company = await this.companiesService.find();
+    const company = await this.companiesService.find()
 
-    const weekDay = this.dateAdapter.weekDay();
-    const currentOfficeHours = company.officeHours.find(officeHours => officeHours.weekDay === weekDay);
-    const isWithinTimeRange = this.dateAdapter.isAfter(currentOfficeHours.start) && this.dateAdapter.isBefore(currentOfficeHours.end);
+    const weekDay = this.dateAdapter.weekDay()
+    const currentOfficeHours = company.officeHours.find(
+      (officeHours) => officeHours.weekDay === weekDay,
+    )
+    const isWithinTimeRange =
+      this.dateAdapter.isAfter(currentOfficeHours.start) &&
+      this.dateAdapter.isBefore(currentOfficeHours.end)
     const statusAttendanceCompany = isWithinTimeRange ? 'aberto' : 'fechado'
 
-    const attendance = await this.attendancesService.findActivedByUser(userId);
-    const userAttendance = attendance ? 'nafila' : 'online';
+    const attendance = await this.attendancesService.findActivedByUser(userId)
+    const userAttendance = attendance ? 'nafila' : 'online'
 
     const alerts = (await this.alertsService.findAll())
-      .filter(alert => alert.type === AlertType.Home)
-      .map(alert => alert.message)
+      .filter((alert) => alert.type === AlertType.Home)
+      .map((alert) => alert.message)
 
     return {
       pix: company.pix,
@@ -39,7 +43,7 @@ export class GetHomeInfoUseCase {
       statusAttendanceCompany,
       userAttendance,
       attendanceId: attendance?.id ?? null,
-      alerts
+      alerts,
     }
   }
 }

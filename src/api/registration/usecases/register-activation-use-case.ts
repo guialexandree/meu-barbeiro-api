@@ -3,13 +3,13 @@ import {
   Inject,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { IRegistrationRepository } from '../registration.repository';
-import { RegistrationStatus } from '../entities/registration.entity';
-import { RegisterActivationDto } from '../dto/register-activation.dto';
-import { UsersService } from '@/api/users/users.service';
-import { InvalidRuleException } from '@/domain/errors/invalid-rule-exception';
-import { UserRole } from '@/api/users/entities/user.entity';
+} from '@nestjs/common'
+import { IRegistrationRepository } from '../registration.repository'
+import { RegistrationStatus } from '../entities/registration.entity'
+import { RegisterActivationDto } from '../dto/register-activation.dto'
+import { UsersService } from '../../users/users.service'
+import { InvalidRuleException } from '../../../domain/errors/invalid-rule-exception'
+import { UserRole } from '../../users/entities/user.entity'
 @Injectable()
 export class RegisterActivationUseCase {
   constructor(
@@ -22,33 +22,35 @@ export class RegisterActivationUseCase {
   async execute(registerDto: RegisterActivationDto) {
     let registration = await this.registrationRepository.findByContactNumber(
       registerDto.contactNumber,
-    );
+    )
 
     if (!registration) {
-      throw new InvalidRuleException(['Nenhum registro encontrado para o número informado']);
+      throw new InvalidRuleException([
+        'Nenhum registro encontrado para o número informado',
+      ])
     }
 
     if (registerDto.activationCode !== registration.code) {
-      throw new InvalidRuleException(['Código inválido!']);
+      throw new InvalidRuleException(['Código inválido!'])
     }
 
     if (registration.status === RegistrationStatus.Activated) {
-      return { id: registration.id };
+      return { id: registration.id }
     }
 
-    registration.status = RegistrationStatus.Activated;
-    const registrationId = await this.registrationRepository.save(registration);
+    registration.status = RegistrationStatus.Activated
+    const registrationId = await this.registrationRepository.save(registration)
 
-    const { contactNumber: contact_number, ...userParams } = registerDto;
-    const contact = contact_number.replace(/\D/g, '');
+    const { contactNumber: contact_number, ...userParams } = registerDto
+    const contact = contact_number.replace(/\D/g, '')
     await this.usersService.create({
       ...userParams,
       username: contact,
       password: contact.slice(-4),
       contactNumber: contact,
       role: UserRole.Client,
-    });
+    })
 
-    return { id: registrationId };
+    return { id: registrationId }
   }
 }

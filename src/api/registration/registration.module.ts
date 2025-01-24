@@ -6,9 +6,9 @@ import { UsersModule } from '../users/users.module';
 import { Registration } from './entities/registration.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SmsModule } from '../sms/sms.module';
-import { AuthModule } from '@/auth/auth.module';
-import { DateAdapterModule } from '@/infra/adapters/date-adapter';
-import { RegisterActivationUseCase, RegisterUseCase } from '@/api/registration/usecases';
+import { AuthModule } from '../../auth/auth.module';
+import { DateAdapterModule } from '../../infra/adapters/date-adapter';
+import { RegisterActivationUseCase, RegisterUseCase } from './usecases';
 
 @Module({
   imports: [

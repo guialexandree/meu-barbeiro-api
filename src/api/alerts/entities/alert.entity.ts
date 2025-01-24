@@ -1,6 +1,6 @@
-import { Company } from '@/api/companies/entities/company.entity';
-import { randomUUID } from 'node:crypto';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { randomUUID } from 'node:crypto'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Company } from '../../companies/entities/company.entity'
 
 export enum AlertType {
   Home = 'home',
@@ -16,34 +16,34 @@ export enum AlertStatus {
 @Entity()
 export class Alert {
   @PrimaryColumn()
-  id: string;
+  id: string
 
   @Column()
-  message: string;
+  message: string
 
   @Column({ type: 'simple-enum' })
-  type: AlertType;
+  type: AlertType
 
   @Column({ type: 'simple-enum' })
-  status: AlertStatus;
+  status: AlertStatus
 
   @Column({ type: 'datetime' })
-  createdAt: Date;
+  createdAt: Date
 
   @JoinColumn({ name: 'company_id' })
   @ManyToOne(() => Company, (company) => company, {
     cascade: true,
   })
-  company: Company;
+  company: Company
 
   constructor(props: {
-    message: string;
-    type: AlertType;
-    company: Company;
-    createdAt: Date;
+    message: string
+    type: AlertType
+    company: Company
+    createdAt: Date
   }) {
-    Object.assign(this, props);
-    this.status ||= AlertStatus.Ativo;
-    this.id ||= randomUUID();
+    Object.assign(this, props)
+    this.status ||= AlertStatus.Ativo
+    this.id ||= randomUUID()
   }
 }
