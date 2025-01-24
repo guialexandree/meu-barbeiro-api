@@ -1,16 +1,16 @@
-import { Module } from '@nestjs/common';
-import { AlertsService } from './alerts.service';
-import { AlertsController } from './alerts.controller';
-import { AlertsRepository } from './alerts.repository';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Alert } from './entities/alert.entity';
-import { CompaniesModule } from '../companies/companies.module';
-import { DateAdapterModule } from '../../infra/adapters/date-adapter';
-import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case';
-import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case';
-import { CreateAlertUseCase } from './usecases/create-alert-use-case';
-import { UpdateAlertUseCase } from './usecases/update-alert-use-case';
-import { RemoveAlertUseCase } from './usecases/remove-alert-use-case';
+// filepath: /c:/Users/guilh/Desktop/dev24/susu-barbearia-api/src/api/alerts/alerts.module.ts
+import { Module } from '@nestjs/common'
+import { AlertsService } from './alerts.service.ts'
+import { AlertsController } from './alerts.controller.ts'
+import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case.ts'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Alert } from './entities/alert.entity.ts'
+import { CompaniesModule } from '@/api/companies/companies.module.ts'
+import { DateAdapterModule } from '@/infra/adapters/date-adapter'
+import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case.ts'
+import { CreateAlertUseCase } from './usecases/create-alert-use-case.ts'
+import { UpdateAlertUseCase } from './usecases/update-alert-use-case.ts'
+import { RemoveAlertUseCase } from './usecases/remove-alert-use-case.ts'
 
 @Module({
   imports: [
@@ -26,12 +26,6 @@ import { RemoveAlertUseCase } from './usecases/remove-alert-use-case';
     CreateAlertUseCase,
     UpdateAlertUseCase,
     RemoveAlertUseCase,
-    AlertsRepository,
-    {
-      provide: 'IAlertsRepository',
-      useExisting: AlertsRepository,
-    },
   ],
-  exports: [AlertsService],
 })
 export class AlertsModule {}

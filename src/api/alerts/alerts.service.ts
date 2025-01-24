@@ -1,12 +1,10 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common'
 import { UpdateAlertDto } from './dto/update-alert.dto'
-import {
-  CreateAlertUseCase,
-  GetAllAlertsUseCase,
-  RemoveAlertUseCase,
-  SeedAlertsUseCase,
-  UpdateAlertUseCase,
-} from '@/api/alerts/usecases'
+import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case.ts'
+import { CreateAlertUseCase } from './usecases/create-alert-use-case.ts'
+import { UpdateAlertUseCase } from './usecases/update-alert-use-case.ts'
+import { RemoveAlertUseCase } from './usecases/remove-alert-use-case.ts'
+import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case.ts'
 import { CreateAlertDto, RemoveAlertDto } from '@/api/alerts/dto'
 
 @Injectable()
