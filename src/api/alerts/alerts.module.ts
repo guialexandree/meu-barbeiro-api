@@ -6,7 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Alert } from './entities/alert.entity';
 import { CompaniesModule } from '../companies/companies.module';
 import { DateAdapterModule } from '../../infra/adapters/date-adapter';
-import { CreateAlertUseCase, GetAllAlertsUseCase, RemoveAlertUseCase, SeedAlertsUseCase, UpdateAlertUseCase } from '@/api/alerts/usecases';
+import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case';
+import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case';
+import { CreateAlertUseCase } from './usecases/create-alert-use-case';
+import { UpdateAlertUseCase } from './usecases/update-alert-use-case';
+import { RemoveAlertUseCase } from './usecases/remove-alert-use-case';
 
 @Module({
   imports: [
