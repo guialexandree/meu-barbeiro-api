@@ -8,7 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SmsModule } from '../sms/sms.module';
 import { AuthModule } from '../../auth/auth.module';
 import { DateAdapterModule } from '../../infra/adapters/date-adapter';
-import { RegisterActivationUseCase, RegisterUseCase } from './usecases';
+import { RegisterUseCase } from './usecases/register-use-case';
+import { RegisterActivationUseCase } from './usecases/register-activation-use-case';
 
 @Module({
   imports: [
