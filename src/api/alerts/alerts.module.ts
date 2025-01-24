@@ -27,5 +27,6 @@ import { RemoveAlertUseCase } from './usecases/remove-alert-use-case'
     UpdateAlertUseCase,
     RemoveAlertUseCase,
   ],
+  exports: [AlertsService],
 })
 export class AlertsModule {}
