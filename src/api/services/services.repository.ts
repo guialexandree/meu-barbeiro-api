@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Service } from './entities/service.entity';
+import { Service, ServiceStatus } from './entities/service.entity';
 
 export interface IServicesRepository {
+  findAllByName(name: string): Promise<Service[]>;
+  findByName(name: string): Promise<Service>;
+  findByStatus(status: ServiceStatus): Promise<Service[]>;
   findOne(id: string): Promise<Service>;
   remove(id: string): Promise<Service>;
   findAll(): Promise<Service[]>;
@@ -17,6 +20,18 @@ export class ServicesRepository implements IServicesRepository {
     @InjectRepository(Service)
     private repository: Repository<Service>,
   ) {}
+
+  async findAllByName(name: string): Promise<Service[]> {
+    return this.repository.find({ where: { name } });
+  }
+
+  async findByStatus(status: ServiceStatus): Promise<Service[]> {
+    return this.repository.find({ where: { status } });
+  }
+
+  async findByName(name: string): Promise<Service> {
+    return this.repository.findOneBy({ name });
+  }
 
   findOne(id: string): Promise<Service> {
     return this.repository.findOneBy({ id });

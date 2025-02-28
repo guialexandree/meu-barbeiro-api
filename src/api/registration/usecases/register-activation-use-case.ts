@@ -25,13 +25,13 @@ export class RegisterActivationUseCase {
     )
 
     if (!registration) {
-      throw new InvalidRuleException([
+      throw new InvalidRuleException(
         'Nenhum registro encontrado para o número informado',
-      ])
+      )
     }
 
     if (registerDto.activationCode !== registration.code) {
-      throw new InvalidRuleException(['Código inválido!'])
+      throw new InvalidRuleException('Código inválido!')
     }
 
     if (registration.status === RegistrationStatus.Activated) {

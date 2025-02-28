@@ -25,7 +25,7 @@ export class CreateAttendanceUseCase {
 
   async execute(input: CreateAttendanceDto, userId: string) {
     const user = await this.userService.findById(userId);
-    const services = await this.servicesService.findAll();
+    const services = await this.servicesService.findAll({ search: '', status: null });
     const selectedServices = services.filter(service => input.services.includes(service.id));
 
     const newAttendance = new Attendance({
@@ -47,7 +47,6 @@ export class CreateAttendanceUseCase {
       jobs.push(this.attendanceServiceRepository.save(attendanceService));
     }
     const rest = await Promise.all(jobs);
-    console.log(rest);
 
     return await this.attendancesRepository.findOne(attendance.id);
   }

@@ -5,7 +5,7 @@ import { Service } from './api/services/entities/service.entity'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './api/users/users.module'
 import { User } from './api/users/entities/user.entity'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AttendancesModule } from './api/attendances/attendances.module'
 import { Attendance } from './api/attendances/entities/attendance.entity'
 import { AttendanceService } from './api/attendances/entities/attendance.service.entity'
@@ -17,15 +17,36 @@ import { HomeModule } from './api/home/home.module'
 import { AlertsModule } from './api/alerts/alerts.module'
 import { Alert } from './api/alerts/entities/alert.entity'
 import { CompaniesModule } from './api/companies/companies.module'
-import { CompaniesOfficeHoursModule } from './api/companies-office-hours/companies-office-hours.module'
 import { Company } from './api/companies/entities/company.entity'
-import { CompaniesOfficeHour } from './api/companies-office-hours/entities/companies-office-hour.entity'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: () => ({
+    //     type: 'postgres' as const,
+    //     host: process.env.DATABASE_HOST,
+    //     port: +process.env.DATABASE_PORT,
+    //     username: process.env.DATABASE_USERNAME,
+    //     password: process.env.DATABASE_PASSWORD,
+    //     database: process.env.DATABASE_NAME,
+    //     ssl: {
+    //       rejectUnauthorized: false,
+    //     },
+    //     extra: {
+    //       sslmode: 'require',
+    //     },
+    //     entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    //     migrations: [__dirname + '/infra/migrations/*{.ts,.js}'],
+    //     cli: {
+    //       migrationsDir: './infra/migrations',
+    //     },
+    //     synchronize: false,
+    //   }),
+    // }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.db',
@@ -38,7 +59,6 @@ import { CompaniesOfficeHour } from './api/companies-office-hours/entities/compa
         Registration,
         Sms,
         Company,
-        CompaniesOfficeHour,
       ],
       synchronize: true,
     }),
@@ -51,7 +71,6 @@ import { CompaniesOfficeHour } from './api/companies-office-hours/entities/compa
     HomeModule,
     AlertsModule,
     CompaniesModule,
-    CompaniesOfficeHoursModule,
   ],
 })
 export class AppModule {}

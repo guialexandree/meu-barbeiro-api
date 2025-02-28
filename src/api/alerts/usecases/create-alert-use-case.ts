@@ -13,8 +13,6 @@ export class CreateAlertUseCase {
     @Inject('IAlertsRepository')
     private readonly alertsRepository: IAlertsRepository,
     @Inject()
-    private readonly companiesService: CompaniesService,
-    @Inject()
     private readonly updateAlertUseCase: UpdateAlertUseCase,
     @Inject('IDateAdapter')
     private readonly dateAdapter: IDateAdapter,
@@ -26,10 +24,8 @@ export class CreateAlertUseCase {
       return this.updateAlertUseCase.execute(alertExists.id, input)
     }
 
-    const companyId = await this.companiesService.findId()
     const newAlert = new Alert({
       ...input,
-      company: new Company({}, companyId),
       createdAt: this.dateAdapter.now(),
     })
     const alert = await this.alertsRepository.save(newAlert)

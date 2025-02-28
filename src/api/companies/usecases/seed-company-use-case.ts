@@ -2,8 +2,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ICompaniesRepository } from '../companies.repository'
 import { Company } from '../entities/company.entity'
 import { IDateAdapter } from '../../../infra/adapters/protocols'
-import { CompaniesOfficeHoursService } from '../../companies-office-hours/companies-office-hours.service'
-import { CompaniesOfficeHour } from '../../companies-office-hours/entities/companies-office-hour.entity'
 
 @Injectable()
 export class SeedCompanyUseCase {
@@ -11,11 +9,7 @@ export class SeedCompanyUseCase {
 
   constructor(
     @Inject('ICompaniesRepository')
-    private readonly companiesRepository: ICompaniesRepository,
-    @Inject()
-    private readonly companiesOfficeHoursService: CompaniesOfficeHoursService,
-    @Inject('IDateAdapter')
-    private readonly dateAdapter: IDateAdapter,
+    private readonly companiesRepository: ICompaniesRepository
   ) {}
 
   async execute() {
@@ -31,68 +25,7 @@ export class SeedCompanyUseCase {
       const company = await this.companiesRepository.save(newCompany)
       this.logger.verbose(JSON.stringify(company))
 
-      const startTime = this.dateAdapter.now()
-      const endTime = this.dateAdapter.now()
-      startTime.setHours(8, 30)
-      endTime.setHours(22)
-
-      const hoursWeekDays = [
-        {
-          weekDay: 0,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 1,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 2,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 3,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 4,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 5,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 6,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-        {
-          weekDay: 7,
-          start: startTime,
-          end: endTime,
-          company,
-        },
-      ]
-
-      const jobs: Promise<CompaniesOfficeHour>[] = []
-      for (const hoursWeekDay of hoursWeekDays) {
-        jobs.push(this.companiesOfficeHoursService.create(hoursWeekDay))
-      }
-
-      return await Promise.all(jobs)
+      return company
     }
   }
 }

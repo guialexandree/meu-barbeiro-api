@@ -1,21 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { SignInUseCase } from './usecases/sigin-use-case';
-import { SignInClientUseCase } from './usecases/sigin-client-use-case';
+import { Injectable } from '@nestjs/common'
+import { SignInUseCase } from './usecases/sigin-use-case'
+import { SignInClientUseCase } from './usecases/sigin-client-use-case'
+import { AdminAuthenticationDto } from './dto/admin-authentication.dto'
+import { AuthenticationDto } from './dto/authentication.dto'
 
 @Injectable()
 export class AuthService {
   constructor(
     private signInUseCase: SignInUseCase,
-    private signInClientUseCase: SignInClientUseCase
+    private signInClientUseCase: SignInClientUseCase,
   ) {}
 
-  async signIn(username: string, password: string): Promise<{ accessToken: string }> {
-    const accessToken = await this.signInUseCase.execute(username, password);
-    return accessToken;
+  async signIn(authenticationDto: AdminAuthenticationDto): Promise<{ accessToken: string }> {
+    const accessToken = await this.signInUseCase.execute(authenticationDto)
+    return accessToken
   }
 
-  async signInClient(deviceId: string): Promise<{ accessToken: string }> {
-    const accessToken = await this.signInClientUseCase.execute(deviceId);
-    return accessToken;
+  async signInClient(authenticationDto: AuthenticationDto): Promise<{ accessToken: string }> {
+    const accessToken = await this.signInClientUseCase.execute(authenticationDto.deviceId)
+    return accessToken
   }
 }

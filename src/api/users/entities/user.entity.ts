@@ -38,8 +38,9 @@ export class User {
   @Column()
   contactNumber: string
 
-  @Column({ nullable: true })
-  email: string
+  @Exclude()
+  @Column()
+  deviceId: string
 
   @Exclude()
   @Column()
@@ -62,7 +63,7 @@ export class User {
       username: string
       password: string
       contactNumber?: string
-      email?: string
+      deviceId?: string
       role: UserRole
       createdAt: Date
     },

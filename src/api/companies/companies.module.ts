@@ -7,13 +7,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Company } from './entities/company.entity';
 import { SeedCompanyUseCase } from './usecases/seed-company-use-case';
 import { CreateCompanyUseCase } from './usecases/create-company-use-case';
-import { CompaniesOfficeHoursModule } from '../companies-office-hours/companies-office-hours.module';
 import { GetCompanyIdUseCase } from './usecases/get-company-id-use-case';
 import { DateAdapterModule } from '../../infra/adapters/date-adapter/dayjs-adapter/date-adapter.module';
 
 @Module({
   imports: [
-    CompaniesOfficeHoursModule,
     DateAdapterModule,
     TypeOrmModule.forFeature([Company]),
   ],

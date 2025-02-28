@@ -1,4 +1,3 @@
-// filepath: /c:/Users/guilh/Desktop/dev24/susu-barbearia-api/src/api/alerts/alerts.module
 import { Module } from '@nestjs/common'
 import { AlertsService } from './alerts.service'
 import { AlertsController } from './alerts.controller'
@@ -16,7 +15,6 @@ import { AlertsRepository } from './alerts.repository'
 @Module({
   imports: [
     DateAdapterModule,
-    CompaniesModule,
     TypeOrmModule.forFeature([Alert]),
   ],
   controllers: [AlertsController],

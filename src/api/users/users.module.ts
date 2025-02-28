@@ -12,7 +12,10 @@ import { GetUserUseCase } from './usecases/get-user-user-case'
 import { SeedUsersUseCase } from './usecases/seed-users-use-case'
 
 @Module({
-  imports: [DateAdapterModule, TypeOrmModule.forFeature([User])],
+  imports: [
+    DateAdapterModule,
+    TypeOrmModule.forFeature([User])
+  ],
   controllers: [UsersController],
   providers: [
     UsersService,

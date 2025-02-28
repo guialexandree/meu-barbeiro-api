@@ -14,8 +14,6 @@ export class SeedAlertsUseCase {
     private readonly alertsRepository: IAlertsRepository,
     @Inject('IDateAdapter')
     private readonly dateAdapter: IDateAdapter,
-    @Inject()
-    private readonly companiesService: CompaniesService,
   ) {}
 
   async execute() {
@@ -24,19 +22,16 @@ export class SeedAlertsUseCase {
     if (alertsCount === 0) {
       this.logger.verbose('Seeding Alerts ###')
 
-      const companyId = await this.companiesService.findId()
       const newAlerts = [
         {
           message:
             'No mês de dezembro o corte terá acréscimo, novo valor será R$ 35',
           type: AlertType.Home,
-          company: new Company({}, companyId),
           createdAt: this.dateAdapter.now(),
         },
         {
           message: 'A partir de janeiro o preço do corte será R$ 35',
           type: AlertType.Servicos,
-          company: new Company({}, companyId),
           createdAt: this.dateAdapter.now(),
         },
       ]

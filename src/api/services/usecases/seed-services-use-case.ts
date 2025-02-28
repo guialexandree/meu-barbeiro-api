@@ -33,6 +33,7 @@ export class SeedServicesUseCase {
           price: 30.0,
           timeExecution: 30,
           ...defaultParams,
+          status: ServiceStatus.Inativo,
         },
         {
           name: "Progressiva",
@@ -61,6 +62,7 @@ export class SeedServicesUseCase {
           price: 35.0,
           timeExecution: 40,
           ...defaultParams,
+          status: ServiceStatus.Inativo,
         },
       ]
 

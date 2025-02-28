@@ -1,5 +1,4 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
-import { CompaniesOfficeHour } from '../../companies-office-hours/entities/companies-office-hour.entity'
 
 @Entity()
 export class Company {
@@ -11,12 +10,6 @@ export class Company {
 
   @Column()
   pix: string
-
-  @OneToMany(() => CompaniesOfficeHour, (officeHour) => officeHour.company, {
-    eager: true,
-  })
-  @JoinColumn()
-  officeHours: CompaniesOfficeHour[]
 
   constructor(
     props: {

@@ -1,5 +1,5 @@
 ### Login
-POST http://localhost:3000/services
+POST http://localhost:3000/api/services
 Content-Type: application/json
 
 {
@@ -9,13 +9,17 @@ Content-Type: application/json
     "timeExecution": 30
 }
 
+### Remover serviço
+DELETE http://localhost:3000/api/services/d9755e37-4470-416a-b5bd-b02fa73e1748
+Content-Type: application/json
+
 
 ### Buscar serviços
-GET http://localhost:3000/services
+GET http://localhost:3000/api/services?search=&status=ativo
 Content-Type: application/json
 
 ### Buscar atualiza descrição
-PATCH  http://localhost:3000/services/19b35e29-c060-4798-bf14-c3d110770287
+PATCH  http://localhost:3000/api/services/19b35e29-c060-4798-bf14-c3d110770287
 Content-Type: application/json
 
 {

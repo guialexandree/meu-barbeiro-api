@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common'
 import { CompaniesService } from '../../companies/companies.service'
 import { AttendancesService } from '../../attendances/attendances.service'
 import { AlertsService } from '../../alerts/alerts.service'
-import { IDateAdapter } from '../../../infra/adapters/protocols'
 import { AlertType } from '../../alerts/entities/alert.entity'
 
 @Injectable()
@@ -14,21 +13,12 @@ export class GetHomeInfoUseCase {
     private readonly attendancesService: AttendancesService,
     @Inject()
     private readonly alertsService: AlertsService,
-    @Inject('IDateAdapter')
-    private readonly dateAdapter: IDateAdapter,
   ) {}
 
   async execute(userId: string) {
     const company = await this.companiesService.find()
 
-    const weekDay = this.dateAdapter.weekDay()
-    const currentOfficeHours = company.officeHours.find(
-      (officeHours) => officeHours.weekDay === weekDay,
-    )
-    const isWithinTimeRange =
-      this.dateAdapter.isAfter(currentOfficeHours.start) &&
-      this.dateAdapter.isBefore(currentOfficeHours.end)
-    const statusAttendanceCompany = isWithinTimeRange ? 'aberto' : 'fechado'
+    const statusAttendanceCompany = 'aberto'
 
     const attendance = await this.attendancesService.findActivedByUser(userId)
     const userAttendance = attendance ? 'nafila' : 'online'

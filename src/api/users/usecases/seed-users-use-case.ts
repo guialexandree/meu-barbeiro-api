@@ -24,7 +24,8 @@ export class SeedUsersUseCase {
         {
           name: 'Guilherme',
           username: 'gui',
-          password: '1012',
+          password: '101214',
+          deviceId: 'HRJ21HH1HJ12HJ312H3JH1H2J3',
           contactNumber: '5545999872483',
           role: UserRole.Admin,
           createdAt: this.dateAdapter.now(),
@@ -32,6 +33,7 @@ export class SeedUsersUseCase {
         {
           name: 'Barbeiro',
           username: 'barbeiro',
+          deviceId: 'HR44121HH1HJ12HJ312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
           role: UserRole.Barber,
@@ -40,6 +42,7 @@ export class SeedUsersUseCase {
         {
           name: 'Cliente',
           username: 'client',
+          deviceId: 'HRJ21HH1HJ122312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
           role: UserRole.Client,

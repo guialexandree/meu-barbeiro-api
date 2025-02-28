@@ -1,6 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
-import { Company } from '../../companies/entities/company.entity'
+import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 export enum AlertType {
   Home = 'home',
@@ -30,18 +29,7 @@ export class Alert {
   @Column({ type: 'datetime' })
   createdAt: Date
 
-  @JoinColumn({ name: 'company_id' })
-  @ManyToOne(() => Company, (company) => company, {
-    cascade: true,
-  })
-  company: Company
-
-  constructor(props: {
-    message: string
-    type: AlertType
-    company: Company
-    createdAt: Date
-  }) {
+  constructor(props: { message: string; type: AlertType; createdAt: Date }) {
     Object.assign(this, props)
     this.status ||= AlertStatus.Ativo
     this.id ||= randomUUID()
