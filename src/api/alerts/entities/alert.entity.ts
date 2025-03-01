@@ -12,7 +12,7 @@ export enum AlertStatus {
   Pausado = 'inativo',
 }
 
-@Entity()
+@Entity('alerts')
 export class Alert {
   @PrimaryColumn()
   id: string
@@ -26,7 +26,7 @@ export class Alert {
   @Column({ type: 'simple-enum' })
   status: AlertStatus
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
 
   constructor(props: { message: string; type: AlertType; createdAt: Date }) {

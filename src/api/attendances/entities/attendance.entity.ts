@@ -16,12 +16,12 @@ export enum AttendanceStatus {
   Cancelado = 'cancelado',
 }
 
-@Entity()
+@Entity('attendances')
 export class Attendance {
   @PrimaryColumn()
   id: string
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
 
   @OneToMany(
@@ -35,13 +35,13 @@ export class Attendance {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, name: 'start_date' })
   startDate: Date | null
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, name: 'cancellation_date' })
   cancellationDate: Date | null
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, name: 'cancellation_reason' })
   cancellationReason: string
 
   @Column({ type: 'simple-enum' })

@@ -21,7 +21,7 @@ export enum UserStatus {
   Cancelado = 'canceled',
 }
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryColumn()
   id: string
@@ -35,7 +35,7 @@ export class User {
   @Column()
   username: string
 
-  @Column()
+  @Column({ name: 'contact_number' })
   contactNumber: string
 
   @Exclude()
@@ -54,7 +54,7 @@ export class User {
   @JoinColumn({ name: 'registration_id' })
   registration: Registration
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
 
   constructor(

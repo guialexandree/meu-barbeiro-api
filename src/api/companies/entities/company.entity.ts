@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
 
-@Entity()
+@Entity('companies')
 export class Company {
   @PrimaryColumn()
   id: string

@@ -8,7 +8,7 @@ export class Sms {
   @Column()
   message: string;
 
-  @Column()
+  @Column({ name: 'contact_number' })
   contactNumber: string;
 
   @Column({ type: 'timestamp' })

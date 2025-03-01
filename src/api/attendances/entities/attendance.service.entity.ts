@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 import { Attendance } from './attendance.entity'
 import { Service } from '../../services/entities/service.entity'
 
-@Entity()
+@Entity('attendance_services')
 export class AttendanceService {
   @PrimaryColumn()
   id: string

@@ -7,7 +7,7 @@ export enum ServiceStatus {
   Inativo = 'inativo',
 }
 
-@Entity()
+@Entity('services')
 export class Service {
   @PrimaryColumn('uuid')
   id: string;
@@ -21,18 +21,18 @@ export class Service {
   @Column('decimal', { precision: 10, scale: 2, default: 0.0 })
   price: number;
 
-  @Column({ default: 0 })
+  @Column({ default: 0, name: 'time_execution' })
   timeExecution: number;
 
   @Column({ type: 'simple-enum' })
   status: ServiceStatus;
 
   @Exclude()
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
 
   @Exclude()
-  @Column({ nullable: true, type: 'timestamp' })
+  @Column({ nullable: true, type: 'timestamp', name: 'updated_at' })
   updatedAt: Date | null;
 
   constructor(

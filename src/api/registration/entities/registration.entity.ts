@@ -13,21 +13,21 @@ export enum SMSStatus {
   Error = 'error',
 }
 
-@Entity()
+@Entity('registrations')
 export class Registration {
   @PrimaryColumn()
   id: string
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
 
-  @Column()
+  @Column({ name: 'contact_number' })
   contactNumber: string
 
   @Column()
   code: string
 
-  @Column({ type: 'simple-enum' })
+  @Column({ type: 'simple-enum', name: 'sms_status' })
   smsStatus: SMSStatus
 
   @OneToMany(() => Sms, (sms) => sms)
