@@ -11,7 +11,7 @@ export class Sms {
   @Column()
   contactNumber: string;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   date: Date;
 
   @Column()

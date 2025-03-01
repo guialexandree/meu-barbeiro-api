@@ -18,7 +18,7 @@ export class Registration {
   @PrimaryColumn()
   id: string
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   createdAt: Date
 
   @Column()

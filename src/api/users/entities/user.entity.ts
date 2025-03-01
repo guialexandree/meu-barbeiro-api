@@ -54,7 +54,7 @@ export class User {
   @JoinColumn({ name: 'registration_id' })
   registration: Registration
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   createdAt: Date
 
   constructor(

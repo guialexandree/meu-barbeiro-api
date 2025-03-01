@@ -21,7 +21,7 @@ export class Attendance {
   @PrimaryColumn()
   id: string
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   createdAt: Date
 
   @OneToMany(
@@ -35,10 +35,10 @@ export class Attendance {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   startDate: Date | null
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   cancellationDate: Date | null
 
   @Column({ nullable: true })

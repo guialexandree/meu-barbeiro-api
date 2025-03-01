@@ -26,7 +26,7 @@ export class Alert {
   @Column({ type: 'simple-enum' })
   status: AlertStatus
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   createdAt: Date
 
   constructor(props: { message: string; type: AlertType; createdAt: Date }) {

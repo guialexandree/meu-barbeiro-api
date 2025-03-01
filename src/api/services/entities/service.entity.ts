@@ -28,11 +28,11 @@ export class Service {
   status: ServiceStatus;
 
   @Exclude()
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   createdAt: Date;
 
   @Exclude()
-  @Column({ nullable: true, type: 'datetime' })
+  @Column({ nullable: true, type: 'timestamp' })
   updatedAt: Date | null;
 
   constructor(
