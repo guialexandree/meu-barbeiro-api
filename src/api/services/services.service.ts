@@ -30,8 +30,9 @@ export class ServicesService implements OnModuleInit {
     return this.seedServicesUseCase.execute()
   }
 
-  create(createServicoDto: CreateServiceDto) {
-    return this.createServiceUseCase.execute(createServicoDto)
+  async create(createServicoDto: CreateServiceDto) {
+    const { id } = await this.createServiceUseCase.execute(createServicoDto)
+    return { id }
   }
 
   async findAll(getServicesDto: GetServicesDto) {
