@@ -54,8 +54,13 @@ export class ServicesService implements OnModuleInit {
     return this.getServicesListUseCase.execute()
   }
 
-  findOne(id: string) {
-    return this.getServiceUseCase.execute(id)
+  async findOne(id: string) {
+    const service = await this.getServiceUseCase.execute(id)
+    if (!service) {
+      throw new HttpException('O serviço não foi encontrado', 404)
+    }
+
+    return service
   }
 
   async update(id: string, updateServicoDto: UpdateServiceDto) {
