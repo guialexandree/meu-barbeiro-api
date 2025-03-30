@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Service, ServiceStatus } from './entities/service.entity';
 
@@ -30,7 +30,7 @@ export class ServicesRepository implements IServicesRepository {
   }
 
   async findByName(name: string): Promise<Service> {
-    return this.repository.findOneBy({ name });
+    return this.repository.findOne({ where: { name: ILike(`%${name}%`) } });
   }
 
   findOne(id: string): Promise<Service> {
