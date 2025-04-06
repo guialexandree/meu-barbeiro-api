@@ -18,7 +18,6 @@ async function bootstrap() {
     .setTitle('Barbearia API')
     .setDescription('API de gereciamento do sistema para barbearias')
     .setVersion('1.0')
-    .addTag('barber')
     .build()
   const documentFactory = () => SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api/swagger', app, documentFactory)

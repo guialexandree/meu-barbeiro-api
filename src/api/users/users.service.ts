@@ -1,20 +1,23 @@
 import { Inject, Injectable, OnModuleInit, Request } from '@nestjs/common'
-import { GetUserUseCase } from './usecases/get-user-user-case'
-import { CreateUserDto } from './dto/create-user.dto'
+import { CreateUserParamsDto } from './dto/create-user.dto'
 import { CreateUserUseCase } from './usecases/create-user-use-case'
 import { GetUserByIdUseCase } from './usecases/get-user-by-id-use-case'
 import { SeedUsersUseCase } from './usecases/seed-users-use-case'
 import { ChangeNameUseCase } from './usecases/change-name-use-case'
+import { LoadUsersUseCase } from './usecases/get-users-use-case'
+import { LoadUserByNameUseCase } from './usecases/get-user-by-name-use-case'
+import { LoadUsersParamsDto } from './dto'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
   constructor(
     @Inject()
-    private getUserUseCase: GetUserUseCase,
+    private getUserUseCase: LoadUserByNameUseCase,
     private getUserByIdUseCase: GetUserByIdUseCase,
     private createUserUseCase: CreateUserUseCase,
     private changeNameUseCase: ChangeNameUseCase,
     private seedUserUseCase: SeedUsersUseCase,
+    private loadUsersUseCase: LoadUsersUseCase,
   ) {}
 
   onModuleInit() {
@@ -29,7 +32,11 @@ export class UsersService implements OnModuleInit {
     return this.getUserUseCase.execute(userName)
   }
 
-  create(user: CreateUserDto) {
+  search(filters: LoadUsersParamsDto) {
+    return this.loadUsersUseCase.execute(filters)
+  }
+
+  create(user: CreateUserParamsDto) {
     return this.createUserUseCase.execute(user)
   }
 

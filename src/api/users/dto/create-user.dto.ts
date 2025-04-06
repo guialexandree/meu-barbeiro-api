@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { UserOrigin, UserRole } from '../entities/user.entity'
 import { IsNotEmpty, IsString, Length } from 'class-validator'
 
-export class CreateUserDto {
+export class CreateUserParamsDto {
   @ApiProperty()
   @IsNotEmpty()
   username: string

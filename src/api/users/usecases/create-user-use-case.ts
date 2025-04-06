@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { IUsersRepository } from '../users.repository'
-import { CreateUserDto } from '../dto/create-user.dto'
+import { CreateUserParamsDto } from '../dto/create-user.dto'
 import { User, UserRole } from '../entities/user.entity'
 import { IDateAdapter } from '../../../infra/adapters/protocols'
 
@@ -13,7 +13,7 @@ export class CreateUserUseCase {
     private readonly dateAdapter: IDateAdapter,
   ) {}
 
-  async execute(input: CreateUserDto) {
+  async execute(input: CreateUserParamsDto) {
     const user = new User({
       ...input,
       username: input.username.toLowerCase(),
