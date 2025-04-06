@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { Injectable } from '@nestjs/common'
+import { Repository } from 'typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
+import { User } from './entities/user.entity'
 
 export interface IUsersRepository {
-  findUser(username: string): Promise<User>;
-  findById(id: string): Promise<User>;
-  save(service: User): Promise<User>;
-  count(): Promise<number>;
+  findUser(username: string): Promise<User>
+  findById(id: string): Promise<User>
+  save(service: User): Promise<User>
+  count(): Promise<number>
 }
 
 @Injectable()
@@ -18,18 +18,20 @@ export class UsersRepository implements IUsersRepository {
   ) {}
 
   findUser(username: string): Promise<User> {
-    return this.repository.findOneBy({ username });
+    return this.repository.findOne({
+      where: { username: username.toLowerCase() },
+    })
   }
 
   findById(id: string): Promise<User> {
-    return this.repository.findOneBy({ id });
+    return this.repository.findOneBy({ id })
   }
 
   save(user: User): Promise<User> {
-    return this.repository.save(user);
+    return this.repository.save(user)
   }
 
   count(): Promise<number> {
-    return this.repository.count();
+    return this.repository.count()
   }
 }
