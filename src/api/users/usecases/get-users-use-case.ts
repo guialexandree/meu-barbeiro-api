@@ -23,7 +23,6 @@ export class LoadUsersUseCase {
       filters.page,
       filters.limit,
     )
-    console.log('data', data)
 
     return {
       data,

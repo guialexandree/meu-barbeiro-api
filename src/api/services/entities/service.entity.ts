@@ -3,8 +3,8 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 export enum ServiceStatus {
-  Ativo = 'ativo',
-  Inativo = 'inativo',
+  Ativo = 'actived',
+  Inativo = 'deactivated',
 }
 
 @Entity('services')

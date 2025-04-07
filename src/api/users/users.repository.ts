@@ -32,6 +32,7 @@ export class UsersRepository implements IUsersRepository {
       where: whereCondition,
       skip: offset,
       take: limit,
+      order: { name: 'asc' },
     })
   }
 
