@@ -32,9 +32,6 @@ export class User {
   @Column({ type: 'simple-enum' })
   status: UserStatus
 
-  @Column()
-  username: string
-
   @Column({ name: 'contact_number' })
   contactNumber: string
 
@@ -59,10 +56,9 @@ export class User {
 
   constructor(
     props: {
-      name?: string
-      username: string
+      name: string
       password: string
-      contactNumber?: string
+      contactNumber: string
       deviceId?: string
       role: UserRole
       createdAt: Date

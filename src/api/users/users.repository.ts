@@ -20,13 +20,13 @@ export class UsersRepository implements IUsersRepository {
 
   find(username: string): Promise<User> {
     return this.repository.findOne({
-      where: { username: username.toLowerCase() },
+      where: { name: username.toLowerCase() },
     })
   }
 
   findPaginated(search: string, page: number, limit: number): Promise<User[]> {
     const offset = (page - 1) * limit
-    const whereCondition = search ? { username: search.toLowerCase() } : {}
+    const whereCondition = search ? { name: search.toLowerCase() } : {}
 
     return this.repository.find({
       where: whereCondition,
@@ -47,7 +47,7 @@ export class UsersRepository implements IUsersRepository {
   count(search?: string): Promise<number> {
     if (search) {
       return this.repository.count({
-      where: { username: search.toLowerCase() },
+      where: { name: search.toLowerCase() },
       })
     }
     return this.repository.count()

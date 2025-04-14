@@ -18,8 +18,8 @@ export class SignInUseCase {
 
     const payload = {
       sub: user.id,
-      username: user.username,
-      name: user.username,
+      role: user.role,
+      name: user.name,
     }
 
     return {

@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { UserOrigin, UserRole } from '../entities/user.entity'
-import { IsNotEmpty, IsString, Length } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator'
 
 export class CreateUserParamsDto {
-  @ApiProperty()
-  @IsNotEmpty()
-  username: string
+  @ApiProperty({ required: false })
+  @IsOptional()
+  name: string
 
   @ApiProperty()
   @IsNotEmpty()
@@ -16,20 +16,20 @@ export class CreateUserParamsDto {
   @IsNotEmpty()
   contactNumber: string
 
-  @ApiProperty()
-  @IsNotEmpty()
-  origin: UserOrigin
+  @ApiProperty({ required: false })
+  @IsOptional()
+  origin?: UserOrigin
 
   @ApiProperty({ required: false })
-  name?: string
-
-  @ApiProperty({ required: false })
+  @IsOptional()
   @IsString()
   email?: string
 
   @ApiProperty({ required: false })
+  @IsOptional()
   token?: string
 
   @ApiProperty({ required: false })
+  @IsOptional()
   role?: UserRole
 }
