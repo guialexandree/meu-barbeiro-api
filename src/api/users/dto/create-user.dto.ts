@@ -12,7 +12,7 @@ export class CreateUserParamsDto {
   password: string
 
   @ApiProperty()
-  @Length(14, 14)
+  @Length(9, 14)
   @IsNotEmpty()
   contactNumber: string
 
