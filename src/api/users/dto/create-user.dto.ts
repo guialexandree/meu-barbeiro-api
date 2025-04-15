@@ -4,7 +4,7 @@ import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator'
 
 export class CreateUserParamsDto {
   @ApiProperty({ required: false })
-  @IsOptional()
+  @IsNotEmpty()
   name: string
 
   @ApiProperty()

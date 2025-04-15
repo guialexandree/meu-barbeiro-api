@@ -1,9 +1,4 @@
-import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { IRegistrationRepository } from '../registration.repository'
 import { RegistrationStatus } from '../entities/registration.entity'
 import { RegisterActivationDto } from '../dto/register-activation.dto'
@@ -45,7 +40,7 @@ export class RegisterActivationUseCase {
     const contact = contact_number.replace(/\D/g, '')
     await this.usersService.create({
       ...userParams,
-      username: contact,
+      name: registerDto.name,
       password: contact.slice(-4),
       contactNumber: contact,
       role: UserRole.Client,
