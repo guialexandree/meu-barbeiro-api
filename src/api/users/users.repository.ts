@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Repository } from 'typeorm'
+import { MoreThanOrEqual, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { User } from './entities/user.entity'
 
@@ -9,6 +9,7 @@ export interface IUsersRepository {
   findById(id: string): Promise<User>
   save(service: User): Promise<User>
   count(search?: string): Promise<number>
+  countStartDate(startDate: Date): Promise<number>
 }
 
 @Injectable()
@@ -51,5 +52,11 @@ export class UsersRepository implements IUsersRepository {
       })
     }
     return this.repository.count()
+  }
+
+  countStartDate(startDate?: Date): Promise<number> {
+    return this.repository.count({
+      where: { createdAt: MoreThanOrEqual(startDate) },
+    })
   }
 }

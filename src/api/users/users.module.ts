@@ -7,10 +7,11 @@ import { UsersController } from './users.controller'
 import { DateAdapterModule } from '../../infra/adapters/date-adapter'
 import { ChangeNameUseCase } from './usecases/change-name-use-case'
 import { CreateUserUseCase } from './usecases/create-user-use-case'
-import { GetUserByIdUseCase } from './usecases/get-user-by-id-use-case'
-import { LoadUserByNameUseCase } from './usecases/get-user-by-name-use-case'
+import { GetUserByIdUseCase } from './usecases/load-user-by-id-use-case'
+import { LoadUserByNameUseCase } from './usecases/load-user-by-name-use-case'
 import { SeedUsersUseCase } from './usecases/seed-users-use-case'
-import { LoadUsersUseCase } from './usecases/get-users-use-case'
+import { LoadUsersUseCase } from './usecases/load-users-use-case'
+import { LoadUsersTotalizerUseCase } from './usecases/load-users-totalizer-use-case'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LoadUsersUseCase } from './usecases/get-users-use-case'
     ChangeNameUseCase,
     SeedUsersUseCase,
     LoadUsersUseCase,
+    LoadUsersTotalizerUseCase,
     UsersRepository,
     {
       provide: 'IUsersRepository',

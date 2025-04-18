@@ -1,7 +1,7 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { RegistrationService } from './registration.service';
-import { RegisterDto } from './dto/register.dto';
-import { RegisterActivationDto } from './dto/register-activation.dto';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common'
+import { RegistrationService } from './registration.service'
+import { RegisterDto } from './dto/register.dto'
+import { RegisterActivationDto } from './dto/register-activation.dto'
 
 @Controller('registration')
 export class RegistrationController {
@@ -10,12 +10,12 @@ export class RegistrationController {
   @HttpCode(HttpStatus.OK)
   @Post()
   register(@Body() registerDto: RegisterDto) {
-    return this.registrationService.register(registerDto);
+    return this.registrationService.register(registerDto)
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('activation')
   activation(@Body() activationDto: RegisterActivationDto) {
-    return this.registrationService.activation(activationDto);
+    return this.registrationService.activation(activationDto)
   }
 }

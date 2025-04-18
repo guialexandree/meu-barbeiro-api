@@ -16,4 +16,9 @@ export class UsersController {
   search(@Param() filters?: LoadUsersParamsDto) {
     return this.usersService.search(filters)
   }
+
+  @Get('totalizer')
+  totalizer() {
+    return this.usersService.loadTotalizer()
+  }
 }
