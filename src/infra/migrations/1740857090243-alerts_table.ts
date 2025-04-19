@@ -2,9 +2,10 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
 export class AlertsTable1740857090243 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
     await queryRunner.createTable(
       new Table({
-        name: 'alert',
+        name: 'alerts',
         columns: [
           {
             name: 'id',
@@ -28,7 +29,7 @@ export class AlertsTable1740857090243 implements MigrationInterface {
             enum: ['ativo', 'inativo'],
           },
           {
-            name: 'createdAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },

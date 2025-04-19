@@ -6,7 +6,7 @@ export class AttendancesServicesTable1740858546096
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'attendance_service',
+        name: 'attendances_services',
         columns: [
           {
             name: 'id',
@@ -34,23 +34,23 @@ export class AttendancesServicesTable1740858546096
       true,
     )
 
-    await queryRunner.createForeignKeys('attendance_service', [
+    await queryRunner.createForeignKeys('attendances_services', [
       new TableForeignKey({
         columnNames: ['attendance_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'attendance',
+        referencedTableName: 'attendances',
         onDelete: 'CASCADE',
       }),
       new TableForeignKey({
         columnNames: ['service_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'service',
+        referencedTableName: 'services',
         onDelete: 'CASCADE',
       }),
     ])
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('attendance_service')
+    await queryRunner.dropTable('attendances_services')
   }
 }

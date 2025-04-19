@@ -4,7 +4,7 @@ export class UsersTable1740857483767 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'user',
+        name: 'users',
         columns: [
           {
             name: 'id',
@@ -21,19 +21,16 @@ export class UsersTable1740857483767 implements MigrationInterface {
           {
             name: 'status',
             type: 'enum',
-            enum: ['actived', 'bloqued', 'canceled'],
+            enum: ['actived', 'deactivated', 'canceled'],
           },
           {
-            name: 'username',
+            name: 'contact_number',
             type: 'varchar',
           },
           {
-            name: 'contactNumber',
+            name: 'device_id',
             type: 'varchar',
-          },
-          {
-            name: 'deviceId',
-            type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'password',
@@ -45,28 +42,13 @@ export class UsersTable1740857483767 implements MigrationInterface {
             enum: ['admin', 'barber', 'client'],
           },
           {
-            name: 'createdAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
-          },
-          {
-            name: 'registration_id',
-            type: 'uuid',
-            isNullable: true,
           },
         ],
       }),
       true,
-    )
-
-    await queryRunner.createForeignKey(
-      'user',
-      new TableForeignKey({
-        columnNames: ['registration_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'registration',
-        onDelete: 'SET NULL',
-      }),
     )
   }
 

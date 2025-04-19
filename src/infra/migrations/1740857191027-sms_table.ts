@@ -18,7 +18,7 @@ export class SmsTable1740857191027 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'contactNumber',
+            name: 'contact_number',
             type: 'varchar',
           },
           {

@@ -4,7 +4,7 @@ export class AttendancesTable1740858519170 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'attendance',
+        name: 'attendances',
         columns: [
           {
             name: 'id',
@@ -14,22 +14,22 @@ export class AttendancesTable1740858519170 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'createdAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'startDate',
+            name: 'start_date',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'cancellationDate',
+            name: 'cancellation_date',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'cancellationReason',
+            name: 'cancellation_reason',
             type: 'varchar',
             isNullable: true,
           },
@@ -49,17 +49,17 @@ export class AttendancesTable1740858519170 implements MigrationInterface {
     )
 
     await queryRunner.createForeignKey(
-      'attendance',
+      'attendances',
       new TableForeignKey({
         columnNames: ['user_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'user',
+        referencedTableName: 'users',
         onDelete: 'SET NULL',
       }),
     )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('attendance')
+    await queryRunner.dropTable('attendances')
   }
 }

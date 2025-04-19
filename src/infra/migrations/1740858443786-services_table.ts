@@ -4,7 +4,7 @@ export class ServicesTable1740858443786 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'service',
+        name: 'services',
         columns: [
           {
             name: 'id',
@@ -30,22 +30,22 @@ export class ServicesTable1740858443786 implements MigrationInterface {
             default: 0.0,
           },
           {
-            name: 'timeExecution',
+            name: 'time_execution',
             type: 'int',
             default: 0,
           },
           {
             name: 'status',
             type: 'enum',
-            enum: ['ativo', 'inativo'],
+            enum: ['actived', 'deactivated'],
           },
           {
-            name: 'createdAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'updatedAt',
+            name: 'updated_at',
             type: 'timestamp',
             isNullable: true,
           },
