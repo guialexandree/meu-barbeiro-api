@@ -13,4 +13,10 @@ export class LoadUsersTotalizerDto {
   })
   @IsInt()
   new: number
+
+  @ApiProperty({
+    description: 'Percentual de novos clientes em relação ao mês anterior',
+  })
+  @IsInt()
+  growth: number
 }

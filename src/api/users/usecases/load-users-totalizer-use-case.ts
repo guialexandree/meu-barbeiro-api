@@ -14,12 +14,20 @@ export class LoadUsersTotalizerUseCase {
 
   async execute(): Promise<LoadUsersTotalizerDto> {
     const total = await this.usersRepository.count()
+
     const startDate = this.dateAdapter.daysAgo(30)
     const newUsers = await this.usersRepository.countStartDate(startDate)
 
+    const lastMonth = this.dateAdapter.daysAgo(60)
+    const newUsersLastMonth = await this.usersRepository.countStartDate(lastMonth)
+    const totalNewUsersLastMonth = newUsersLastMonth - newUsers
+
+    const growth = totalNewUsersLastMonth > 0 ? (newUsers / totalNewUsersLastMonth) * 100 : 0
+
     return {
       total,
-      new: newUsers
+      new: newUsers,
+      growth
     }
   }
 }

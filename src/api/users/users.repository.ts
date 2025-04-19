@@ -27,7 +27,7 @@ export class UsersRepository implements IUsersRepository {
 
   findPaginated(search: string, page: number, limit: number): Promise<User[]> {
     const offset = (page - 1) * limit
-    const whereCondition = search ? { name: search.toLowerCase() } : {}
+    const whereCondition = search ? { name: search?.toLowerCase() } : {}
 
     return this.repository.find({
       where: whereCondition,
