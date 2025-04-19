@@ -20,9 +20,9 @@ export class LoadUsersTotalizerUseCase {
 
     const lastMonth = this.dateAdapter.daysAgo(60)
     const newUsersLastMonth = await this.usersRepository.countStartDate(lastMonth)
-    const totalNewUsersLastMonth = newUsersLastMonth - newUsers
-
-    const growth = totalNewUsersLastMonth > 0 ? (newUsers / totalNewUsersLastMonth) * 100 : 0
+    let totalNewUsersLastMonth = newUsersLastMonth - newUsers
+    totalNewUsersLastMonth = totalNewUsersLastMonth === 0 ? 1 : totalNewUsersLastMonth
+    const growth = (newUsers / totalNewUsersLastMonth) * 100
 
     return {
       total,
