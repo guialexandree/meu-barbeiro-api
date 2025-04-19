@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Get, Query, Post } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserParamsDto } from './dto/create-user.dto'
 import { LoadUsersParamsDto } from './dto'
@@ -13,7 +13,7 @@ export class UsersController {
   }
 
   @Get()
-  search(@Param() filters?: LoadUsersParamsDto) {
+  search(@Query() filters?: LoadUsersParamsDto) {
     return this.usersService.search(filters)
   }
 

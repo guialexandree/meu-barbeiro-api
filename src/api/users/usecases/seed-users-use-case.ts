@@ -22,7 +22,7 @@ export class SeedUsersUseCase {
       this.logger.verbose('Seeding Users ###')
       const users = [
         {
-          name: 'Guilherme',
+          name: 'guilherme',
           password: '101214',
           deviceId: 'HRJ21HH1HJ12HJ312H3JH1H2J3',
           contactNumber: '5545999872483',
@@ -30,7 +30,7 @@ export class SeedUsersUseCase {
           createdAt: this.dateAdapter.now(),
         },
         {
-          name: 'Barbeiro',
+          name: 'barbeiro',
           deviceId: 'HR44121HH1HJ12HJ312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
@@ -38,7 +38,7 @@ export class SeedUsersUseCase {
           createdAt: this.dateAdapter.now(),
         },
         {
-          name: 'Cliente',
+          name: 'cliente',
           deviceId: 'HRJ21HH1HJ122312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',

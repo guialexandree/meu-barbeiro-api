@@ -9,6 +9,7 @@ export class LoadUsersParamsDto {
     required: false,
     default: 1,
   })
+  @IsOptional()
   page?: number
 
   @ApiProperty({
@@ -17,12 +18,10 @@ export class LoadUsersParamsDto {
     required: false,
     default: 10,
   })
-  @IsInt()
   @IsOptional()
   limit?: number
 
   @ApiProperty({ description: 'Buscar por usuários', required: false })
-  @IsString()
   @IsOptional()
   @Length(0, 255)
   search?: string
@@ -34,5 +33,6 @@ export class LoadUsersParamsDto {
     required: false,
     default: UserRole.Client,
   })
+  @IsOptional()
   role?: UserRole
 }

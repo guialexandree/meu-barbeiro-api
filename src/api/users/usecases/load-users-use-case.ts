@@ -11,27 +11,18 @@ export class LoadUsersUseCase {
     private readonly usersRepository: IUsersRepository,
   ) {}
 
-  async execute(filters: LoadUsersParamsDto): Promise<PaginatedResult<User>> {
+  async execute(filters: LoadUsersParamsDto): Promise<User[]> {
     filters.page = filters.page || 1
     filters.limit = filters.limit || 10
-    filters.search = filters.search || ''
-    filters.search = filters.search.toLowerCase()
+    filters.search = filters.search?.toLowerCase()
 
-    const total = await this.usersRepository.count(filters.search)
-    const data = await this.usersRepository.findPaginated(
+    const users = await this.usersRepository.findPaginated(
       filters.search,
       filters.page,
       filters.limit,
     )
 
-    return {
-      data,
-      pagination: {
-        total,
-        page: filters.page,
-        limit: filters.limit,
-      }
-    }
+    return users
   }
 }
 

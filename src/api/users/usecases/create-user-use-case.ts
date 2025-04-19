@@ -16,6 +16,7 @@ export class CreateUserUseCase {
   async execute(input: CreateUserParamsDto) {
     const user = new User({
       ...input,
+      name: input.name.toLowerCase(),
       createdAt: this.dateAdapter.now(),
       role: input.role ?? UserRole.Client,
     })

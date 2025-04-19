@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { MoreThanOrEqual, Repository } from 'typeorm'
+import { Like, MoreThanOrEqual, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { User } from './entities/user.entity'
 
@@ -27,7 +27,9 @@ export class UsersRepository implements IUsersRepository {
 
   findPaginated(search: string, page: number, limit: number): Promise<User[]> {
     const offset = (page - 1) * limit
-    const whereCondition = search ? { name: search?.toLowerCase() } : {}
+    const whereCondition = search
+      ? { name: Like(`%${search}%`) }
+      : {}
 
     return this.repository.find({
       where: whereCondition,
@@ -48,7 +50,7 @@ export class UsersRepository implements IUsersRepository {
   count(search?: string): Promise<number> {
     if (search) {
       return this.repository.count({
-      where: { name: search.toLowerCase() },
+        where: { name: search },
       })
     }
     return this.repository.count()
