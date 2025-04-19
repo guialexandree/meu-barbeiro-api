@@ -16,8 +16,8 @@ export class CreateUserUseCase {
   async execute(input: CreateUserParamsDto) {
     const user = new User({
       ...input,
-      role: input.role ?? UserRole.Client,
       createdAt: this.dateAdapter.now(),
+      role: input.role ?? UserRole.Client,
     })
 
     return this.userRepository.save(user)

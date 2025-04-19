@@ -36,7 +36,7 @@ export class User {
   contactNumber: string
 
   @Exclude()
-  @Column()
+  @Column({ nullable: true, name: 'device_id' })
   deviceId: string
 
   @Exclude()
@@ -45,11 +45,6 @@ export class User {
 
   @Column({ type: 'simple-enum' })
   role: UserRole
-
-  @Exclude()
-  @OneToMany(() => Registration, (registration) => registration)
-  @JoinColumn({ name: 'registration_id' })
-  registration: Registration
 
   @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
@@ -60,8 +55,8 @@ export class User {
       password: string
       contactNumber: string
       deviceId?: string
-      role: UserRole
       createdAt: Date
+      role: UserRole
     },
     id?: string,
   ) {

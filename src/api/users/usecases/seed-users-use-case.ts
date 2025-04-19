@@ -1,21 +1,21 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { IUsersRepository } from '../users.repository';
-import { User, UserRole } from '../entities/user.entity';
-import { IDateAdapter } from '../../../infra/adapters/protocols';
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { IUsersRepository } from '../users.repository'
+import { User, UserRole } from '../entities/user.entity'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class SeedUsersUseCase {
-  private readonly logger = new Logger(SeedUsersUseCase.name);
+  private readonly logger = new Logger(SeedUsersUseCase.name)
 
   constructor(
     @Inject('IUsersRepository')
     private readonly usersRepository: IUsersRepository,
 
     @Inject('IDateAdapter')
-    private readonly dateAdapter: IDateAdapter
+    private readonly dateAdapter: IDateAdapter,
   ) {}
 
-  async execute (){
+  async execute() {
     const userCount = await this.usersRepository.count()
 
     if (userCount === 0) {
@@ -23,7 +23,6 @@ export class SeedUsersUseCase {
       const users = [
         {
           name: 'Guilherme',
-          username: 'gui',
           password: '101214',
           deviceId: 'HRJ21HH1HJ12HJ312H3JH1H2J3',
           contactNumber: '5545999872483',
@@ -32,7 +31,6 @@ export class SeedUsersUseCase {
         },
         {
           name: 'Barbeiro',
-          username: 'barbeiro',
           deviceId: 'HR44121HH1HJ12HJ312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
@@ -41,21 +39,20 @@ export class SeedUsersUseCase {
         },
         {
           name: 'Cliente',
-          username: 'client',
           deviceId: 'HRJ21HH1HJ122312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
           role: UserRole.Client,
           createdAt: this.dateAdapter.now(),
-        }
+        },
       ]
 
-      const jobs: Promise<User>[] = [];
+      const jobs: Promise<User>[] = []
       for (const user of users) {
-        var newUser = new User(user);
+        var newUser = new User(user)
         jobs.push(this.usersRepository.save(newUser))
       }
-      await Promise.all(jobs);
+      await Promise.all(jobs)
     }
   }
 }

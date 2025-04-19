@@ -1,13 +1,13 @@
 ### Criar usuário
-POST http://localhost:3000/users
+POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-    "username": "gui2",
+    "name": "Caio",
     "password": "123",
-    "contact_number": "5512",
-    "creationType": "barber",
-    "device_id": 12321
+    "contactNumber": "19999999999",
+    "password": "101215",
+    "role": "client"
 }
 
 ### Buscar usuário

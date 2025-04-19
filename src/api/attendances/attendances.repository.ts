@@ -31,9 +31,9 @@ export class AttendancesRepository implements IAttendancesRepository {
     const end = this.dateAdapter.endOf()
 
     const result = await this.repositoryAttendanceService
-      .createQueryBuilder('attendance_service')
-      .leftJoinAndSelect('attendance_service.attendance', 'attendance')
-      .leftJoinAndSelect('attendance_service.service', 'service')
+      .createQueryBuilder('attendances_services')
+      .leftJoinAndSelect('attendances_services.attendance', 'attendances')
+      .leftJoinAndSelect('attendances_services.service', 'services')
       .where('attendance.status = :status', { status: AttendanceStatus.NaFila })
       .andWhere('attendance.createdAt BETWEEN :startDate AND :endDate', {
         start,
