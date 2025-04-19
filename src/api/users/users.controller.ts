@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Query, Post } from '@nestjs/common'
+import { Body, Controller, Get, Query, Post, Param } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserParamsDto } from './dto/create-user.dto'
 import { LoadUsersParamsDto } from './dto'
@@ -10,6 +10,11 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserParamsDto) {
     return this.usersService.create(createUserDto)
+  }
+
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.usersService.findById(id)
   }
 
   @Get()
