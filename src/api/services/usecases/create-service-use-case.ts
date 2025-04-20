@@ -15,13 +15,15 @@ export class CreateServiceUseCase {
   ) {}
 
   async execute(input: CreateServiceDto) {
-    const hasService = await this.servicesRepository.findByName(input.name)
+    const hasService = await this.servicesRepository.findByName(input.name.toLowerCase())
     if (hasService) {
       throw new InvalidRuleException('Já existe um serviço com esse nome')
     }
 
     const serviceParams = {
       ...input,
+      name: input.name.trim().toLowerCase(),
+      description: input.description?.trim()?.toLowerCase(),
       createdAt: this.dateAdapter.now(),
       updatedAt: this.dateAdapter.now(),
       status: ServiceStatus.Ativo,

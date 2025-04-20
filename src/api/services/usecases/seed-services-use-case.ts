@@ -28,7 +28,7 @@ export class SeedServicesUseCase {
 
       const services = [
         {
-          name: "Corte",
+          name: "corte",
           description: "",
           price: 30.0,
           timeExecution: 30,
@@ -36,28 +36,28 @@ export class SeedServicesUseCase {
           status: ServiceStatus.Inativo,
         },
         {
-          name: "Progressiva",
-          description: "Progessiva + Hidratação",
+          name: "progressiva",
+          description: "progessiva + hidratação",
           price: 80.0,
           timeExecution: 70,
           ...defaultParams,
         },
         {
-          name: "Barba",
-          description: "Progessiva + Hidratação",
+          name: "barba",
+          description: "progessiva + hidratação",
           price: 20.0,
           timeExecution: 15,
           ...defaultParams,
         },
         {
-          name: "Hidratação",
+          name: "hidratação",
           description: "",
           price: 20.0,
           timeExecution: 15,
           ...defaultParams,
         },
         {
-          name: "Alisamento",
+          name: "alisamento",
           description: "",
           price: 35.0,
           timeExecution: 40,
