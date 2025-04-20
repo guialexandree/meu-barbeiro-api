@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Query, Post, Param } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { CreateUserParamsDto } from './dto/create-user.dto'
-import { LoadUsersParamsDto } from './dto'
+import { LoadUsersParamsDto, CreateUserParamsDto } from './dto'
 
 @Controller('users')
 export class UsersController {
@@ -12,9 +11,10 @@ export class UsersController {
     return this.usersService.create(createUserDto)
   }
 
-  @Get(':id')
-  findById(@Param('id') id: string) {
-    return this.usersService.findById(id)
+  @Get('/totalizer')
+  totalizer() {
+    console.log('Totalizer')
+    return this.usersService.loadTotalizer()
   }
 
   @Get()
@@ -22,8 +22,9 @@ export class UsersController {
     return this.usersService.search(filters)
   }
 
-  @Get('totalizer')
-  totalizer() {
-    return this.usersService.loadTotalizer()
+  @Get('/:id')
+  findById(@Param('id') id: string) {
+    return this.usersService.findById(id)
   }
+
 }

@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IUsersRepository } from '../users.repository';
+import { Inject, Injectable } from '@nestjs/common'
+import { IUsersRepository } from '../users.repository'
 
 @Injectable()
 export class GetUserByIdUseCase {
@@ -8,8 +8,8 @@ export class GetUserByIdUseCase {
     private readonly usersRepository: IUsersRepository,
   ) {}
 
-  async execute (id: string){
-    const user = await this.usersRepository.findById(id);
+  async execute(id: string) {
+    const user = await this.usersRepository.findById(id)
     return user
   }
 }
