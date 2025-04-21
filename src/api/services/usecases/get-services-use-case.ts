@@ -10,7 +10,7 @@ export class GetServicesUseCase {
 
   async execute (search: string) {
     if (search) {
-      const services = await this.serviceRepository.findAllByName(search)
+      const services = await this.serviceRepository.findAllByName(search.toLowerCase())
       return services
     }
 

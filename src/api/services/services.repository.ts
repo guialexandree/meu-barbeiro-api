@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ILike, Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Service, ServiceStatus } from './entities/service.entity';
 
@@ -22,7 +22,10 @@ export class ServicesRepository implements IServicesRepository {
   ) {}
 
   async findAllByName(name: string): Promise<Service[]> {
-    return this.repository.find({ where: { name } });
+    const whereCondition = name
+          ? { name: Like(`%${name}%`) }
+          : {}
+    return this.repository.find({ where: whereCondition });
   }
 
   async findByStatus(status: ServiceStatus): Promise<Service[]> {
