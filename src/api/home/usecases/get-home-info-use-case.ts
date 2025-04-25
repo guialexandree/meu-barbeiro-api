@@ -16,7 +16,7 @@ export class GetHomeInfoUseCase {
   ) {}
 
   async execute(userId: string) {
-    const company = await this.companiesService.find()
+    const company = await this.companiesService.load()
 
     const statusAttendanceCompany = 'aberto'
 
