@@ -14,6 +14,7 @@ export enum AttendanceStatus {
   NaFila = 'nafila',
   EmAtendimento = 'ematendimento',
   Cancelado = 'cancelado',
+  Atendido = 'finished',
 }
 
 @Entity('attendances')

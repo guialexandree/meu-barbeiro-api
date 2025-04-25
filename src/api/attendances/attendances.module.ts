@@ -9,10 +9,7 @@ import { Attendance } from './entities/attendance.entity'
 import { UsersModule } from '../users/users.module'
 import { ServicesModule } from '../services/services.module'
 import { DateAdapterModule } from '../../infra/adapters/date-adapter'
-import { CreateAttendanceUseCase } from './usecases/create-attendances-use-case'
-import { GetActivedAttendanceUseCase } from './usecases/get-actived-attendance-use-case'
-import { GetAttendanceInfoUseCase } from './usecases/get-attendance-info-use-case'
-
+import { CreateAttendanceUseCase, EndAttendanceUseCase, GetActivedAttendanceUseCase, GetAttendanceInfoUseCase, LoadAttendancesByUserUseCase, LoadAttendancesUseCase, StartAttendanceUseCase } from './usecases'
 @Module({
   imports: [
     UsersModule,
@@ -26,6 +23,10 @@ import { GetAttendanceInfoUseCase } from './usecases/get-attendance-info-use-cas
     CreateAttendanceUseCase,
     GetActivedAttendanceUseCase,
     GetAttendanceInfoUseCase,
+    StartAttendanceUseCase,
+    EndAttendanceUseCase,
+    LoadAttendancesByUserUseCase,
+    LoadAttendancesUseCase,
     AttendancesRepository,
     AttendanceServiceRepository,
     {

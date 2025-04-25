@@ -1,0 +1,7 @@
+### Abrir salão
+POST http://localhost:3000/api/barber-shop/start
+Content-Type: application/json
+
+### Fechar salão
+POST http://localhost:3000/api/barber-shop/end
+Content-Type: application/json

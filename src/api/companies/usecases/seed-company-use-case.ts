@@ -1,7 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ICompaniesRepository } from '../companies.repository'
 import { Company } from '../entities/company.entity'
-import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class SeedCompanyUseCase {

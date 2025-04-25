@@ -21,6 +21,11 @@ export class CompaniesTable1740861154877 implements MigrationInterface {
             name: 'pix',
             type: 'varchar',
           },
+          {
+            name: 'status_attendance',
+            type: 'enum',
+            enum: ['serving', 'closed', 'in_pause'],
+          },
         ],
       }),
       true,
@@ -28,6 +33,6 @@ export class CompaniesTable1740861154877 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('company')
+    await queryRunner.dropTable('companies')
   }
 }

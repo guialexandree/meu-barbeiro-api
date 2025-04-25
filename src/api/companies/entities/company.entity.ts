@@ -1,4 +1,10 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn } from 'typeorm'
+
+export enum StatusAttendanceCompany {
+  Serving = 'serving',
+  Closed = 'closed',
+  InPause = 'in_pause',
+}
 
 @Entity('companies')
 export class Company {
@@ -11,6 +17,9 @@ export class Company {
   @Column()
   pix: string
 
+  @Column({ type: 'simple-enum', name: 'status_attendance'  })
+  statusAttendance: StatusAttendanceCompany
+
   constructor(
     props: {
       name?: string
@@ -20,5 +29,6 @@ export class Company {
   ) {
     Object.assign(this, props)
     this.id = id || crypto.randomUUID()
+    this.statusAttendance = StatusAttendanceCompany.Closed
   }
 }
