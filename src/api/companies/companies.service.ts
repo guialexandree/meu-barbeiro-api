@@ -27,11 +27,11 @@ export class CompaniesService implements OnModuleInit {
     return this.createCompany.execute(input)
   }
 
-  find() {
+  load() {
     return this.getCompany.execute()
   }
 
-  findId() {
+  loadById() {
     return this.getCompanyId.execute()
   }
 
