@@ -38,7 +38,7 @@ export class Attendance {
   )
   services: AttendanceService[]
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User
 
