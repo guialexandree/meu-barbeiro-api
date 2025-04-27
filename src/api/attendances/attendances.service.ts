@@ -20,7 +20,11 @@ export class AttendancesService {
     private readonly loadAttendancesUseCase: LoadAttendancesUseCase,
   ) {}
 
-  create(createAttendanceDto: CreateAttendanceDto, userId: string) {
+  add(createAttendanceDto: CreateAttendanceDto) {
+    return this.createAttendanceUseCase.execute(createAttendanceDto, createAttendanceDto.userId)
+  }
+
+  addIn(createAttendanceDto: CreateAttendanceDto, userId: string) {
     return this.createAttendanceUseCase.execute(createAttendanceDto, userId)
   }
 

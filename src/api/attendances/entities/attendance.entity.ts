@@ -25,6 +25,12 @@ export class Attendance {
   @Column({ type: 'timestamp', name: 'created_at' })
   createdAt: Date
 
+  @Column({ type: 'timestamp', nullable: true, name: 'started_at' })
+  startedAt: Date | null
+
+  @Column({ type: 'timestamp', nullable: true, name: 'finished_at' })
+  finishedAt: Date | null
+
   @OneToMany(
     () => AttendanceService,
     (attendanceService) => attendanceService.attendance,
@@ -35,9 +41,6 @@ export class Attendance {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User
-
-  @Column({ type: 'timestamp', nullable: true, name: 'start_date' })
-  startDate: Date | null
 
   @Column({ type: 'timestamp', nullable: true, name: 'cancellation_date' })
   cancellationDate: Date | null

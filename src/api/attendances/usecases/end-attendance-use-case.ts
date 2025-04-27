@@ -2,12 +2,15 @@ import { Inject, Injectable } from '@nestjs/common'
 import { IAttendancesRepository } from '../attendances.repository'
 import { InvalidRuleException } from '../../../domain/errors'
 import { AttendanceStatus } from '../entities/attendance.entity'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class EndAttendanceUseCase {
   constructor(
     @Inject('IAttendancesRepository')
     private readonly attendancesRepository: IAttendancesRepository,
+    @Inject('IDateProvider')
+    private readonly dateAdapter: IDateAdapter,
   ) {}
 
   async execute(id: string) {
@@ -16,7 +19,12 @@ export class EndAttendanceUseCase {
       throw new InvalidRuleException('O atendimento informado não existe')
     }
 
+    if (attendance.status !== AttendanceStatus.EmAtendimento) {
+      throw new InvalidRuleException('O atendimento já foi finalizado')
+    }
+
     attendance.status = AttendanceStatus.Atendido
+    attendance.finishedAt = this.dateAdapter.now()
     await this.attendancesRepository.save(attendance)
 
     return attendance

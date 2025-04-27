@@ -33,10 +33,12 @@ export class AttendancesController {
   }
 
   @Post()
-  create(@Request() req, @Body() createAttendanceDto: CreateAttendanceDto) {
-    return this.attendancesService.create(
-      createAttendanceDto,
-      'afedb371-858a-4afd-a5bc-f45f08d51571',
-    )
+  add(@Body() createAttendanceDto: CreateAttendanceDto) {
+    return this.attendancesService.add(createAttendanceDto)
+  }
+
+  @Post('/signin')
+  addIn(@Req() req, @Body() createAttendanceDto: CreateAttendanceDto) {
+    return this.attendancesService.addIn(createAttendanceDto, req.user.id)
   }
 }
