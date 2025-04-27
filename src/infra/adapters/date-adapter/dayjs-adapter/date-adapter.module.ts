@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { DayjsDateAdapter } from './dayjs-date-adapter';
+import { Module } from '@nestjs/common'
+import { DayjsDateAdapter } from './dayjs-date-adapter'
 
 @Module({
   providers: [

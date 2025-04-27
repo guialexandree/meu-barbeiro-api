@@ -9,7 +9,7 @@ export class StartAttendanceUseCase {
   constructor(
     @Inject('IAttendancesRepository')
     private readonly attendancesRepository: IAttendancesRepository,
-    @Inject('IDateProvider')
+    @Inject('IDateAdapter')
     private readonly dateAdapter: IDateAdapter,
   ) {}
 
