@@ -41,7 +41,7 @@ export class AttendancesTable1740858519170 implements MigrationInterface {
           {
             name: 'status',
             type: 'enum',
-            enum: ['nafila', 'ematendimento', 'cancelado'],
+            enum: ['attending', 'in_queue', 'canceled', 'finished'],
           },
           {
             name: 'user_id',

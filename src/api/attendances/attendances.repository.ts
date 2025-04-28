@@ -83,6 +83,10 @@ export class AttendancesRepository implements IAttendancesRepository {
         createdAt: Between(todayStart, todayEnd),
         status: In([AttendanceStatus.NaFila, AttendanceStatus.EmAtendimento]),
       },
+      order: {
+        status: 'ASC',
+        createdAt: 'ASC',
+      },
     })
 
     return attendances

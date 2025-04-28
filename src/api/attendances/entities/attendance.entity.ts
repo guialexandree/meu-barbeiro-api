@@ -11,9 +11,10 @@ import { User } from '../../users/entities/user.entity'
 import { Service } from '../../services/entities/service.entity'
 
 export enum AttendanceStatus {
-  NaFila = 'nafila',
-  EmAtendimento = 'ematendimento',
-  Cancelado = 'cancelado',
+  EmAtendimento = 'attending',
+  NaVez = 'current',
+  NaFila = 'in_queue',
+  Cancelado = 'canceled',
   Atendido = 'finished',
 }
 
