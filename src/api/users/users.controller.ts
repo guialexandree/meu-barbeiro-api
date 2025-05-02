@@ -24,6 +24,12 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/simple')
+  loadSimple() {
+    return this.usersService.findSimple()
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   findById(@Param('id') id: string) {
     return this.usersService.findById(id)

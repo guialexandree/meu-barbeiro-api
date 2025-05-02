@@ -8,6 +8,7 @@ import { LoadUsersUseCase } from './usecases/load-users-use-case'
 import { LoadUserByNameUseCase } from './usecases/load-user-by-name-use-case'
 import { LoadUsersTotalizerUseCase } from './usecases/load-users-totalizer-use-case'
 import { LoadUsersParamsDto } from './dto'
+import { LoadUsersSimpleUseCase } from './usecases/load-simple-users-use-case'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -19,6 +20,7 @@ export class UsersService implements OnModuleInit {
     private changeNameUseCase: ChangeNameUseCase,
     private seedUserUseCase: SeedUsersUseCase,
     private loadUsersUseCase: LoadUsersUseCase,
+    private loadUsersSimpleUseCase: LoadUsersSimpleUseCase,
     private loadUsersTotalizerUseCase: LoadUsersTotalizerUseCase,
   ) {}
 
@@ -32,6 +34,10 @@ export class UsersService implements OnModuleInit {
 
   findOne(userName: string) {
     return this.getUserUseCase.execute(userName)
+  }
+
+  findSimple() {
+    return this.loadUsersSimpleUseCase.execute()
   }
 
   search(filters: LoadUsersParamsDto) {

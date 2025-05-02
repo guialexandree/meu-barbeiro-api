@@ -12,6 +12,7 @@ import { LoadUserByNameUseCase } from './usecases/load-user-by-name-use-case'
 import { SeedUsersUseCase } from './usecases/seed-users-use-case'
 import { LoadUsersUseCase } from './usecases/load-users-use-case'
 import { LoadUsersTotalizerUseCase } from './usecases/load-users-totalizer-use-case'
+import { LoadUsersSimpleUseCase } from './usecases/load-simple-users-use-case'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LoadUsersTotalizerUseCase } from './usecases/load-users-totalizer-use-c
     CreateUserUseCase,
     ChangeNameUseCase,
     SeedUsersUseCase,
+    LoadUsersSimpleUseCase,
     LoadUsersUseCase,
     LoadUsersTotalizerUseCase,
     UsersRepository,
