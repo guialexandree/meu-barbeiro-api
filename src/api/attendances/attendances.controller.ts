@@ -23,12 +23,12 @@ export class AttendancesController {
     return this.attendancesService.loadByUser(userId)
   }
 
-  @Get('/:id/start')
+  @Post('/:id/start')
   startAttendance(@Param('id') id: string) {
     return this.attendancesService.startAttendance(id)
   }
 
-  @Get('/:id/end')
+  @Post('/:id/end')
   endAttendance(@Param('id') id: string) {
     return this.attendancesService.endAttendance(id)
   }
