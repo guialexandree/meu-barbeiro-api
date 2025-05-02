@@ -7,6 +7,10 @@ export class CreateUserParamsDto {
   @IsNotEmpty()
   name: string
 
+  @ApiProperty({ required: false })
+  @IsNotEmpty()
+  nickname: string
+
   @ApiProperty()
   @IsNotEmpty()
   password: string

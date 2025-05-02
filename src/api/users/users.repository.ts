@@ -28,7 +28,7 @@ export class UsersRepository implements IUsersRepository {
 
   findSimple(): Promise<User[]> {
     return this.repository.find({
-      select: ['id', 'name'],
+      select: ['id', 'name', 'nickname'],
     })
   }
 

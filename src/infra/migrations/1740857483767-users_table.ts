@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
 export class UsersTable1740857483767 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -15,6 +15,11 @@ export class UsersTable1740857483767 implements MigrationInterface {
           },
           {
             name: 'name',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'nickname',
             type: 'varchar',
             isNullable: true,
           },
@@ -53,6 +58,6 @@ export class UsersTable1740857483767 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('user')
+    await queryRunner.dropTable('users')
   }
 }

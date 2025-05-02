@@ -29,6 +29,9 @@ export class User {
   @Column({ nullable: true })
   name: string
 
+  @Column({ nullable: true })
+  nickname: string
+
   @Column({ type: 'simple-enum' })
   status: UserStatus
 

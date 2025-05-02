@@ -40,6 +40,6 @@ export class AlertsTable1740857090243 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('alert')
+    await queryRunner.dropTable('alerts')
   }
 }

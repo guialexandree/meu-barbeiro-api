@@ -51,7 +51,8 @@ export class CreateAttendanceUseCase {
       })
       jobs.push(this.attendanceServiceRepository.save(attendanceService))
     }
-    const attendancesServices = await Promise.all(jobs)
+
+    await Promise.all(jobs)
 
     return newAttendance
   }
