@@ -9,7 +9,9 @@ import { Attendance } from './entities/attendance.entity'
 import { UsersModule } from '../users/users.module'
 import { ServicesModule } from '../services/services.module'
 import { DateAdapterModule } from '../../infra/adapters/date-adapter'
-import { CreateAttendanceUseCase, EndAttendanceUseCase, GetActivedAttendanceUseCase, GetAttendanceInfoUseCase, LoadAttendancesByUserUseCase, LoadAttendancesUseCase, StartAttendanceUseCase } from './usecases'
+import { AttendancesGateway } from './attendances.gateway'
+import * as UC from './usecases'
+
 @Module({
   imports: [
     UsersModule,
@@ -19,14 +21,16 @@ import { CreateAttendanceUseCase, EndAttendanceUseCase, GetActivedAttendanceUseC
   ],
   controllers: [AttendancesController],
   providers: [
+    AttendancesGateway,
     AttendancesService,
-    CreateAttendanceUseCase,
-    GetActivedAttendanceUseCase,
-    GetAttendanceInfoUseCase,
-    StartAttendanceUseCase,
-    EndAttendanceUseCase,
-    LoadAttendancesByUserUseCase,
-    LoadAttendancesUseCase,
+    UC.CancelAttendanceUseCase,
+    UC.CreateAttendanceUseCase,
+    UC.GetActivedAttendanceUseCase,
+    UC.GetAttendanceInfoUseCase,
+    UC.StartAttendanceUseCase,
+    UC.EndAttendanceUseCase,
+    UC.LoadAttendancesByUserUseCase,
+    UC.LoadAttendancesUseCase,
     AttendancesRepository,
     AttendanceServiceRepository,
     {

@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Request, Get, Req, Param, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common'
 import { AttendancesService } from './attendances.service'
-import { CreateAttendanceDto } from './dto/create-attendance.dto'
+import { CreateAttendanceDto, CancelAttendanceDto } from './dto'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('attendances')
@@ -31,6 +31,11 @@ export class AttendancesController {
   @Post('/:id/end')
   endAttendance(@Param('id') id: string) {
     return this.attendancesService.endAttendance(id)
+  }
+
+  @Post('/:id/cancel')
+  cancelAttendance(@Body() cancelAttendanceDto: CancelAttendanceDto) {
+    return this.attendancesService.cancelAttendance(cancelAttendanceDto)
   }
 
   @Post()
