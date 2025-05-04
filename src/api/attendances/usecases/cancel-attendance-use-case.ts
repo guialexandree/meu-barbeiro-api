@@ -19,7 +19,7 @@ export class CancelAttendanceUseCase {
       throw new InvalidRuleException('O atendimento informado não existe')
     }
 
-    if (attendance.status !== AttendanceStatus.EmAtendimento) {
+    if (attendance.status !== 'attending') {
       throw new InvalidRuleException('O atendimento já foi finalizado')
     }
 

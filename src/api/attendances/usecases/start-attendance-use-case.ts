@@ -19,7 +19,7 @@ export class StartAttendanceUseCase {
       throw new InvalidRuleException('O atendimento informado não existe')
     }
 
-    attendance.status = AttendanceStatus.EmAtendimento
+    attendance.status = 'attending'
     attendance.startedAt = this.dateAdapter.now()
     await this.attendancesRepository.save(attendance)
 

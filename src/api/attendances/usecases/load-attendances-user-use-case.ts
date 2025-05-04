@@ -16,7 +16,7 @@ export class LoadAttendancesUseCase {
       (attendance) => attendance.status === 'in_queue',
     )
     if (firstInQueue) {
-      firstInQueue.status = AttendanceStatus.NaVez
+      firstInQueue.status = 'current'
     }
 
     return attendancesToday

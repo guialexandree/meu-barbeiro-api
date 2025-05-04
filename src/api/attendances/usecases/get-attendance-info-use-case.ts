@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IAttendancesRepository } from '../attendances.repository';
-import { IDateAdapter } from '../../../infra/adapters/protocols';
+import { Inject, Injectable } from '@nestjs/common'
+import { IAttendancesRepository } from '../attendances.repository'
+import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()
 export class GetAttendanceInfoUseCase {
@@ -12,14 +12,16 @@ export class GetAttendanceInfoUseCase {
   ) {}
 
   async execute() {
-    const total = await this.attendancesRepository.count();
-    const previsionTime = await this.attendancesRepository.totalServiceTime();
-    const previsionDate = previsionTime ? this.dateAdapter.addMinutes(previsionTime) : null;
+    const total = await this.attendancesRepository.countTodayByStatus('finished')
+    const previsionTime = await this.attendancesRepository.totalServiceTime()
+    const previsionDate = previsionTime
+      ? this.dateAdapter.addMinutes(previsionTime)
+      : null
 
     return {
       total,
       previsionTime,
       previsionDate,
-    };
+    }
   }
 }

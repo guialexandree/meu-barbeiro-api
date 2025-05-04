@@ -36,7 +36,7 @@ export class CreateAttendanceUseCase {
     const newAttendance = new Attendance({
       services: selectedServices,
       createdAt: this.dateAdapter.now(),
-      status: AttendanceStatus.NaFila,
+      status: 'in_queue',
       user,
     })
 

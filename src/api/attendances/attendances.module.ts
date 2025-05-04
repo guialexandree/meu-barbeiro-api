@@ -24,6 +24,7 @@ import * as UC from './usecases'
     AttendancesGateway,
     AttendancesService,
     UC.CancelAttendanceUseCase,
+    UC.LoadAttendancesInfoTodayUseCase,
     UC.CreateAttendanceUseCase,
     UC.GetActivedAttendanceUseCase,
     UC.GetAttendanceInfoUseCase,

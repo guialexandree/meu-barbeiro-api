@@ -10,13 +10,7 @@ import { AttendanceService } from './attendance.service.entity'
 import { User } from '../../users/entities/user.entity'
 import { Service } from '../../services/entities/service.entity'
 
-export enum AttendanceStatus {
-  EmAtendimento = 'attending',
-  NaVez = 'current',
-  NaFila = 'in_queue',
-  Cancelado = 'canceled',
-  Atendido = 'finished',
-}
+export type AttendanceStatus = 'attending' | 'current' | 'in_queue' | 'canceled' | 'finished'
 
 @Entity('attendances')
 export class Attendance {

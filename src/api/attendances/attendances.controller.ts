@@ -13,7 +13,12 @@ export class AttendancesController {
   }
 
   @Get('/info')
-  findInfo() {
+  loadInfoToday() {
+    return this.attendancesService.loadInfoToday()
+  }
+
+  @Get('/info/clients')
+  findInfoClients() {
     return this.attendancesService.findAttendancesInfo()
   }
 

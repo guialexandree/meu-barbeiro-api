@@ -13,7 +13,8 @@ export interface IAttendancesRepository {
   remove(id: string): Promise<Attendance>
   findAll(): Promise<Attendance[]>
   save(attendance: Attendance): Promise<Attendance>
-  count(): Promise<number>
+  countTodayByStatus(status: AttendanceStatus): Promise<number>
+  amountToday(): Promise<number>
   totalServiceTime(): Promise<number>
 }
 
@@ -36,8 +37,8 @@ export class AttendancesRepository implements IAttendancesRepository {
       .createQueryBuilder('attendances_services')
       .leftJoinAndSelect('attendances_services.attendance', 'attendances')
       .leftJoinAndSelect('attendances_services.service', 'services')
-      .where('attendance.status = :status', { status: AttendanceStatus.NaFila })
-      .andWhere('attendance.createdAt BETWEEN :startDate AND :endDate', {
+      .where('attendances.status = :status', { status: 'in_queue' })
+      .andWhere('attendances.createdAt BETWEEN :start AND :end', {
         start,
         end,
       })
@@ -47,14 +48,32 @@ export class AttendancesRepository implements IAttendancesRepository {
     return result.totalTimeExecution || 0
   }
 
-  count(): Promise<number> {
+  async amountToday(): Promise<number> {
+    const start = this.dateAdapter.startOf()
+    const end = this.dateAdapter.endOf()
+
+    const result = await this.repositoryAttendanceService
+      .createQueryBuilder('attendances_services')
+      .leftJoinAndSelect('attendances_services.attendance', 'attendances')
+      .leftJoinAndSelect('attendances_services.service', 'services')
+      .where('attendances.createdAt BETWEEN :start AND :end', {
+        start,
+        end,
+      })
+      .select('SUM(services.price)', 'totalAmount')
+      .getRawOne()
+
+    return result.totalAmount || 0
+  }
+
+  countTodayByStatus(status: AttendanceStatus): Promise<number> {
     const start = this.dateAdapter.startOf()
     const end = this.dateAdapter.endOf()
 
     return this.repositoryAttendance.count({
       where: {
         createdAt: Between(start, end),
-        status: AttendanceStatus.NaFila,
+        status: status,
       },
     })
   }
@@ -66,7 +85,7 @@ export class AttendancesRepository implements IAttendancesRepository {
     const attendances = await this.repositoryAttendance.find({
       where: {
         createdAt: Between(todayStart, todayEnd),
-        status: In([AttendanceStatus.NaFila, AttendanceStatus.EmAtendimento]),
+        status: In(['in_queue', 'attending']),
         user: { id: userId },
       },
     })
@@ -81,7 +100,7 @@ export class AttendancesRepository implements IAttendancesRepository {
     const attendances = await this.repositoryAttendance.find({
       where: {
         createdAt: Between(todayStart, todayEnd),
-        status: In([AttendanceStatus.NaFila, AttendanceStatus.EmAtendimento]),
+        status: In(['in_queue', 'attending']),
       },
       order: {
         status: 'ASC',

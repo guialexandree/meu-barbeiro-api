@@ -19,11 +19,11 @@ export class EndAttendanceUseCase {
       throw new InvalidRuleException('O atendimento informado não existe')
     }
 
-    if (attendance.status !== AttendanceStatus.EmAtendimento) {
+    if (attendance.status !== 'attending') {
       throw new InvalidRuleException('O atendimento já foi finalizado')
     }
 
-    attendance.status = AttendanceStatus.Atendido
+    attendance.status = 'finished'
     attendance.finishedAt = this.dateAdapter.now()
     await this.attendancesRepository.save(attendance)
 
