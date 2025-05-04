@@ -24,5 +24,8 @@ export class RegisterActivationDto {
   name?: string
 
   @ApiProperty({ required: false })
+  nickname?: string
+
+  @ApiProperty({ required: false })
   token?: string
 }

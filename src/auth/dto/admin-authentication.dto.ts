@@ -9,8 +9,4 @@ export class AdminAuthenticationDto {
   @ApiProperty()
   @IsOptional()
   password: string
-
-  @ApiProperty()
-  @IsNotEmpty({ message: 'O devicId deve ser informado' })
-  deviceId: string
 }

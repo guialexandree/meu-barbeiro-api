@@ -16,7 +16,7 @@ export class AuthService {
     return accessToken
   }
 
-  async signInClient(authenticationDto: AuthenticationDto): Promise<{ accessToken: string }> {
+  async signInClient(authenticationDto: Record<string, string>): Promise<{ accessToken: string }> {
     const accessToken = await this.signInClientUseCase.execute(authenticationDto.deviceId)
     return accessToken
   }

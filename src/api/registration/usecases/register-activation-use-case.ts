@@ -36,14 +36,14 @@ export class RegisterActivationUseCase {
     registration.status = RegistrationStatus.Activated
     const registrationId = await this.registrationRepository.save(registration)
 
-    const { contactNumber: contact_number, ...userParams } = registerDto
-    const contact = contact_number.replace(/\D/g, '')
+    const { contactNumber, ...userParams } = registerDto
+    const contact = contactNumber.replace(/\D/g, '')
     await this.usersService.create({
       ...userParams,
       name: registerDto.name,
       password: contact.slice(-4),
       contactNumber: contact,
-      role: UserRole.Client,
+      role: UserRole.Client
     })
 
     return { id: registrationId }
