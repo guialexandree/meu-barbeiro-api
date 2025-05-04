@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { join } from 'path'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { HttpDefautResponseMiddleware, HttpExceptionResponse } from './infra/middlewares'
 import morgan from 'morgan'
 
@@ -12,7 +14,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   app.useGlobalFilters(new HttpExceptionResponse())
   app.useGlobalInterceptors(new HttpDefautResponseMiddleware())
-  app.use(morgan('dev'))
+  ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '..', '..', 'node_modules', '@nestjs/swagger', 'dist'),
+  })
 
   const config = new DocumentBuilder()
     .setTitle('Barbearia API')
