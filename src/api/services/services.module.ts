@@ -6,14 +6,8 @@ import { Service } from './entities/service.entity'
 import { ServicesRepository } from './services.repository'
 import { AlertsModule } from '../alerts/alerts.module'
 import { DateAdapterModule } from '../../infra/adapters/date-adapter/dayjs-adapter/date-adapter.module'
-import { CreateServiceUseCase } from './usecases/create-service-use-case'
-import { GetServiceUseCase } from './usecases/get-service-use-case'
-import { GetServicesListUseCase } from './usecases/get-services-list-use-case'
-import { RemoveServiceUseCase } from './usecases/remove-service-use-case'
-import { SeedServicesUseCase } from './usecases/seed-services-use-case'
-import { UpdateServiceUseCase } from './usecases/update-service-use-case'
-import { GetActivedServicesUseCase } from './usecases/get-actived-services-use-case'
-import { GetServicesUseCase } from './usecases/get-services-use-case'
+import { ServicesGateway } from './services.gateway'
+import * as UC from './usecases'
 
 @Module({
   imports: [
@@ -23,15 +17,16 @@ import { GetServicesUseCase } from './usecases/get-services-use-case'
   ],
   controllers: [ServicesController],
   providers: [
+    ServicesGateway,
     ServicesService,
-    GetServicesUseCase,
-    GetServicesListUseCase,
-    GetServiceUseCase,
-    GetActivedServicesUseCase,
-    UpdateServiceUseCase,
-    CreateServiceUseCase,
-    RemoveServiceUseCase,
-    SeedServicesUseCase,
+    UC.GetServicesUseCase,
+    UC.GetServicesListUseCase,
+    UC.GetServiceUseCase,
+    UC.GetActivedServicesUseCase,
+    UC.UpdateServiceUseCase,
+    UC.CreateServiceUseCase,
+    UC.RemoveServiceUseCase,
+    UC.SeedServicesUseCase,
     ServicesRepository,
     {
       provide: 'IServicesRepository',

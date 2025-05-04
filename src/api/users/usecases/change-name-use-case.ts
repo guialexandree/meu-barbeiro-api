@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IUsersRepository } from '../users.repository';
+import { Inject, Injectable } from '@nestjs/common'
+import { IUsersRepository } from '../users.repository'
 
 @Injectable()
 export class ChangeNameUseCase {
@@ -9,9 +9,9 @@ export class ChangeNameUseCase {
   ) {}
 
   async execute(name: string, userId: string) {
-    const user = await this.userRepository.findById(userId);
-    user.name = name;
+    const user = await this.userRepository.findById(userId)
+    user.name = name
 
-    return this.userRepository.save(user);
+    return this.userRepository.save(user)
   }
 }

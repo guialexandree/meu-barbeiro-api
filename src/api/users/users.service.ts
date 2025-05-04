@@ -1,27 +1,22 @@
 import { Inject, Injectable, OnModuleInit, Request } from '@nestjs/common'
 import { CreateUserParamsDto } from './dto/create-user.dto'
-import { CreateUserUseCase } from './usecases/create-user-use-case'
-import { GetUserByIdUseCase } from './usecases/load-user-by-id-use-case'
-import { SeedUsersUseCase } from './usecases/seed-users-use-case'
-import { ChangeNameUseCase } from './usecases/change-name-use-case'
-import { LoadUsersUseCase } from './usecases/load-users-use-case'
-import { LoadUserByNameUseCase } from './usecases/load-user-by-name-use-case'
-import { LoadUsersTotalizerUseCase } from './usecases/load-users-totalizer-use-case'
+import { UsersGateway } from './users.gateway'
 import { LoadUsersParamsDto } from './dto'
-import { LoadUsersSimpleUseCase } from './usecases/load-simple-users-use-case'
+import * as UC from './usecases'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
   constructor(
     @Inject()
-    private getUserUseCase: LoadUserByNameUseCase,
-    private getUserByIdUseCase: GetUserByIdUseCase,
-    private createUserUseCase: CreateUserUseCase,
-    private changeNameUseCase: ChangeNameUseCase,
-    private seedUserUseCase: SeedUsersUseCase,
-    private loadUsersUseCase: LoadUsersUseCase,
-    private loadUsersSimpleUseCase: LoadUsersSimpleUseCase,
-    private loadUsersTotalizerUseCase: LoadUsersTotalizerUseCase,
+    private readonly getUserUseCase: UC.LoadUserByNameUseCase,
+    private readonly getUserByIdUseCase: UC.GetUserByIdUseCase,
+    private readonly createUserUseCase: UC.CreateUserUseCase,
+    private readonly changeNameUseCase: UC.ChangeNameUseCase,
+    private readonly seedUserUseCase: UC.SeedUsersUseCase,
+    private readonly loadUsersUseCase: UC.LoadUsersUseCase,
+    private readonly loadUsersSimpleUseCase: UC.LoadUsersSimpleUseCase,
+    private readonly loadUsersTotalizerUseCase: UC.LoadUsersTotalizerUseCase,
+    private readonly usersGateway: UsersGateway,
   ) {}
 
   onModuleInit() {
@@ -48,11 +43,15 @@ export class UsersService implements OnModuleInit {
     return this.loadUsersTotalizerUseCase.execute()
   }
 
-  create(user: CreateUserParamsDto) {
-    return this.createUserUseCase.execute(user)
+  async create(createUserParams: CreateUserParamsDto) {
+    const user = await this.createUserUseCase.execute(createUserParams)
+    this.usersGateway.notifyAdd(user)
+    return user
   }
 
-  changeName(@Request() req, name: string) {
-    return this.changeNameUseCase.execute(name, req.user.id)
+  async changeName(@Request() req, name: string) {
+    const user = await this.changeNameUseCase.execute(name, req.user.id)
+    this.usersGateway.notifyUpdate(user)
+    return user
   }
 }
