@@ -15,6 +15,7 @@ export class AttendancesService {
     private readonly endAttendanceUseCase: UC.EndAttendanceUseCase,
     private readonly cancelAttendanceUseCase: UC.CancelAttendanceUseCase,
     private readonly loadAttendancesUseCase: UC.LoadAttendancesUseCase,
+    private readonly loadUsersWithAttendanceUseCase: UC.LoadUsersWithAttendanceUseCase,
     private readonly loadAttendancesInfoTodayUseCase: UC.LoadAttendancesInfoTodayUseCase,
     private readonly attendancesGateway: AttendancesGateway
   ) {}
@@ -25,6 +26,10 @@ export class AttendancesService {
 
   loadByUser(userId: string) {
     return this.loadAttendancesByUserUseCase.execute(userId)
+  }
+
+  loadUsersWithAttendance() {
+    return this.loadUsersWithAttendanceUseCase.execute()
   }
 
   loadToday() {
@@ -53,7 +58,7 @@ export class AttendancesService {
 
   async endAttendance(id: string) {
     const attendance = await this.endAttendanceUseCase.execute(id)
-    this.attendancesGateway.notifyFinish(attendance.id)
+    this.attendancesGateway.notifyFinish(attendance)
     return attendance
   }
 

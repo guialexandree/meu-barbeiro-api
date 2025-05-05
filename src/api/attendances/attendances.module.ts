@@ -23,6 +23,7 @@ import * as UC from './usecases'
   providers: [
     AttendancesGateway,
     AttendancesService,
+    UC.LoadUsersWithAttendanceUseCase,
     UC.CancelAttendanceUseCase,
     UC.LoadAttendancesInfoTodayUseCase,
     UC.CreateAttendanceUseCase,
