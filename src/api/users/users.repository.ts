@@ -5,7 +5,7 @@ import { User } from './entities/user.entity'
 
 export interface IUsersRepository {
   find(username: string): Promise<User>
-  findSimple(): Promise<User[]>
+  loadSimples(): Promise<User[]>
   findPaginated(search: string, page: number, limit: number): Promise<User[]>
   findById(id: string): Promise<User>
   save(service: User): Promise<User>
@@ -26,7 +26,7 @@ export class UsersRepository implements IUsersRepository {
     })
   }
 
-  findSimple(): Promise<User[]> {
+  loadSimples(): Promise<User[]> {
     return this.repository.find({
       select: ['id', 'name', 'nickname'],
     })

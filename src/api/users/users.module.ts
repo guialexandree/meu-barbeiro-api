@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersRepository } from './users.repository'
 import { UsersController } from './users.controller'
 import { DateAdapterModule } from '../../infra/adapters/date-adapter'
+import { AttendancesModule } from '../attendances/attendances.module'
 import { UsersGateway } from './users.gateway'
 import * as UC from './usecases'
 
 @Module({
   imports: [
+    AttendancesModule,
     DateAdapterModule,
     TypeOrmModule.forFeature([User])
   ],
