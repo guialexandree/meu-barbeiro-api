@@ -26,7 +26,7 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/simple')
   loadSimple() {
-    return this.usersService.findSimple()
+    return this.usersService.loadSimples()
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

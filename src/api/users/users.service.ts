@@ -31,7 +31,7 @@ export class UsersService implements OnModuleInit {
     return this.getUserUseCase.execute(userName)
   }
 
-  findSimple() {
+  loadSimples() {
     return this.loadUsersSimpleUseCase.execute()
   }
 

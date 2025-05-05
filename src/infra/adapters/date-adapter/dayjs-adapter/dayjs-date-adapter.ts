@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { IDateAdapter } from '../../protocols/date-adapter'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import 'dayjs/locale/pt-br'
+import { IDateAdapter } from '../../protocols'
 
 dayjs.extend(localeData)
 dayjs.locale('pt-br')
@@ -11,6 +11,10 @@ dayjs.locale('pt-br')
 export class DayjsDateAdapter implements IDateAdapter {
   daysAgo(days: number): Date {
     return dayjs().subtract(days, 'day').toDate()
+  }
+
+  differenceInMinutes(start: Date | string, end: Date | string): number {
+    return dayjs(end).diff(dayjs(start), 'minute')
   }
 
   addMinutes(minutes: number): Date {

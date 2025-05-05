@@ -8,7 +8,7 @@ import { IDateAdapter } from '../../infra/adapters/protocols'
 export interface IAttendancesRepository {
   findOne(id: string): Promise<Attendance>
   findActivedByUser(userId: string): Promise<Attendance>
-  loadActives(): Promise<Attendance[]>
+  loadByStatus(statusList: AttendanceStatus[]): Promise<Attendance[]>
   loadByUser(userId: string): Promise<Attendance[]>
   remove(id: string): Promise<Attendance>
   findAll(): Promise<Attendance[]>
@@ -93,17 +93,18 @@ export class AttendancesRepository implements IAttendancesRepository {
     return attendances.at(0)
   }
 
-  async loadActives(): Promise<Attendance[]> {
+  async loadByStatus(statusList: AttendanceStatus[]): Promise<Attendance[]> {
     const todayStart = this.dateAdapter.startOf()
     const todayEnd = this.dateAdapter.endOf()
 
     const attendances = await this.repositoryAttendance.find({
       where: {
         createdAt: Between(todayStart, todayEnd),
-        status: In(['in_queue', 'attending']),
+        status: In(statusList),
       },
       order: {
         status: 'ASC',
+        startedAt: 'ASC',
         createdAt: 'ASC',
       },
     })

@@ -5,6 +5,7 @@ export interface IDateAdapter {
   startOf(): Date
   endOf(): Date
   weekDay(): number
+  differenceInMinutes(start: Date | string, end: Date | string): number
   daysAgo(days: number): Date
   weekDayLabel(): string
   isAfter(date: Date | string): boolean

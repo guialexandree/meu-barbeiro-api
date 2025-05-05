@@ -8,17 +8,17 @@ export class CreateUserParamsDto {
   name: string
 
   @ApiProperty({ required: false })
-  @IsNotEmpty()
+  @IsOptional()
   nickname?: string
 
   @ApiProperty()
-  @IsNotEmpty()
-  password: string
+  @IsOptional()
+  password?: string
 
   @ApiProperty()
   @Length(9, 14)
-  @IsNotEmpty()
-  contactNumber: string
+  @IsOptional()
+  contactNumber?: string
 
   @ApiProperty({ required: false })
   @IsOptional()

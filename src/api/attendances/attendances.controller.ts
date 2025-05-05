@@ -9,7 +9,17 @@ export class AttendancesController {
 
   @Get()
   loadAttendances() {
-    return this.attendancesService.loadToday()
+    return this.attendancesService.loadActivesToday()
+  }
+
+  @Get('/availables-users')
+  loadAvailablesUsers() {
+    return this.attendancesService.loadAvailablesUsers()
+  }
+
+  @Get('/done-today')
+  loadDoneToday() {
+    return this.attendancesService.loadDoneToday()
   }
 
   @Get('/info')

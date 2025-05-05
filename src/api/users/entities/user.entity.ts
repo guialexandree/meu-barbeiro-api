@@ -55,8 +55,8 @@ export class User {
   constructor(
     props: {
       name: string
-      password: string
-      contactNumber: string
+      password?: string
+      contactNumber?: string
       deviceId?: string
       createdAt: Date
       role: UserRole

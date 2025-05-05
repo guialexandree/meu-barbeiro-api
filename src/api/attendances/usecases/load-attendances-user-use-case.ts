@@ -10,7 +10,7 @@ export class LoadAttendancesUseCase {
   ) {}
 
   async execute() {
-    const attendancesToday = await this.attendancesRepository.loadActives()
+    const attendancesToday = await this.attendancesRepository.loadByStatus(['in_queue', 'attending'])
 
     const firstInQueue = attendancesToday.find(
       (attendance) => attendance.status === 'in_queue',

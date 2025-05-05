@@ -9,7 +9,7 @@ export class LoadUsersWithAttendanceUseCase {
   ) {}
 
   async execute() {
-    const attendancesToday = await this.attendancesRepository.loadActives()
+    const attendancesToday = await this.attendancesRepository.loadByStatus(['in_queue', 'attending'])
     const users = attendancesToday.map((attendance) => attendance.user)
 
     return users

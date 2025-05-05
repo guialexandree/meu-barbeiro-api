@@ -15,7 +15,9 @@ export class AttendancesService {
     private readonly endAttendanceUseCase: UC.EndAttendanceUseCase,
     private readonly cancelAttendanceUseCase: UC.CancelAttendanceUseCase,
     private readonly loadAttendancesUseCase: UC.LoadAttendancesUseCase,
+    private readonly loadAttendancesDoneUseCase: UC.LoadAttendancesDoneUseCase,
     private readonly loadUsersWithAttendanceUseCase: UC.LoadUsersWithAttendanceUseCase,
+    private readonly loadAvailablesUsersUseCase: UC.LoadAvailablesUsersUseCase,
     private readonly loadAttendancesInfoTodayUseCase: UC.LoadAttendancesInfoTodayUseCase,
     private readonly attendancesGateway: AttendancesGateway
   ) {}
@@ -28,11 +30,19 @@ export class AttendancesService {
     return this.loadAttendancesByUserUseCase.execute(userId)
   }
 
+  loadAvailablesUsers() {
+    return this.loadAvailablesUsersUseCase.execute()
+  }
+
   loadUsersWithAttendance() {
     return this.loadUsersWithAttendanceUseCase.execute()
   }
 
-  loadToday() {
+  loadDoneToday() {
+    return this.loadAttendancesDoneUseCase.execute()
+  }
+
+  loadActivesToday() {
     return this.loadAttendancesUseCase.execute()
   }
 
