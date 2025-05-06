@@ -20,13 +20,17 @@ jobs:
           username: "root"
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "/home/deploy/meu-barbeiro-api2"
+          target: "/home/meu-barbeiro-api"
 
       # Conectar à VPS e executar o deploy
-      - name: Deploy on VPS
-        run: |
-          ssh root@${{ secrets.VPS_IP }} << 'EOF'
-          cd /home/deploy/meu-barbeiro-api
-          docker-compose down
-          docker-compose up --build -d
-          EOF
+      - name: Execute remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/meu-barbeiro-api
+            docker-compose down
+            docker-compose up --build -d
