@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build:
-      image: <DOCKER_USERNAME>/meu-barbeiro-api:latest
+    image: <DOCKER_USERNAME>/meu-barbeiro-api:latest
     ports:
       - "3000:3000"
     env_file:
