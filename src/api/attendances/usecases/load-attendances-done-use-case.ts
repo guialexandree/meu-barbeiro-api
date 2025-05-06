@@ -20,7 +20,7 @@ export class LoadAttendancesDoneUseCase {
       id: attendance.id,
       status: attendance.status,
       timeService: this.dateAdapter.differenceInMinutes(attendance.startedAt, attendance.finishedAt),
-      amount: attendance.services.reduce((acc, service) => acc + service.price, 0),
+      amount: attendance.services.reduce((acc, service) => acc + (+service.price), 0),
       startedAt: attendance.startedAt,
       finishedAt: attendance.finishedAt,
       canceledAt: attendance.cancellationDate,

@@ -63,7 +63,7 @@ export class AttendancesRepository implements IAttendancesRepository {
       .select('SUM(services.price)', 'totalAmount')
       .getRawOne()
 
-    return result.totalAmount || 0
+    return +result.totalAmount || 0
   }
 
   countTodayByStatus(status: AttendanceStatus): Promise<number> {

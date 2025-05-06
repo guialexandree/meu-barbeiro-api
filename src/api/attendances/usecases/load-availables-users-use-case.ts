@@ -17,7 +17,8 @@ export class LoadAvailablesUsersUseCase {
       'attending',
       'in_queue',
     ])
-    const usersWithAttendanceIds = usersWithAttendance.map((user) => user.id)
+
+    const usersWithAttendanceIds = usersWithAttendance.map((attendance) => attendance.user.id)
 
     return simpleUsers.filter(
       (user) => !usersWithAttendanceIds.includes(user.id),
