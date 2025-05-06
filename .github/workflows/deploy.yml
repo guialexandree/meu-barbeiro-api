@@ -33,5 +33,6 @@ jobs:
           script: |
             cd /home/meu-barbeiro-api
             docker-compose down
-            docker-compose up --build -d
+            docker-compose build --no-cache
+            docker-compose build -d
 
