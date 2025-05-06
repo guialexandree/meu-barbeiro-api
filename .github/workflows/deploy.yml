@@ -40,6 +40,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
-            docker stop meu-barbeiro-api || true
-            docker rm meu-barbeiro-api || true
-            docker run -d --name meu-barbeiro-api -p 3000:3000 --env-file /home/meu-barbeiro-api/.env ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
+            docker-compose down
+            docker-compose up --build -d
+
