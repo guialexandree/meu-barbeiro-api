@@ -6,8 +6,6 @@ services:
       image: <DOCKER_USERNAME>/meu-barbeiro-api:latest
     ports:
       - "3000:3000"
-    env_file:
-      - /home/meu-barbeiro-api/.env
     environment:
       - NODE_ENV=production
       - PORT=3000
