@@ -20,7 +20,7 @@ jobs:
           username: "root"
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
-          target: "deploy/meu-barbeiro-api2"
+          target: "/home/deploy/meu-barbeiro-api2"
 
       # Conectar à VPS e executar o deploy
       - name: Deploy on VPS
