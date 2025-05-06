@@ -9,6 +9,6 @@ services:
       - "3000:3000"
     env_file:
       - /home/meu-barbeiro-api/.env
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     restart: always
