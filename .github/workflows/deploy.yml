@@ -49,6 +49,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
+            cd /home/meu-barbeiro-api
             docker-compose down
             docker-compose up --build -d
 
