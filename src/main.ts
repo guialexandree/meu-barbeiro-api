@@ -2,8 +2,6 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
-import { join } from 'path'
-import { ServeStaticModule } from '@nestjs/serve-static'
 import { HttpDefautResponseMiddleware, HttpExceptionResponse } from './infra/middlewares'
 
 async function bootstrap() {
@@ -13,13 +11,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   app.useGlobalFilters(new HttpExceptionResponse())
   app.useGlobalInterceptors(new HttpDefautResponseMiddleware())
-  // ServeStaticModule.forRoot({
-  //   rootPath: join(__dirname, '..', '..', 'node_modules', '@nestjs/swagger', 'public'),
-  // })
 
   const config = new DocumentBuilder()
     .setTitle('Barbearia API')
-    .setDescription('AP de gereciamento do sistema para barbearias')
+    .setDescription('APII de gereciamento do sistema para barbearias')
     .addSecurity('bearer', {
       type: 'http',
       scheme: 'bearer',
