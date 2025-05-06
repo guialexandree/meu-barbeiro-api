@@ -10,26 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout do código
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Execute remote SSH commands using SSH key
-        uses: appleboy/scp-action@v1
+      # Login no Docker Hub (ou outro registro de contêiner)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          host: ${{ secrets.VPS_IP }}
-          username: "root"
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
-          target: "/home/meu-barbeiro-api"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Conectar à VPS e executar o deploy
-      - name: Execute remote SSH commands using SSH key
+      # Construir a imagem Docker
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest -f .docker/Dockerfile .
+
+      # Enviar a imagem para o Docker Hub
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
+
+      # Conectar à VPS e atualizar o serviço
+      - name: Deploy on VPS
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_IP }}
-          username: "root"
+          username: 'root'
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/meu-barbeiro-api
-            docker-compose down
-            docker-compose up --build -d
+            docker pull ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
+            docker stop meu-barbeiro-api || true
+            docker rm meu-barbeiro-api || true
+            docker run -d --name meu-barbeiro-api -p 3000:3000 --env-file /home/meu-barbeiro-api/.env ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
