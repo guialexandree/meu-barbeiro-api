@@ -5,6 +5,11 @@ import { LoadUsersParamsDto, CreateUserParamsDto } from './dto'
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/teste')
+  acreate(@Body() createUserDto: CreateUserParamsDto) {
+    return 'deu bom'
+  }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post()
