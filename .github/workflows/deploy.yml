@@ -26,10 +26,9 @@ jobs:
       - name: Execute remote SSH commands using SSH key
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
+          host: ${{ secrets.VPS_IP }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/meu-barbeiro-api
             docker-compose down
