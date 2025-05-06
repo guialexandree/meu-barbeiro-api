@@ -7,7 +7,7 @@ export class AttendanceService {
   @PrimaryColumn()
   id: string
 
-  @ManyToOne(() => Attendance, (attendance) => attendance.services)
+  @ManyToOne(() => Attendance, (attendance) => attendance.services, { eager: false })
   @JoinColumn({ name: 'attendance_id' })
   attendance: Attendance
 

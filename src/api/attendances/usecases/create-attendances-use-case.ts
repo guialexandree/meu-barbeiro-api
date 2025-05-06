@@ -34,7 +34,6 @@ export class CreateAttendanceUseCase {
     )
 
     const newAttendance = new Attendance({
-      services: selectedServices,
       createdAt: this.dateAdapter.now(),
       status: 'in_queue',
       user,
@@ -53,8 +52,14 @@ export class CreateAttendanceUseCase {
     }
 
     const servicesAttendance = await Promise.all(jobs)
-    newAttendance.services = servicesAttendance
 
-    return newAttendance
+    return {
+      ...newAttendance,
+      services: servicesAttendance.map((serviceAttendance) => ({
+        id: serviceAttendance.id,
+        service: serviceAttendance.service,
+        price: serviceAttendance.price,
+      })),
+    }
   }
 }

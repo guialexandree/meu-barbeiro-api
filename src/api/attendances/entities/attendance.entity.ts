@@ -8,7 +8,6 @@ import {
 } from 'typeorm'
 import { AttendanceService } from './attendance.service.entity'
 import { User } from '../../users/entities/user.entity'
-import { Service } from '../../services/entities/service.entity'
 
 export type AttendanceStatus = 'attending' | 'current' | 'in_queue' | 'canceled' | 'finished'
 
@@ -48,7 +47,6 @@ export class Attendance {
 
   constructor(
     props: {
-      services: Service[]
       createdAt: Date
       status: AttendanceStatus
       user: User
