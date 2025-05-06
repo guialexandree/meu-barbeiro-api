@@ -20,6 +20,10 @@ jobs:
 
       - name: Copy fisles to VPS
         run: |
+          ssh -v root@${{ secrets.VPS_IP }}
+
+      - name: Copy fisles to VPS
+        run: |
           scp -r . root@${{ secrets.VPS_IP }}:/home/deploy/meu-barbeiro-api
 
       # Conectar à VPS e executar o deploy
