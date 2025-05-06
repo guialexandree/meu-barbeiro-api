@@ -55,11 +55,7 @@ export class CreateAttendanceUseCase {
 
     return {
       ...newAttendance,
-      services: servicesAttendance.map((serviceAttendance) => ({
-        id: serviceAttendance.id,
-        service: serviceAttendance.service,
-        price: serviceAttendance.price,
-      })),
+      services: servicesAttendance,
     }
   }
 }
