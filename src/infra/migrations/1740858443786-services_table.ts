@@ -30,6 +30,11 @@ export class ServicesTable1740858443786 implements MigrationInterface {
             default: 0.0,
           },
           {
+            name: 'model',
+            type: 'boolean',
+            default: false,
+          },
+          {
             name: 'time_execution',
             type: 'int',
             default: 0,

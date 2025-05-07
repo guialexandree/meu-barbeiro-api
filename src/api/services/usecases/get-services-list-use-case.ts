@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { IServicesRepository } from '../services.repository'
-import { ServiceStatus } from '../entities/service.entity'
 import { AlertsService } from '../../alerts/alerts.service'
 import { AlertType } from '../../alerts/entities/alert.entity'
 
@@ -16,7 +15,7 @@ export class GetServicesListUseCase {
   async execute() {
     const services = await this.serviceRepository.findAll()
     const servicesAvailables = services.filter(
-      (service) => service.status === ServiceStatus.Ativo,
+      (service) => service.status === 'actived',
     )
     const alerts = (await this.alertService.findAll())
       .filter((alert) => alert.type === AlertType.Servicos)

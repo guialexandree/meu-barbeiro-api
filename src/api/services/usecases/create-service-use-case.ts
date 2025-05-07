@@ -26,7 +26,7 @@ export class CreateServiceUseCase {
       description: input.description?.trim()?.toLowerCase(),
       createdAt: this.dateAdapter.now(),
       updatedAt: this.dateAdapter.now(),
-      status: ServiceStatus.Ativo,
+      status: 'active' as ServiceStatus,
     }
 
     const service = new Service(serviceParams)
