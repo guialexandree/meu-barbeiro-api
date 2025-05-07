@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import localeData from 'dayjs/plugin/localeData'
-import 'dayjs/locale/pt-br'
+import timezone from 'dayjs/plugin/timezone'
 import { IDateAdapter } from '../../protocols'
+import 'dayjs/locale/pt-br'
 
+dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.extend(localeData)
 dayjs.locale('pt-br')
 
