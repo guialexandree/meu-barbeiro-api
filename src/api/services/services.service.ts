@@ -1,31 +1,23 @@
 import { HttpException, Inject, Injectable, OnModuleInit } from '@nestjs/common'
-import { CreateServiceDto } from './dto/create-service.dto'
-import { UpdateServiceDto } from './dto/update-service.dto'
-import { GetServiceUseCase } from './usecases/get-service-use-case'
-import { CreateServiceUseCase } from './usecases/create-service-use-case'
-import { UpdateServiceUseCase } from './usecases/update-service-use-case'
-import { GetServicesListUseCase } from './usecases/get-services-list-use-case'
-import { SeedServicesUseCase } from './usecases/seed-services-use-case'
-import { RemoveServiceUseCase } from './usecases/remove-service-use-case'
 import { Service } from './entities/service.entity'
-import { GetActivedServicesUseCase } from './usecases/get-actived-services-use-case'
-import { GetServicesUseCase } from './usecases/get-services-use-case'
-import { GetServicesDto } from './dto'
-import { ServicesGateway } from './services.gateway'
+import { ISocketAdapter } from '../../infra/adapters/protocols'
+import { CreateServiceDto, GetServicesDto, UpdateServiceDto } from './dto'
+import * as UC from './usecases'
 
 @Injectable()
 export class ServicesService implements OnModuleInit {
   constructor(
     @Inject()
-    private readonly getServicesUseCase: GetServicesUseCase,
-    private readonly getActivedServicesUseCase: GetActivedServicesUseCase,
-    private readonly getServicesListUseCase: GetServicesListUseCase,
-    private readonly getServiceUseCase: GetServiceUseCase,
-    private readonly createServiceUseCase: CreateServiceUseCase,
-    private readonly updateServiceUseCase: UpdateServiceUseCase,
-    private readonly removeServiceUseCase: RemoveServiceUseCase,
-    private readonly seedServicesUseCase: SeedServicesUseCase,
-    private readonly servicesGateway: ServicesGateway
+    private readonly getServicesUseCase: UC.GetServicesUseCase,
+    private readonly getActivedServicesUseCase: UC.GetActivedServicesUseCase,
+    private readonly getServicesListUseCase: UC.GetServicesListUseCase,
+    private readonly getServiceUseCase: UC.GetServiceUseCase,
+    private readonly createServiceUseCase: UC.CreateServiceUseCase,
+    private readonly updateServiceUseCase: UC.UpdateServiceUseCase,
+    private readonly removeServiceUseCase: UC.RemoveServiceUseCase,
+    private readonly seedServicesUseCase: UC.SeedServicesUseCase,
+    @Inject('ISocketAdapter')
+    private readonly socketAdapter: ISocketAdapter
   ) {}
 
   onModuleInit() {
@@ -33,8 +25,9 @@ export class ServicesService implements OnModuleInit {
   }
 
   async create(createServicoDto: CreateServiceDto) {
-    const { id } = await this.createServiceUseCase.execute(createServicoDto)
-    return { id }
+    const service = await this.createServiceUseCase.execute(createServicoDto)
+    this.socketAdapter.notify('new_service', service)
+    return service
   }
 
   async findAll(getServicesDto: GetServicesDto) {
@@ -67,13 +60,13 @@ export class ServicesService implements OnModuleInit {
 
   async update(id: string, updateServicoDto: UpdateServiceDto) {
     const service = await this.updateServiceUseCase.execute(id, updateServicoDto)
-    this.servicesGateway.notifyUpdate(service)
+    this.socketAdapter.notify('update_service', service)
     return service
   }
 
   async remove(id: string) {
     const service = await this.removeServiceUseCase.execute(id)
-    this.servicesGateway.notifyRemove(id)
+    this.socketAdapter.notify('remove_service', service)
     return service
   }
 }

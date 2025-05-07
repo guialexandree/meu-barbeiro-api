@@ -8,20 +8,16 @@ import { AttendanceService } from './entities/attendance.service.entity'
 import { Attendance } from './entities/attendance.entity'
 import { UsersModule } from '../users/users.module'
 import { ServicesModule } from '../services/services.module'
-import { DateAdapterModule } from '../../infra/adapters/date-adapter'
-import { AttendancesGateway } from './attendances.gateway'
 import * as UC from './usecases'
 
 @Module({
   imports: [
     UsersModule,
     ServicesModule,
-    DateAdapterModule,
     TypeOrmModule.forFeature([Attendance, AttendanceService]),
   ],
   controllers: [AttendancesController],
   providers: [
-    AttendancesGateway,
     AttendancesService,
     UC.LoadUsersWithAttendanceUseCase,
     UC.CancelAttendanceUseCase,

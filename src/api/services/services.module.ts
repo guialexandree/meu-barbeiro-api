@@ -5,19 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Service } from './entities/service.entity'
 import { ServicesRepository } from './services.repository'
 import { AlertsModule } from '../alerts/alerts.module'
-import { DateAdapterModule } from '../../infra/adapters/date-adapter/dayjs-adapter/date-adapter.module'
-import { ServicesGateway } from './services.gateway'
 import * as UC from './usecases'
 
 @Module({
   imports: [
     AlertsModule,
-    DateAdapterModule,
     TypeOrmModule.forFeature([Service]),
   ],
   controllers: [ServicesController],
   providers: [
-    ServicesGateway,
     ServicesService,
     UC.GetServicesUseCase,
     UC.GetServicesListUseCase,

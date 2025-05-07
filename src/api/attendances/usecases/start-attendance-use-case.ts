@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { IAttendancesRepository } from '../attendances.repository'
 import { InvalidRuleException } from '../../../domain/errors'
-import { AttendanceStatus } from '../entities/attendance.entity'
 import { IDateAdapter } from '../../../infra/adapters/protocols'
 
 @Injectable()

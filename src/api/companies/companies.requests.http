@@ -3,5 +3,5 @@ POST http://localhost:3000/api/barber-shop/start
 Content-Type: application/json
 
 ### Fechar salão
-POST http://localhost:3000/api/barber-shop/end
+POST http://localhost:3000/api/barber-shop/closed
 Content-Type: application/json

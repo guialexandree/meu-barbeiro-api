@@ -4,8 +4,6 @@ import { AlertsController } from './alerts.controller'
 import { SeedAlertsUseCase } from './usecases/seed-alerts-use-case'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Alert } from './entities/alert.entity'
-import { CompaniesModule } from '../companies/companies.module'
-import { DateAdapterModule } from '../../infra/adapters/date-adapter/dayjs-adapter/date-adapter.module'
 import { GetAllAlertsUseCase } from './usecases/get-all-alerts-use-case'
 import { CreateAlertUseCase } from './usecases/create-alert-use-case'
 import { UpdateAlertUseCase } from './usecases/update-alert-use-case'
@@ -14,7 +12,6 @@ import { AlertsRepository } from './alerts.repository'
 
 @Module({
   imports: [
-    DateAdapterModule,
     TypeOrmModule.forFeature([Alert]),
   ],
   controllers: [AlertsController],

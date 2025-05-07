@@ -7,7 +7,6 @@ import { Registration } from './entities/registration.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SmsModule } from '../sms/sms.module';
 import { AuthModule } from '../../auth/auth.module';
-import { DateAdapterModule } from '../../infra/adapters/date-adapter';
 import { RegisterUseCase } from './usecases/register-use-case';
 import { RegisterActivationUseCase } from './usecases/register-activation-use-case';
 
@@ -16,7 +15,6 @@ import { RegisterActivationUseCase } from './usecases/register-activation-use-ca
     AuthModule,
     UsersModule,
     SmsModule,
-    DateAdapterModule,
     TypeOrmModule.forFeature([Registration])
   ],
   controllers: [RegistrationController],

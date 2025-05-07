@@ -18,5 +18,5 @@ export class CancelAttendanceDto {
         'O motivo deve ser um dos seguintes: [CANCELADO, NAO_COMPARECEU]',
     },
   )
-  motivo: AttendanceStatus
+  reason: AttendanceStatus
 }

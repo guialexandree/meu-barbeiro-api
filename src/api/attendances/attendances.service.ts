@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { CreateAttendanceDto } from './dto/create-attendance.dto'
-import * as UC from './usecases'
-import { AttendancesGateway } from './attendances.gateway'
 import { CancelAttendanceDto } from './dto'
+import { ISocketAdapter } from '../../infra/adapters/protocols'
+import * as UC from './usecases'
 
 @Injectable()
 export class AttendancesService {
@@ -19,7 +19,8 @@ export class AttendancesService {
     private readonly loadUsersWithAttendanceUseCase: UC.LoadUsersWithAttendanceUseCase,
     private readonly loadAvailablesUsersUseCase: UC.LoadAvailablesUsersUseCase,
     private readonly loadAttendancesInfoTodayUseCase: UC.LoadAttendancesInfoTodayUseCase,
-    private readonly attendancesGateway: AttendancesGateway
+    @Inject('ISocketAdapter')
+    private readonly socketAdapter: ISocketAdapter
   ) {}
 
   findActivedByUser(userId: string) {
@@ -52,31 +53,31 @@ export class AttendancesService {
 
   async startAttendance(id: string) {
     const attendance = await this.startAttendanceUseCase.execute(id)
-    this.attendancesGateway.notifyStart(attendance)
+    this.socketAdapter.notify('start_attendance', attendance)
     return attendance
   }
 
   async add(createAttendanceDto: CreateAttendanceDto) {
     const attendance = await this.createAttendanceUseCase.execute(createAttendanceDto, createAttendanceDto.userId)
-    this.attendancesGateway.notifyAdd(attendance)
+    this.socketAdapter.notify('entry_in_queue', attendance)
     return attendance
   }
 
   async addIn(createAttendanceDto: CreateAttendanceDto, userId: string) {
     const attendance = await this.createAttendanceUseCase.execute(createAttendanceDto, userId)
-    this.attendancesGateway.notifyAdd(attendance)
+    this.socketAdapter.notify('entry_in_queue', attendance)
     return attendance
   }
 
   async endAttendance(id: string) {
     const attendance = await this.endAttendanceUseCase.execute(id)
-    this.attendancesGateway.notifyFinish(attendance)
+    this.socketAdapter.notify('finish_attendance', attendance)
     return attendance
   }
 
   async cancelAttendance(cancelAttendanceDto: CancelAttendanceDto) {
-    const attendance = await this.cancelAttendanceUseCase.execute(cancelAttendanceDto.id, cancelAttendanceDto.motivo)
-    this.attendancesGateway.notifyCancel(attendance.id, cancelAttendanceDto.motivo)
+    const attendance = await this.cancelAttendanceUseCase.execute(cancelAttendanceDto.id, cancelAttendanceDto.reason)
+    this.socketAdapter.notify('cancel_attendance', { id: attendance.id, reason: cancelAttendanceDto.reason })
     return attendance
   }
 

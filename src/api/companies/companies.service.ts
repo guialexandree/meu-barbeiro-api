@@ -6,6 +6,7 @@ import { CreateCompanyDto } from './dto/create-company.dto'
 import { GetCompanyIdUseCase } from './usecases/get-company-id-use-case'
 import { StartAttendanceCompanyUseCase } from './usecases/start-attendance-company-use-case'
 import { EndAttendanceCompanyUseCase } from './usecases/end-attendance-company-use-case'
+import { ISocketAdapter } from '../../infra/adapters/protocols'
 
 @Injectable()
 export class CompaniesService implements OnModuleInit {
@@ -17,6 +18,8 @@ export class CompaniesService implements OnModuleInit {
     private readonly startAttendanceCompany: StartAttendanceCompanyUseCase,
     private readonly endAttendanceCompany: EndAttendanceCompanyUseCase,
     private readonly createCompany: CreateCompanyUseCase,
+    @Inject('ISocketAdapter')
+    private readonly socketAdapter: ISocketAdapter
   ) {}
 
   onModuleInit() {
@@ -35,11 +38,15 @@ export class CompaniesService implements OnModuleInit {
     return this.getCompanyId.execute()
   }
 
-  startAttendances() {
-    return this.startAttendanceCompany.execute()
+  async startAttendances() {
+    const company = await this.startAttendanceCompany.execute()
+    this.socketAdapter.notify('start_attendances', company)
+    return company
   }
 
-  endAttendances() {
-    return this.endAttendanceCompany.execute()
+  async endAttendances() {
+    const company = await this.endAttendanceCompany.execute()
+    this.socketAdapter.notify('end_attendances', company)
+    return company
   }
 }
