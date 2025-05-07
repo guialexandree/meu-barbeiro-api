@@ -50,8 +50,10 @@ export class AttendancesService {
     return this.loadAttendancesInfoTodayUseCase.execute()
   }
 
-  startAttendance(id: string) {
-    return this.startAttendanceUseCase.execute(id)
+  async startAttendance(id: string) {
+    const attendance = await this.startAttendanceUseCase.execute(id)
+    this.attendancesGateway.notifyStart(attendance)
+    return attendance
   }
 
   async add(createAttendanceDto: CreateAttendanceDto) {

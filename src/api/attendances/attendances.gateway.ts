@@ -39,6 +39,10 @@ export class AttendancesGateway
     this.server.emit('finish', attendance)
   }
 
+  notifyStart(attendance: Attendance) {
+    this.server.emit('start', attendance)
+  }
+
   notifyCancel(serviceId: string, motivo: AttendanceStatus) {
     this.server.emit('cancel', { serviceId, motivo })
   }
