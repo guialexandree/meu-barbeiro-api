@@ -23,7 +23,7 @@ export class LoadAttendancesDoneUseCase {
       amount: attendance.services.reduce((acc, service) => acc + (+service.price), 0),
       startedAt: attendance.startedAt,
       finishedAt: attendance.finishedAt,
-      canceledAt: attendance.cancellationDate,
+      canceledAt: attendance.canceledAt,
       user: {
         id: attendance.user.id,
         name: attendance.user.name,
