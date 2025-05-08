@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsEnum, IsUUID } from 'class-validator'
+import { IsEnum, IsString, IsUUID } from 'class-validator'
 import { AttendanceStatus } from '../entities/attendance.entity'
 
 export class CancelAttendanceDto {
@@ -11,12 +11,8 @@ export class CancelAttendanceDto {
   id: string
 
   @ApiProperty({ required: true, description: 'Motivo do cancelamento' })
-  @IsEnum(
-    {},
-    {
-      message:
-        'O motivo deve ser um dos seguintes: [CANCELADO, NAO_COMPARECEU]',
-    },
-  )
-  reason: AttendanceStatus
+  @IsString({
+    message: 'O motivo do cancelamento deve ser informado',
+  })
+  reason: string
 }
