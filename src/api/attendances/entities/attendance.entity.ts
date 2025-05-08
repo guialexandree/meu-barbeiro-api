@@ -37,7 +37,7 @@ export class Attendance {
   user: User
 
   @Column({ type: 'timestamp', nullable: true, name: 'cancellation_date' })
-  cancellationDate: Date | null
+  canceledAt: Date | null
 
   @Column({ nullable: true, name: 'cancellation_reason' })
   cancellationReason: string
