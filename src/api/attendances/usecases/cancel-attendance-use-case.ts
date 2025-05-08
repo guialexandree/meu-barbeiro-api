@@ -18,7 +18,7 @@ export class CancelAttendanceUseCase {
       throw new InvalidRuleException('O atendimento informado não existe')
     }
 
-    if (attendance.status !== 'attending') {
+    if (['finished', 'canceled'].includes(attendance.status)) {
       throw new InvalidRuleException('O atendimento já foi finalizado')
     }
 
