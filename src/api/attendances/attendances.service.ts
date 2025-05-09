@@ -77,7 +77,7 @@ export class AttendancesService {
 
   async cancelAttendance(cancelAttendanceDto: CancelAttendanceDto) {
     const attendance = await this.cancelAttendanceUseCase.execute(cancelAttendanceDto.id, cancelAttendanceDto.reason)
-    this.socketAdapter.notify('cancel_attendance', { id: attendance.id, reason: cancelAttendanceDto.reason })
+    this.socketAdapter.notify('cancel_attendance', attendance)
     return attendance
   }
 
