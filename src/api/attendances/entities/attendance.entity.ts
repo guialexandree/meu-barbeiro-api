@@ -25,6 +25,8 @@ export class Attendance {
   @Column({ type: 'timestamp', nullable: true, name: 'finished_at' })
   finishedAt: Date | null
 
+  startPrevision: Date | null
+
   @OneToMany(
     () => AttendanceService,
     (attendanceService) => attendanceService.attendance,

@@ -1,7 +1,7 @@
 export interface IDateAdapter {
   format(date: string | Date, template: string): string
   now(): Date
-  addMinutes(minutes: number): Date
+  addMinutes(minutes: number, startDate?: Date | string): Date
   startOf(): Date
   endOf(): Date
   weekDay(): number

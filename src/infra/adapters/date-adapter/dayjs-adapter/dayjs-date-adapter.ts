@@ -21,8 +21,8 @@ export class DayjsDateAdapter implements IDateAdapter {
     return dayjs(end).diff(dayjs(start), 'minute')
   }
 
-  addMinutes(minutes: number): Date {
-    return dayjs().add(minutes, 'minutes').toDate()
+  addMinutes(minutes: number, startDate: Date | string): Date {
+    return dayjs(startDate).add(minutes, 'minutes').toDate()
   }
 
   startOf(): Date {
