@@ -4,8 +4,8 @@ import { IsArray, IsOptional, IsUUID } from 'class-validator'
 type PositionAttendance = 'last' | 'first'
 
 export class CreateAttendanceDto {
-  @ApiProperty({ required: true, description: 'ID do cliente que será atendido' })
-  @IsUUID('all', { message: 'O id do usuário deve ser um UUID válido' })
+  @ApiProperty({ required: false, description: 'ID do cliente que será atendido quando tiver cadastro' })
+  @IsOptional()
   userId: string
 
   @ApiProperty({ required: true, description: 'IDs dos serviços a serem executados no cliente' })

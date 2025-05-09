@@ -24,7 +24,11 @@ export class CreateAttendanceUseCase {
   ) {}
 
   async execute(input: CreateAttendanceDto, userId: string) {
-    const user = await this.userService.findById(userId)
+    let user = await this.userService.findById(userId)
+    if (!user) {
+      user = await this.userService.findOne('cliente')
+    }
+
     const services = await this.servicesService.findAll({
       search: '',
       status: null,
