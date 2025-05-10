@@ -14,6 +14,7 @@ export class UsersService implements OnModuleInit {
     private readonly changeNameUseCase: UC.ChangeNameUseCase,
     private readonly seedUserUseCase: UC.SeedUsersUseCase,
     private readonly loadUsersUseCase: UC.LoadUsersUseCase,
+    private readonly loadDefaultUser: UC.LoadDefaultUserUseCase,
     private readonly loadUsersSimpleUseCase: UC.LoadUsersSimpleUseCase,
     private readonly loadUsersTotalizerUseCase: UC.LoadUsersTotalizerUseCase,
     @Inject('ISocketAdapter')
@@ -30,6 +31,10 @@ export class UsersService implements OnModuleInit {
 
   findOne(userName: string) {
     return this.getUserUseCase.execute(userName)
+  }
+
+  loadDefault() {
+    return this.loadDefaultUser.execute()
   }
 
   loadSimples() {

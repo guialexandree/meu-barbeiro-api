@@ -50,4 +50,9 @@ export class ServicesController {
   update(@Param('id') id: string, @Body() updateServiceDto: UpdateServiceDto) {
     return this.servicesService.update(id, updateServiceDto)
   }
+
+  @Patch(':id/default')
+  setDefault(@Param('id') id: string) {
+    return this.servicesService.setDefault(id)
+  }
 }

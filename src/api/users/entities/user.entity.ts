@@ -38,6 +38,9 @@ export class User {
   @Column({ name: 'contact_number' })
   contactNumber: string
 
+  @Column({ default: false, name: 'model' })
+  default: boolean
+
   @Exclude()
   @Column({ nullable: true, name: 'device_id' })
   deviceId: string

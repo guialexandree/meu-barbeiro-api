@@ -16,9 +16,11 @@ import * as UC from './usecases'
   providers: [
     ServicesService,
     UC.GetServicesUseCase,
+    UC.SetDefaultServiceUseCase,
     UC.GetServicesListUseCase,
     UC.GetServiceUseCase,
     UC.GetActivedServicesUseCase,
+    UC.LoadDefaultServiceUseCase,
     UC.UpdateServiceUseCase,
     UC.CreateServiceUseCase,
     UC.RemoveServiceUseCase,

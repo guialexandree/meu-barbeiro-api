@@ -17,6 +17,7 @@ import * as UC from './usecases'
     UC.LoadUsersSimpleUseCase,
     UC.GetUserByIdUseCase,
     UC.CreateUserUseCase,
+    UC.LoadDefaultUserUseCase,
     UC.ChangeNameUseCase,
     UC.SeedUsersUseCase,
     UC.LoadUsersUseCase,

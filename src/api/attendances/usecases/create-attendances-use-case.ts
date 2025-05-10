@@ -26,7 +26,7 @@ export class CreateAttendanceUseCase {
   async execute(input: CreateAttendanceDto, userId: string) {
     let user = await this.userService.findById(userId)
     if (!user) {
-      user = await this.userService.findOne('cliente')
+      user = await this.userService.loadDefault()
     }
 
     const services = await this.servicesService.findAll({
@@ -36,6 +36,11 @@ export class CreateAttendanceUseCase {
     const selectedServices = services.filter((service) =>
       input.services.includes(service.id),
     )
+
+    if (!selectedServices.length) {
+      const defaultService = await this.servicesService.loadDefault()
+      selectedServices.push(defaultService)
+    }
 
     const newAttendance = new Attendance({
       createdAt: this.dateAdapter.now(),

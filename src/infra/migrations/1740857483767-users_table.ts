@@ -24,6 +24,11 @@ export class UsersTable1740857483767 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'model',
+            type: 'boolean',
+            default: false
+          },
+          {
             name: 'status',
             type: 'enum',
             enum: ['actived', 'deactivated', 'canceled'],

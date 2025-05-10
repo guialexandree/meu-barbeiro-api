@@ -14,7 +14,9 @@ export class ServicesService implements OnModuleInit {
     private readonly getServiceUseCase: UC.GetServiceUseCase,
     private readonly createServiceUseCase: UC.CreateServiceUseCase,
     private readonly updateServiceUseCase: UC.UpdateServiceUseCase,
+    private readonly setDefaultServiceUseCase: UC.SetDefaultServiceUseCase,
     private readonly removeServiceUseCase: UC.RemoveServiceUseCase,
+    private readonly loadDefaultServiceUseCase: UC.LoadDefaultServiceUseCase,
     private readonly seedServicesUseCase: UC.SeedServicesUseCase,
     @Inject('ISocketAdapter')
     private readonly socketAdapter: ISocketAdapter
@@ -49,6 +51,10 @@ export class ServicesService implements OnModuleInit {
     return this.getServicesListUseCase.execute()
   }
 
+  loadDefault() {
+    return this.loadDefaultServiceUseCase.execute()
+  }
+
   async findOne(id: string) {
     const service = await this.getServiceUseCase.execute(id)
     if (!service) {
@@ -61,6 +67,11 @@ export class ServicesService implements OnModuleInit {
   async update(id: string, updateServicoDto: UpdateServiceDto) {
     const service = await this.updateServiceUseCase.execute(id, updateServicoDto)
     this.socketAdapter.notify('update_service', service)
+    return service
+  }
+
+  async setDefault(id: string) {
+    const service = await this.setDefaultServiceUseCase.execute(id)
     return service
   }
 

@@ -28,6 +28,7 @@ export class SeedUsersUseCase {
           contactNumber: '5545999872483',
           role: UserRole.Admin,
           createdAt: this.dateAdapter.now(),
+          default: true,
         },
         {
           name: 'barbeiro',
