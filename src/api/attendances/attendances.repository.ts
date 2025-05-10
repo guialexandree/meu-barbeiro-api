@@ -56,9 +56,10 @@ export class AttendancesRepository implements IAttendancesRepository {
       .createQueryBuilder('attendances_services')
       .leftJoinAndSelect('attendances_services.attendance', 'attendances')
       .leftJoinAndSelect('attendances_services.service', 'services')
-      .where('attendances.createdAt BETWEEN :start AND :end', {
+      .where('attendances.createdAt BETWEEN :start AND :end AND attendances.status = :status', {
         start,
         end,
+        status: 'finished',
       })
       .select('SUM(services.price)', 'totalAmount')
       .getRawOne()
