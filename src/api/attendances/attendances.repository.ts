@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Between, In, Repository } from 'typeorm'
+import { Between, FindOptionsOrder, In, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Attendance, AttendanceStatus } from './entities/attendance.entity'
 import { AttendanceService } from './entities/attendance.service.entity'
@@ -8,7 +8,7 @@ import { IDateAdapter } from '../../infra/adapters/protocols'
 export interface IAttendancesRepository {
   findOne(id: string): Promise<Attendance>
   findActivedByUser(userId: string): Promise<Attendance>
-  loadByStatus(statusList: AttendanceStatus[]): Promise<Attendance[]>
+  loadByStatus(statusList: AttendanceStatus[], order?: FindOptionsOrder<Attendance>): Promise<Attendance[]>
   loadByUser(userId: string): Promise<Attendance[]>
   remove(id: string): Promise<Attendance>
   findAll(): Promise<Attendance[]>

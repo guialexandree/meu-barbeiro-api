@@ -25,6 +25,7 @@ export class CancelAttendanceUseCase {
     attendance.status = 'canceled'
     attendance.cancellationReason = reason
     attendance.canceledAt = this.dateAdapter.now()
+    attendance.finishedAt = this.dateAdapter.now()
     await this.attendancesRepository.save(attendance)
 
     return attendance

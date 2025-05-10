@@ -15,7 +15,9 @@ export class LoadAttendancesDoneUseCase {
     const attendancesDoneToday = await this.attendancesRepository.loadByStatus([
       'finished',
       'canceled'
-    ])
+    ], {
+      finishedAt: 'DESC'
+    })
 
     return attendancesDoneToday.map((attendance) => ({
       id: attendance.id,
