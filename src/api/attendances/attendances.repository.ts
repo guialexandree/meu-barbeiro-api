@@ -94,7 +94,7 @@ export class AttendancesRepository implements IAttendancesRepository {
     return attendances.at(0)
   }
 
-  async loadByStatus(statusList: AttendanceStatus[]): Promise<Attendance[]> {
+  async loadByStatus(statusList: AttendanceStatus[], order?: FindOptionsOrder<Attendance>): Promise<Attendance[]> {
     const todayStart = this.dateAdapter.startOf()
     const todayEnd = this.dateAdapter.endOf()
 
@@ -103,10 +103,10 @@ export class AttendancesRepository implements IAttendancesRepository {
         createdAt: Between(todayStart, todayEnd),
         status: In(statusList),
       },
-      order: {
+      order: order || {
         status: 'ASC',
         startedAt: 'ASC',
-        createdAt: 'ASC',
+        finishedAt: 'DESC',
       },
     })
 
