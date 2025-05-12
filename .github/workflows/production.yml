@@ -14,6 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Update VPS
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/home/meu-barbeiro-api"
+
       # Login no Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -36,6 +45,7 @@ jobs:
     needs: build
 
     steps:
+
       # Conectar à VPS e atualizar o serviço
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1
