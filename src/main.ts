@@ -14,7 +14,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Barbearia API')
-    .setDescription('APIs de gereciamento do sistema para barbearias')
+    .setDescription('API de gereciamento do sistema para barbearias')
     .addSecurity('bearer', {
       type: 'http',
       scheme: 'bearer',
