@@ -3,7 +3,7 @@ import { IServicesRepository } from '../services.repository'
 import { CreateServiceDto } from '../dto/create-service.dto'
 import { Service, ServiceStatus } from '../entities/service.entity'
 import { IDateAdapter } from '../../../infra/adapters/protocols'
-import { InvalidRuleException } from 'src/domain/errors/invalid-rule-exception'
+import { InvalidRuleException } from '../../../domain/errors'
 
 @Injectable()
 export class CreateServiceUseCase {
