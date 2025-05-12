@@ -2,13 +2,9 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: .docker/Dockerfile
+    image: guialexandre/meu-barbeiro-api:latest
     ports:
       - "3000:3000"
     env_file:
       - /home/meu-barbeiro-api/.env
-    # volumes:
-    #   - .:/app
     restart: always
