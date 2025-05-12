@@ -1,5 +1,5 @@
 # Use a imagem base do Node.js
-FROM node:22.15-alpine
+FROM node:18-alpine
 
 # Defina o diretório de trabalho
 WORKDIR /app
@@ -7,10 +7,10 @@ WORKDIR /app
 # Copie os arquivos do projeto
 COPY package*.json ./
 COPY *.json ./
-COPY . .
+COPY src ./
 
 # Instale as dependências
-RUN npm install
+RUN npm install && npm cache clean --force
 
 # Compile o projeto
 RUN npm run build

@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,15 +14,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Execute remote SSH commands using SSH key
-        uses: appleboy/scp-action@v1
+      # Login no Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          host: ${{ secrets.VPS_IP }}
-          username: "root"
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
-          target: "/home/meu-barbeiro-api"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Construir a imagem Docker
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest -f .docker/Dockerfile .
+
+      # Enviar a imagem para o Docker Hub
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/meu-barbeiro-api:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
       # Conectar à VPS e atualizar o serviço
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1
@@ -32,5 +45,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/meu-barbeiro-api
+            docker-compose pull
             docker-compose down
-            docker-compose up --build -d
+            docker-compose up -d
