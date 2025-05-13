@@ -53,31 +53,36 @@ export class AttendancesService {
 
   async startAttendance(id: string) {
     const attendance = await this.startAttendanceUseCase.execute(id)
-    this.socketAdapter.notify('start_attendance', attendance)
+    this.socketAdapter.notify('queue_info/start_attendance', attendance)
+    this.socketAdapter.notify('queue/start_attendance', attendance)
     return attendance
   }
 
   async add(createAttendanceDto: CreateAttendanceDto) {
     const attendance = await this.createAttendanceUseCase.execute(createAttendanceDto, createAttendanceDto.userId)
-    this.socketAdapter.notify('entry_in_queue', attendance)
+    this.socketAdapter.notify('queue_info/entry_in_queue')
+    this.socketAdapter.notify('queue/entry_in_queue', attendance)
     return attendance
   }
 
   async addIn(createAttendanceDto: CreateAttendanceDto, userId: string) {
     const attendance = await this.createAttendanceUseCase.execute(createAttendanceDto, userId)
-    this.socketAdapter.notify('entry_in_queue', attendance)
+    this.socketAdapter.notify('queue_info/entry_in_queue')
+    this.socketAdapter.notify('queue/entry_in_queue', attendance)
     return attendance
   }
 
   async endAttendance(id: string) {
     const attendance = await this.endAttendanceUseCase.execute(id)
-    this.socketAdapter.notify('finish_attendance', attendance)
+    this.socketAdapter.notify('queue_info/finish_attendance', attendance)
+    this.socketAdapter.notify('queue/finish_attendance', attendance)
     return attendance
   }
 
   async cancelAttendance(cancelAttendanceDto: CancelAttendanceDto) {
     const attendance = await this.cancelAttendanceUseCase.execute(cancelAttendanceDto.id, cancelAttendanceDto.reason)
-    this.socketAdapter.notify('cancel_attendance', attendance)
+    this.socketAdapter.notify('queue_info/cancel_attendance')
+    this.socketAdapter.notify('queue/cancel_attendance', attendance)
     return attendance
   }
 
