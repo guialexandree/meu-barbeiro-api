@@ -4,6 +4,7 @@ import { User } from './entities/user.entity'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersRepository } from './users.repository'
 import { UsersController } from './users.controller'
+import { PasswordEncoder } from '../../infra/adapters'
 import * as UC from './usecases'
 
 @Module({
@@ -13,6 +14,7 @@ import * as UC from './usecases'
   controllers: [UsersController],
   providers: [
     UsersService,
+    PasswordEncoder,
     UC.LoadUserByNameUseCase,
     UC.LoadUsersSimpleUseCase,
     UC.GetUserByIdUseCase,

@@ -6,6 +6,7 @@ import { jwtConstants } from './constants.'
 import { SignInUseCase } from './usecases/sigin-use-case'
 import { SignInClientUseCase } from './usecases/sigin-client-use-case'
 import { UsersModule } from '../api/users/users.module'
+import { PasswordEncoder } from '../infra/adapters'
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { UsersModule } from '../api/users/users.module'
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, SignInUseCase, SignInClientUseCase],
+  providers: [AuthService, SignInUseCase, SignInClientUseCase, PasswordEncoder],
   exports: [AuthService],
 })
 export class AuthModule {}

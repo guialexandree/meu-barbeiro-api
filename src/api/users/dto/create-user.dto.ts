@@ -16,7 +16,7 @@ export class CreateUserParamsDto {
   password?: string
 
   @ApiProperty()
-  @Length(9, 14)
+  @Length(9, 15)
   @IsOptional()
   contactNumber?: string
 
