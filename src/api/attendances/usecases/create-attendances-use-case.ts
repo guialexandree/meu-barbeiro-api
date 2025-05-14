@@ -7,6 +7,7 @@ import { AttendanceService } from '../entities/attendance.service.entity'
 import { ServicesService } from '../../services/services.service'
 import { UsersService } from '../../users/users.service'
 import { IDateAdapter } from '../../../infra/adapters/protocols'
+import { InvalidRuleException } from '../../../domain/errors'
 
 @Injectable()
 export class CreateAttendanceUseCase {
@@ -24,22 +25,12 @@ export class CreateAttendanceUseCase {
   ) {}
 
   async execute(input: CreateAttendanceDto, userId: string) {
-    let user = await this.userService.findById(userId)
-    if (!user) {
-      user = await this.userService.loadDefault()
-    }
+    const user = await this.getUser(userId)
+    const selectedServices = await this.getServices(input)
 
-    const services = await this.servicesService.findAll({
-      search: '',
-      status: null,
-    })
-    const selectedServices = services.filter((service) =>
-      input.services.includes(service.id),
-    )
-
-    if (!selectedServices.length) {
-      const defaultService = await this.servicesService.loadDefault()
-      selectedServices.push(defaultService)
+    const inQueue = await this.attendancesRepository.findActivedByUser(userId)
+    if (inQueue && !user.default) {
+      throw new InvalidRuleException('O cliente já está na fila')
     }
 
     const newAttendance = new Attendance({
@@ -66,5 +57,31 @@ export class CreateAttendanceUseCase {
       ...newAttendance,
       services: servicesAttendance,
     }
+  }
+
+  async getUser(userId: string) {
+    let user = await this.userService.findById(userId)
+    if (!user) {
+      user = await this.userService.loadDefault()
+    }
+
+    return user
+  }
+
+  async getServices(input: CreateAttendanceDto) {
+    const services = await this.servicesService.findAll({
+      search: '',
+      status: null,
+    })
+    const selectedServices = services.filter((service) =>
+      input.services.includes(service.id),
+    )
+
+    if (!selectedServices.length) {
+      const defaultService = await this.servicesService.loadDefault()
+      selectedServices.push(defaultService)
+    }
+
+    return selectedServices
   }
 }

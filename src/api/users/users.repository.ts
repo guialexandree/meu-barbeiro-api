@@ -54,6 +54,9 @@ export class UsersRepository implements IUsersRepository {
   }
 
   findById(id: string): Promise<User> {
+    if (!id) {
+      return null
+    }
     return this.repository.findOneBy({ id })
   }
 

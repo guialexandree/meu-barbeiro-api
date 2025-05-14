@@ -21,6 +21,7 @@ import * as UC from './usecases'
     AttendancesService,
     UC.LoadUsersWithAttendanceUseCase,
     UC.CancelAttendanceUseCase,
+    UC.SendoToAttendanceUseCase,
     UC.LoadAvailablesUsersUseCase,
     UC.LoadAttendancesInfoTodayUseCase,
     UC.LoadAttendancesDoneUseCase,

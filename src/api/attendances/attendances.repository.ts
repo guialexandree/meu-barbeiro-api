@@ -80,6 +80,10 @@ export class AttendancesRepository implements IAttendancesRepository {
   }
 
   async findActivedByUser(userId: string): Promise<Attendance> {
+    if (!userId) {
+      return null
+    }
+
     const todayStart = this.dateAdapter.startOf()
     const todayEnd = this.dateAdapter.endOf()
 

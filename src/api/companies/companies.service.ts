@@ -40,13 +40,13 @@ export class CompaniesService implements OnModuleInit {
 
   async startAttendances() {
     const company = await this.startAttendanceCompany.execute()
-    this.socketAdapter.notify('start_attendances', company)
+    this.socketAdapter.notify('company/start_attendances', company)
     return company
   }
 
   async endAttendances() {
     const company = await this.endAttendanceCompany.execute()
-    this.socketAdapter.notify('end_attendances', company)
+    this.socketAdapter.notify('company/end_attendances', company)
     return company
   }
 }

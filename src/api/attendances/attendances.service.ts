@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { CreateAttendanceDto } from './dto/create-attendance.dto'
-import { CancelAttendanceDto } from './dto'
+import { CancelAttendanceDto, SendToAttendanceDto } from './dto'
 import { ISocketAdapter } from '../../infra/adapters/protocols'
 import * as UC from './usecases'
 
@@ -8,6 +8,7 @@ import * as UC from './usecases'
 export class AttendancesService {
   constructor(
     private readonly createAttendanceUseCase: UC.CreateAttendanceUseCase,
+    private readonly sendToAttendanceUseCase: UC.SendoToAttendanceUseCase,
     private readonly getAttendanceUseCase: UC.GetActivedAttendanceUseCase,
     private readonly getAttendanceInfoUseCase: UC.GetAttendanceInfoUseCase,
     private readonly loadAttendancesByUserUseCase: UC.LoadAttendancesByUserUseCase,
@@ -53,13 +54,19 @@ export class AttendancesService {
 
   async startAttendance(id: string) {
     const attendance = await this.startAttendanceUseCase.execute(id)
-    this.socketAdapter.notify('queue_info/start_attendance', attendance)
     this.socketAdapter.notify('queue/start_attendance', attendance)
     return attendance
   }
 
   async add(createAttendanceDto: CreateAttendanceDto) {
     const attendance = await this.createAttendanceUseCase.execute(createAttendanceDto, createAttendanceDto.userId)
+    this.socketAdapter.notify('queue_info/entry_in_queue')
+    this.socketAdapter.notify('queue/entry_in_queue', attendance)
+    return attendance
+  }
+
+  async sendTo(sendToAttendanceDto: SendToAttendanceDto) {
+    const attendance = await this.sendToAttendanceUseCase.execute(sendToAttendanceDto)
     this.socketAdapter.notify('queue_info/entry_in_queue')
     this.socketAdapter.notify('queue/entry_in_queue', attendance)
     return attendance
