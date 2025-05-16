@@ -37,7 +37,7 @@ export class ServicesRepository implements IServicesRepository {
   }
 
   async loadDefault(): Promise<Service> {
-    return this.repository.findOne({ where: { default: true } })
+    return this.repository.findOneBy({ default: true })
   }
 
   async findByName(name: string): Promise<Service> {

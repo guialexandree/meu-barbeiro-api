@@ -9,11 +9,7 @@ export class LoadDefaultServiceUseCase {
   ) {}
 
   async execute() {
-    const project = await this.servicesRepository.loadDefault()
-
-    await this.servicesRepository.removeDefault()
-    project.default = true
-
-    return this.servicesRepository.save(project)
+    const defaultService = await this.servicesRepository.loadDefault()
+    return defaultService
   }
 }

@@ -51,7 +51,7 @@ export class ServicesService implements OnModuleInit {
     return this.getServicesListUseCase.execute()
   }
 
-  loadDefault() {
+  async loadDefault() {
     return this.loadDefaultServiceUseCase.execute()
   }
 

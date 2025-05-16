@@ -19,6 +19,11 @@ import { GetServicesDto } from './dto'
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
+  @Get('default')
+  async loadDefault() {
+    return this.servicesService.loadDefault()
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.servicesService.remove(id)
@@ -56,8 +61,4 @@ export class ServicesController {
     return this.servicesService.setDefault(id)
   }
 
-  @Get('/default')
-  loadDefault() {
-    return this.servicesService.loadDefault()
-  }
 }
