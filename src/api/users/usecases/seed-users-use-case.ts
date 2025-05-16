@@ -28,7 +28,7 @@ export class SeedUsersUseCase {
           contactNumber: '5545999872483',
           role: UserRole.Admin,
           createdAt: this.dateAdapter.now(),
-          default: true,
+          default: false,
         },
         {
           name: 'barbeiro',
@@ -39,12 +39,13 @@ export class SeedUsersUseCase {
           createdAt: this.dateAdapter.now(),
         },
         {
-          name: 'cliente',
+          name: 'sem cadastro',
           deviceId: 'HRJ21HH1HJ122312H3JH1H2J3',
           password: '1012',
           contactNumber: '5545999872483',
           role: UserRole.Client,
           createdAt: this.dateAdapter.now(),
+          default: true,
         },
       ]
 

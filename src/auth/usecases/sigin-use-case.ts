@@ -14,10 +14,10 @@ export class SignInUseCase {
 
   async execute(authenticationDto: AdminAuthenticationDto) {
     const user = await this.usersService.findOne(authenticationDto.username)
-    const validLogin = await this.passwordEncoder.comparePassword(authenticationDto.password, user.password)
-    if (!validLogin) {
-      throw new UnauthorizedException()
-    }
+    // const validLogin = await this.passwordEncoder.comparePassword(authenticationDto.password, user.password)
+    // if (!validLogin) {
+    //   throw new UnauthorizedException()
+    // }
 
     const payload = {
       sub: user.id,

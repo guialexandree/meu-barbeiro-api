@@ -55,4 +55,9 @@ export class ServicesController {
   setDefault(@Param('id') id: string) {
     return this.servicesService.setDefault(id)
   }
+
+  @Get('/default')
+  loadDefault() {
+    return this.servicesService.loadDefault()
+  }
 }
