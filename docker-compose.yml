@@ -8,3 +8,11 @@ services:
     env_file:
       - /home/meu-barbeiro-api/.env
     restart: always
+
+  susuzeira-api:
+    image: guialexandre/meu-barbeiro-api:latest
+    ports:
+      - "4000:3000"
+    env_file:
+      - /home/susuzeira-api/.env
+    restart: always
