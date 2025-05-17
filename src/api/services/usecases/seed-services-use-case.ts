@@ -23,7 +23,7 @@ export class SeedServicesUseCase {
       const defaultParams = {
         createdAt: this.dateAdapter.now(),
         updatedAt: this.dateAdapter.now(),
-        status: 'active' as ServiceStatus,
+        status: 'actived' as ServiceStatus,
       }
 
       const services = [
