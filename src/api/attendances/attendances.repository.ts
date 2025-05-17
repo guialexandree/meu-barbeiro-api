@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Between, FindOptionsOrder, In, Repository } from 'typeorm'
+import { Between, FindOptionsOrder, In, Not, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Attendance, AttendanceStatus } from './entities/attendance.entity'
 import { AttendanceService } from './entities/attendance.service.entity'
@@ -121,7 +121,11 @@ export class AttendancesRepository implements IAttendancesRepository {
     const attendances = await this.repositoryAttendance.find({
       where: {
         user: { id: userId },
+        status: Not(In(['canceled'])),
       },
+      order: {
+      createdAt: 'DESC',
+      }
     })
 
     return attendances

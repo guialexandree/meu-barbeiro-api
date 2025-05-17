@@ -12,6 +12,14 @@ export class AttendancesController {
     return this.attendancesService.loadActivesToday()
   }
 
+  // TODO: remover quando utilziar token
+  @Get('user/:id')
+  loadAttendancesByUser(@Param('id') id: string) {
+    // const userId = req.user.id
+    const userId = id
+    return this.attendancesService.loadByUser(userId)
+  }
+
   @Get('/availables-users')
   loadAvailablesUsers() {
     return this.attendancesService.loadAvailablesUsers()
@@ -30,12 +38,6 @@ export class AttendancesController {
   @Get('/info/clients')
   findInfoClients() {
     return this.attendancesService.findAttendancesInfo()
-  }
-
-  @Get('/user')
-  loadAttendancesByUser(@Req() req) {
-    const userId = req.user.id
-    return this.attendancesService.loadByUser(userId)
   }
 
   @Post('/:id/start')
