@@ -14,5 +14,5 @@ services:
     ports:
       - "4000:3000"
     env_file:
-      - /home/susuzeira-api/.env
+      - /home/meu-barbeiro-api/.env
     restart: always
